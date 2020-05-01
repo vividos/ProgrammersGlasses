@@ -57,6 +57,8 @@ LRESULT MainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 
    ShowRibbonUI(true);
 
+   DragAcceptFiles(true);
+
    return 0;
 }
 
@@ -70,6 +72,33 @@ LRESULT MainFrame::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/
 
    bHandled = FALSE;
    return 1;
+}
+
+LRESULT MainFrame::OnDropFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+{
+   std::vector<CString> filenamesList;
+
+   HDROP hDropInfo = (HDROP)wParam;
+   UINT maxIndex = ::DragQueryFile(hDropInfo, UINT(-1), NULL, 0);
+
+   CString filename;
+
+   for (UINT index = 0; index < maxIndex; index++)
+   {
+      ::DragQueryFile(hDropInfo, index, filename.GetBuffer(MAX_PATH), MAX_PATH);
+      filename.ReleaseBuffer();
+
+      filenamesList.push_back(filename);
+   }
+
+   ::DragFinish(hDropInfo);
+
+   for (auto filename : filenamesList)
+   {
+      OpenFile(filename);
+   }
+
+   return 0;
 }
 
 LRESULT MainFrame::OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
