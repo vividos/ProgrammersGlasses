@@ -1,0 +1,102 @@
+//
+// Programmer's Glasses - a developer's file content viewer
+// Copyright (c) 2020 Michael Fink
+//
+/// \file MainFrame.hpp
+/// \brief main frame window
+//
+#pragma once
+
+/// \brief main frame window
+/// \details the main frame window displays a tab view that hosts the different child windows to
+/// display the file contents
+class MainFrame :
+   public CRibbonMDIFrameWindowImpl<MainFrame>,
+   public CUpdateUI<MainFrame>,
+   public CMessageFilter,
+   public CIdleHandler
+{
+   typedef CRibbonMDIFrameWindowImpl<MainFrame> baseClass;
+
+public:
+   DECLARE_FRAME_WND_CLASS(NULL, IDR_MAINFRAME)
+
+   BEGIN_RIBBON_CONTROL_MAP(MainFrame)
+   END_RIBBON_CONTROL_MAP()
+
+   BEGIN_MSG_MAP(MainFrame)
+      MESSAGE_HANDLER(WM_CREATE, OnCreate)
+      MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+      COMMAND_ID_HANDLER(ID_APP_EXIT, OnFileExit)
+      COMMAND_ID_HANDLER(ID_FILE_OPEN, OnFileOpen)
+      COMMAND_ID_HANDLER(ID_FILE_CLOSE, OnFileClose)
+      COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
+      COMMAND_ID_HANDLER(ID_WINDOW_CASCADE, OnWindowCascade)
+      COMMAND_ID_HANDLER(ID_WINDOW_TILE_HORZ, OnWindowTileHorizontal)
+      COMMAND_ID_HANDLER(ID_WINDOW_TILE_VERT, OnWindowTileVertical)
+      CHAIN_MDI_CHILD_COMMANDS()
+      CHAIN_MSG_MAP(CUpdateUI<MainFrame>)
+      CHAIN_MSG_MAP(baseClass)
+      REFLECT_NOTIFICATIONS()
+   END_MSG_MAP()
+
+   // update map for menus and toolbars
+   BEGIN_UPDATE_UI_MAP(MainFrame)
+      UPDATE_ELEMENT(ID_EDIT_COPY, UPDUI_RIBBON)
+   END_UPDATE_UI_MAP()
+
+private:
+   /// called before messages are translated
+   virtual BOOL PreTranslateMessage(MSG* msg);
+
+   /// called when the app is idle
+   virtual BOOL OnIdle();
+
+   // Handler prototypes (uncomment arguments if needed):
+   // LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+   // LRESULT CommandHandler(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+   // LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& bHandled)
+
+   /// called when the window is about to be created
+   LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+
+   /// called when the window is destroyed
+   LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+
+   /// called when the about command is clicked
+   LRESULT OnAppAbout(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+
+   /// called when the exit command is clicked
+   LRESULT OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+
+   /// called to open a new file
+   LRESULT OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+
+   /// called to close the currently open file
+   LRESULT OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+
+   /// called when the command to cascade MDI windows is sent
+   LRESULT OnWindowCascade(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+   {
+      MDICascade();
+      return 0;
+   }
+
+   /// called when the command to tile the MDI windows horizontally is sent
+   LRESULT OnWindowTileHorizontal(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+   {
+      MDITile(MDITILE_HORIZONTAL);
+      return 0;
+   }
+
+   /// called when the command to tile the MDI windows vertically is sent
+   LRESULT OnWindowTileVertical(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+   {
+      MDITile(MDITILE_VERTICAL);
+      return 0;
+   }
+
+public:
+   /// command bar
+   CCommandBarCtrl m_CmdBar;
+};

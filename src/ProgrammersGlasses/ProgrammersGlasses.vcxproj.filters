@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="userinterface">
+      <UniqueIdentifier>{acf0a6b0-a182-48f9-b8b8-4dcfca642561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="userinterface\res">
+      <UniqueIdentifier>{f418cf20-bd34-4d4f-be2a-b2b6ba5d8fc1}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
+    </Filter>
+    <Filter Include="modules">
+      <UniqueIdentifier>{3bc48d0f-93a4-4014-9c58-48995a7749b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="userinterface\res\Generated Files">
+      <UniqueIdentifier>{4cbf98c2-ac65-4961-86a1-34507b54826c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="userinterface\AboutDlg.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="userinterface\MainFrame.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="userinterface\NodeAndContentView.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.hpp" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="userinterface\AboutDlg.hpp">
+      <Filter>userinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="userinterface\resource.h">
+      <Filter>userinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="userinterface\res\Ribbon.h">
+      <Filter>userinterface\res\Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\version.hpp" />
+    <ClInclude Include="userinterface\MainFrame.hpp">
+      <Filter>userinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="userinterface\NodeAndContentView.hpp">
+      <Filter>userinterface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="userinterface\res\Ribbon.bml">
+      <Filter>userinterface\res\Generated Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="userinterface\res\Ribbon.rc">
+      <Filter>userinterface\res\Generated Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="userinterface\Resource.rc">
+      <Filter>userinterface</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="userinterface\VersionInfo.rc">
+      <Filter>userinterface</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="userinterface\res\Ribbon.xml">
+      <Filter>userinterface\res</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="userinterface\res\App.ico">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\app_exit.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\edit_copy.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\file_open.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\window_cascade.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\window_horizontal.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\window_vertical.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
