@@ -11,6 +11,8 @@
 #include "AboutDlg.hpp"
 #include "MainFrame.hpp"
 #include "NodeAndContentView.hpp"
+#include <algorithm>
+#include <vector>
 
 BOOL MainFrame::PreTranslateMessage(MSG* msg)
 {
@@ -85,14 +87,19 @@ LRESULT MainFrame::OnFileExit(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl
 
 LRESULT MainFrame::OnFileOpen(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-   CString filename;
+   CString filter{ _T("All files (*.*)|*.*||")};
 
-   NodeAndContentView* view = new NodeAndContentView();
-   view->CreateEx(m_hWndClient, rcDefault, filename);
+   // exchange pipe char '|' with 0-char for commdlg
+   std::vector<TCHAR> buffer { filter.GetString(), filter.GetString() + filter.GetLength() };
+   std::replace(buffer.begin(), buffer.end(), _T('|'), _T('\0'));
 
-   MDIMaximize(view->m_hWnd);
+   CFileDialog dlg{ TRUE, nullptr, nullptr, OFN_FILEMUSTEXIST, buffer.data(), m_hWnd };
+
+   if (IDOK == dlg.DoModal())
+      OpenFile(dlg.m_ofn.lpstrFile);
 
    UpdateLayout();
+
    return 0;
 }
 
@@ -103,4 +110,12 @@ LRESULT MainFrame::OnFileClose(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
       return (BOOL)::SendMessage(hWnd, WM_CLOSE, 0, 0);
 
    return 0;
+}
+
+void MainFrame::OpenFile(const CString& filename)
+{
+   NodeAndContentView* view = new NodeAndContentView();
+   view->CreateEx(m_hWndClient, rcDefault, Path::FilenameAndExt(filename));
+
+   MDIMaximize(view->m_hWnd);
 }

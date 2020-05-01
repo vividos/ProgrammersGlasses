@@ -103,6 +103,9 @@ private:
       return 0;
    }
 
+   /// opens new file
+   void OpenFile(const CString& filename);
+
 public:
    /// MDI command bar for tabbing
    CTabbedMDICommandBarCtrl m_commandBar;

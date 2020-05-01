@@ -13,3 +13,5 @@
 #include <thirdparty/tabbingframework/DotNetTabCtrl.h>
 #include <thirdparty/tabbingframework/TabbedMDI.h>
 #include <thirdparty/tabbingframework/TabbedFrame.h>
+
+#include <ulib/Path.hpp>
