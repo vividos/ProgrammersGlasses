@@ -348,3 +348,12 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# vividos' ignores
+bin/
+lib/
+packages/
+stuff/
+src/ProgrammersGlasses/userinterface/res/Ribbon.bml
+src/ProgrammersGlasses/userinterface/res/Ribbon.h
+src/ProgrammersGlasses/userinterface/res/Ribbon.rc
