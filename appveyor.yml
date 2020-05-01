@@ -26,4 +26,4 @@ after_build:
 
 artifacts:
 - path: ProgrammersGlasses-*.zip
-  name: Programmer's Glasses Zip Archive
+  name: Programmers Glasses Zip Archive
