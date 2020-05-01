@@ -8,3 +8,8 @@
 #pragma once
 
 #include <ulib/config/Wtl.hpp>
+
+#include <thirdparty/tabbingframework/atlgdix.h>
+#include <thirdparty/tabbingframework/DotNetTabCtrl.h>
+#include <thirdparty/tabbingframework/TabbedMDI.h>
+#include <thirdparty/tabbingframework/TabbedFrame.h>
