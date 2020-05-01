@@ -34,11 +34,18 @@ BOOL MainFrame::OnIdle()
 
 LRESULT MainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
-   m_CmdBar.Create(m_hWnd, rcDefault, NULL, WS_CHILD);
+   m_commandBar.Create(m_hWnd, rcDefault, NULL, ATL_SIMPLE_CMDBAR_PANE_STYLE);
+   m_tabbedClient.UseMDIChildIcon(true);
 
    CreateSimpleStatusBar();
 
    CreateMDIClient();
+
+   // subclass MDI client
+   m_tabbedClient.SetTabOwnerParent(m_hWnd);
+   ATLVERIFY(TRUE == m_tabbedClient.SubclassWindow(m_hWndMDIClient));
+
+   m_commandBar.SetMDIClient(m_hWndMDIClient);
 
    // register object for message filtering and idle updates
    CMessageLoop* pLoop = _Module.GetMessageLoop();

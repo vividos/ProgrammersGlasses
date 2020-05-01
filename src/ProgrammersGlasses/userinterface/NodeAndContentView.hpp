@@ -9,9 +9,9 @@
 
 /// \brief view to show a node tree and a content view
 class NodeAndContentView :
-   public CMDIChildWindowImpl<NodeAndContentView>
+   public CTabbedMDIChildWindowImpl<NodeAndContentView>
 {
-   typedef CMDIChildWindowImpl<NodeAndContentView> baseClass;
+   typedef CTabbedMDIChildWindowImpl<NodeAndContentView> baseClass;
 
 public:
    /// ctor

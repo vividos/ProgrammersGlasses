@@ -7,16 +7,24 @@
 //
 #pragma once
 
+/// main frame base class that supports ribbons and tabbing and MDI frames
+template <typename T,
+   typename TBase = CTabbedMDIClient<CDotNetTabCtrl<CTabViewTabItem>>,
+   typename TWinTraits = ATL::CFrameWinTraits>
+   class ATL_NO_VTABLE CTabbedRibbonMDIFrameWindowImpl :
+   public CRibbonFrameWindowImplBase<T, CTabbedMDIFrameWindowImpl<T, TBase, CMDIWindow, TWinTraits>>
+{
+};
+
 /// \brief main frame window
 /// \details the main frame window displays a tab view that hosts the different child windows to
 /// display the file contents
 class MainFrame :
-   public CRibbonMDIFrameWindowImpl<MainFrame>,
-   public CUpdateUI<MainFrame>,
+   public CTabbedRibbonMDIFrameWindowImpl<MainFrame>,
    public CMessageFilter,
    public CIdleHandler
 {
-   typedef CRibbonMDIFrameWindowImpl<MainFrame> baseClass;
+   typedef CTabbedRibbonMDIFrameWindowImpl<MainFrame> baseClass;
 
 public:
    DECLARE_FRAME_WND_CLASS(NULL, IDR_MAINFRAME)
@@ -35,7 +43,6 @@ public:
       COMMAND_ID_HANDLER(ID_WINDOW_TILE_HORZ, OnWindowTileHorizontal)
       COMMAND_ID_HANDLER(ID_WINDOW_TILE_VERT, OnWindowTileVertical)
       CHAIN_MDI_CHILD_COMMANDS()
-      CHAIN_MSG_MAP(CUpdateUI<MainFrame>)
       CHAIN_MSG_MAP(baseClass)
       REFLECT_NOTIFICATIONS()
    END_MSG_MAP()
@@ -97,6 +104,9 @@ private:
    }
 
 public:
-   /// command bar
-   CCommandBarCtrl m_CmdBar;
+   /// MDI command bar for tabbing
+   CTabbedMDICommandBarCtrl m_commandBar;
+
+   /// tabbed MDI client window
+   CTabbedMDIClient<CDotNetTabCtrl<CTabViewTabItem>> m_tabbedClient;
 };
