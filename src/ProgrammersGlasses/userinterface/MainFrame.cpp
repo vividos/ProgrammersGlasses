@@ -31,6 +31,10 @@ BOOL MainFrame::OnIdle()
    bool hasOpenFile = MDIGetActive() != nullptr;
    UIEnable(ID_FILE_CLOSE, hasOpenFile, false);
 
+   UIEnable(ID_WINDOW_CASCADE, hasOpenFile, false);
+   UIEnable(ID_WINDOW_TILE_HORZ, hasOpenFile, false);
+   UIEnable(ID_WINDOW_TILE_VERT, hasOpenFile, false);
+
    return FALSE;
 }
 
