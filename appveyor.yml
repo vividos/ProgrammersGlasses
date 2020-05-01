@@ -22,7 +22,7 @@ build:
   verbosity: minimal
 
 after_build:
-- cmd: cd bin\Release && "c:\Program Files\7-Zip\7z.exe" a -r -x!pdb\ ..\..\ProgrammersGlasses-%appveyor_build_version%.zip *.*
+- cmd: cd bin\Release && "c:\Program Files\7-Zip\7z.exe" a -r -x!*.pdb ..\..\ProgrammersGlasses-%appveyor_build_version%.zip *.*
 
 artifacts:
 - path: ProgrammersGlasses-*.zip
