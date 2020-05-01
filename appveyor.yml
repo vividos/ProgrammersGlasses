@@ -1,0 +1,29 @@
+#
+# Programmer's Glasses - a developer's file content viewer
+# Copyright (c) 2020 Michael Fink
+#
+# AppVeyor build configuration file
+#
+version: 0.1.0.{build}
+
+image: Visual Studio 2019
+
+platform: x64
+
+configuration: Release
+
+before_build:
+- ps: src\Patch-BuildVersion.ps1 -version $env:appveyor_build_version
+- cmd: nuget restore src\ProgrammersGlasses.sln
+
+build:
+  project: src\ProgrammersGlasses.sln
+  parallel: true
+  verbosity: minimal
+
+after_build:
+- cmd: cd bin\Release && "c:\Program Files\7-Zip\7z.exe" a -r -x!pdb\ ..\..\ProgrammersGlasses-%appveyor_build_version%.zip *.*
+
+artifacts:
+- path: ProgrammersGlasses-*.zip
+  name: Programmer's Glasses Zip Archive
