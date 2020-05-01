@@ -59,6 +59,8 @@ ID_WINDOW_TILE_HORZ     BITMAP                  "res\\window_horizontal.bmp"
 
 ID_WINDOW_TILE_VERT     BITMAP                  "res\\window_vertical.bmp"
 
+ID_FILE_CLOSE           BITMAP                  "res\\file_close.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

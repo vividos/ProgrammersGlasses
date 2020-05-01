@@ -142,6 +142,7 @@
     <Image Include="userinterface\res\App.ico" />
     <Image Include="userinterface\res\app_exit.bmp" />
     <Image Include="userinterface\res\edit_copy.bmp" />
+    <Image Include="userinterface\res\file_close.bmp" />
     <Image Include="userinterface\res\file_open.bmp" />
     <Image Include="userinterface\res\window_cascade.bmp" />
     <Image Include="userinterface\res\window_horizontal.bmp" />

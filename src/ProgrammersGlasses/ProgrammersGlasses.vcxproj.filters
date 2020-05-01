@@ -92,5 +92,8 @@
     <Image Include="userinterface\res\window_vertical.bmp">
       <Filter>userinterface\res</Filter>
     </Image>
+    <Image Include="userinterface\res\file_close.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
   </ItemGroup>
 </Project>

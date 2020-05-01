@@ -26,6 +26,9 @@ BOOL MainFrame::PreTranslateMessage(MSG* msg)
 
 BOOL MainFrame::OnIdle()
 {
+   bool hasOpenFile = MDIGetActive() != nullptr;
+   UIEnable(ID_FILE_CLOSE, hasOpenFile, false);
+
    return FALSE;
 }
 
@@ -88,6 +91,9 @@ LRESULT MainFrame::OnFileOpen(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl
 
 LRESULT MainFrame::OnFileClose(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-   // TODO implement
+   HWND hWnd = MDIGetActive();
+   if (hWnd != NULL)
+      return (BOOL)::SendMessage(hWnd, WM_CLOSE, 0, 0);
+
    return 0;
 }
