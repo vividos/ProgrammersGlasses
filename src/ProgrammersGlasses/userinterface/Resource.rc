@@ -61,6 +61,12 @@ ID_WINDOW_TILE_VERT     BITMAP                  "res\\window_vertical.bmp"
 
 ID_FILE_CLOSE           BITMAP                  "res\\file_close.bmp"
 
+IDB_MODULE_COFF         BITMAP                  "res\\module_coff.bmp"
+
+IDB_NODE_DOCUMENT       BITMAP                  "res\\node_document.bmp"
+
+IDB_NODE_LIBRARY        BITMAP                  "res\\node_library.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

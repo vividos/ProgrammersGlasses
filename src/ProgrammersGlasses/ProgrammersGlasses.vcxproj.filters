@@ -95,5 +95,14 @@
     <Image Include="userinterface\res\file_close.bmp">
       <Filter>userinterface\res</Filter>
     </Image>
+    <Image Include="userinterface\res\module_coff.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\node_library.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\node_document.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
   </ItemGroup>
 </Project>
