@@ -5,6 +5,7 @@
 /// \file App.hpp
 /// \brief application class
 //
+#include <vector>
 
 /// the application
 class App
@@ -15,6 +16,13 @@ public:
    /// dtor
    ~App() noexcept;
 
+   /// parses command line
+   void ParseCommandLine(LPCTSTR commandLine = nullptr);
+
    /// runs the application
-   int Run(LPTSTR commandLine = nullptr, int commandShow = SW_SHOWDEFAULT);
+   int Run(int commandShow = SW_SHOWDEFAULT);
+
+private:
+   /// list of filenames to open at startup
+   std::vector<CString> m_filenamesList;
 };

@@ -9,6 +9,7 @@
 #include "resource.h"
 #include "App.hpp"
 #include "MainFrame.hpp"
+#include <ulib/CommandLineParser.hpp>
 
 CAppModule _Module;
 
@@ -29,7 +30,19 @@ App::~App()
    ::CoUninitialize();
 }
 
-int App::Run(LPTSTR /*commandLine*/, int commandShow)
+void App::ParseCommandLine(LPCTSTR commandLine)
+{
+   if (commandLine == nullptr)
+      return;
+
+   CommandLineParser parser{ commandLine };
+
+   CString filename;
+   while (parser.GetNext(filename))
+      m_filenamesList.push_back(filename);
+}
+
+int App::Run(int commandShow)
 {
    if (!RunTimeHelper::IsRibbonUIAvailable())
    {
@@ -40,7 +53,7 @@ int App::Run(LPTSTR /*commandLine*/, int commandShow)
    CMessageLoop theLoop;
    _Module.AddMessageLoop(&theLoop);
 
-   MainFrame wndMain;
+   MainFrame wndMain{ m_filenamesList };
 
    if (wndMain.CreateEx() == nullptr)
    {
@@ -60,5 +73,6 @@ int App::Run(LPTSTR /*commandLine*/, int commandShow)
 int WINAPI _tWinMain(HINSTANCE instance, HINSTANCE /*previousInstance*/, LPTSTR commandLine, int commandShow)
 {
    App app{ instance };
-   return app.Run(commandLine, commandShow);
+   app.ParseCommandLine(commandLine);
+   return app.Run(commandShow);
 }

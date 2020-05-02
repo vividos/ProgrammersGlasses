@@ -63,6 +63,9 @@ LRESULT MainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 
    DragAcceptFiles(true);
 
+   if (!m_filenamesList.empty())
+      PostMessage(WM_OPEN_FILES);
+
    return 0;
 }
 
@@ -78,10 +81,18 @@ LRESULT MainFrame::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/
    return 1;
 }
 
+LRESULT MainFrame::OnOpenFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+{
+   for (auto filename : m_filenamesList)
+      OpenFile(filename);
+
+   m_filenamesList.clear();
+
+   return 0;
+}
+
 LRESULT MainFrame::OnDropFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
-   std::vector<CString> filenamesList;
-
    HDROP hDropInfo = (HDROP)wParam;
    UINT maxIndex = ::DragQueryFile(hDropInfo, UINT(-1), NULL, 0);
 
@@ -92,15 +103,12 @@ LRESULT MainFrame::OnDropFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, 
       ::DragQueryFile(hDropInfo, index, filename.GetBuffer(MAX_PATH), MAX_PATH);
       filename.ReleaseBuffer();
 
-      filenamesList.push_back(filename);
+      m_filenamesList.push_back(filename);
    }
 
    ::DragFinish(hDropInfo);
 
-   for (auto filename : filenamesList)
-   {
-      OpenFile(filename);
-   }
+   PostMessage(WM_OPEN_FILES);
 
    return 0;
 }
