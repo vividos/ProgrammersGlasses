@@ -15,3 +15,6 @@
 #include <thirdparty/tabbingframework/TabbedFrame.h>
 
 #include <ulib/Path.hpp>
+
+#include <memory>
+#include <vector>
