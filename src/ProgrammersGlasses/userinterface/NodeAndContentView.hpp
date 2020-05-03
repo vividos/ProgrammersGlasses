@@ -7,6 +7,8 @@
 //
 #pragma once
 
+class IReader;
+
 /// \brief view to show a node tree and a content view
 class NodeAndContentView :
    public CTabbedMDIChildWindowImpl<NodeAndContentView>
@@ -15,13 +17,12 @@ class NodeAndContentView :
 
 public:
    /// ctor
-   NodeAndContentView()
+   NodeAndContentView(std::shared_ptr<IReader> reader)
+      :m_reader(reader)
    {
    }
 
    /// called when the view is about to be destroyed
-   virtual void OnFinalMessage(HWND hWnd);
-
    DECLARE_FRAME_WND_CLASS(NULL, IDR_MAINFRAME)
 
 private:
@@ -38,6 +39,9 @@ private:
    /// called when the view is created
    LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 
+   /// called after receiving the final message
+   virtual void OnFinalMessage(HWND hWnd);
+
 private:
    // splitter for tree and content views
    CSplitterWindow m_splitter;
@@ -47,4 +51,7 @@ private:
 
    /// node tree view
    CTreeViewCtrl m_nodeTreeView;
+
+   /// module reader to use for reading the file to display
+   std::shared_ptr<IReader> m_reader;
 };

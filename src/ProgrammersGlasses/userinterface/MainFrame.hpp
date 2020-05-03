@@ -7,6 +7,8 @@
 //
 #pragma once
 
+#include "ModuleManager.hpp"
+
 /// window message to open files at startup
 #define WM_OPEN_FILES WM_USER + 1
 
@@ -132,4 +134,7 @@ public:
 
    /// list of filenames to open at startup
    std::vector<CString> m_filenamesList;
+
+   /// manager for all modules
+   ModuleManager m_moduleManager;
 };

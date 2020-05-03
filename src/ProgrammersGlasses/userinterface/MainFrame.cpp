@@ -155,7 +155,15 @@ LRESULT MainFrame::OnFileClose(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 
 void MainFrame::OpenFile(const CString& filename)
 {
-   NodeAndContentView* view = new NodeAndContentView();
+   if (!m_moduleManager.IsModuleAvailable(filename))
+   {
+      AtlMessageBox(m_hWnd, IDR_MAINFRAME, _T("No suitable module found for file"), MB_OK | MB_ICONEXCLAMATION);
+      return;
+   }
+
+   auto reader = m_moduleManager.LoadFile(filename);
+
+   NodeAndContentView* view = new NodeAndContentView(reader);
    view->CreateEx(m_hWndClient, rcDefault, Path::FilenameAndExt(filename));
 
    MDIMaximize(view->m_hWnd);
