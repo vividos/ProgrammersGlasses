@@ -27,6 +27,12 @@
     <ClCompile Include="userinterface\NodeAndContentView.cpp">
       <Filter>userinterface</Filter>
     </ClCompile>
+    <ClCompile Include="modules\ModuleManager.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\File.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
     <ClCompile Include="Helper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +54,25 @@
     <ClInclude Include="userinterface\NodeAndContentView.hpp">
       <Filter>userinterface</Filter>
     </ClInclude>
+    <ClInclude Include="modules\ModuleManager.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\IModule.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\IReader.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
     <ClInclude Include="Helper.hpp" />
+    <ClInclude Include="modules\File.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\INode.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\StaticNode.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
