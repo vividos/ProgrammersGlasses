@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Helper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -122,6 +123,7 @@
   <ItemGroup>
     <ClInclude Include="..\version.hpp" />
     <ClInclude Include="App.hpp" />
+    <ClInclude Include="Helper.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="userinterface\AboutDlg.hpp" />
     <ClInclude Include="userinterface\MainFrame.hpp" />

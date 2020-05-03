@@ -27,6 +27,7 @@
     <ClCompile Include="userinterface\NodeAndContentView.cpp">
       <Filter>userinterface</Filter>
     </ClCompile>
+    <ClCompile Include="Helper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="userinterface\NodeAndContentView.hpp">
       <Filter>userinterface</Filter>
     </ClInclude>
+    <ClInclude Include="Helper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
