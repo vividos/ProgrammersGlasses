@@ -8,6 +8,8 @@
 #include "stdafx.h"
 #include "resource.h"
 #include "NodeAndContentView.hpp"
+#include "modules/IReader.hpp"
+#include "modules/INode.hpp"
 
 LRESULT NodeAndContentView::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
@@ -26,10 +28,57 @@ LRESULT NodeAndContentView::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*
 
    m_splitter.SetSinglePaneMode(SPLIT_PANE_LEFT);
 
+   InitTree();
+
+   m_nodeTreeView.Expand(TVI_ROOT, TVE_EXPAND);
+
+   m_nodeTreeView.Select(TVI_ROOT, TVGN_FIRSTVISIBLE | TVGN_CARET);
+
    return 0;
 }
 
 void NodeAndContentView::OnFinalMessage(HWND /*hWnd*/)
 {
+   if (m_reader != nullptr)
+   {
+      m_reader->Cleanup();
+      m_reader.reset();
+   }
+
    delete this;
+}
+
+LRESULT NodeAndContentView::OnTreeViewSelChanged(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/)
+{
+   LPNMTREEVIEW pnmtv = (LPNMTREEVIEW)pnmh;
+
+   HTREEITEM selectedItem = pnmtv->itemNew.hItem;
+
+   INode* nodePtr = (INode *)m_nodeTreeView.GetItemData(selectedItem);
+
+   return 0;
+}
+
+void NodeAndContentView::InitTree()
+{
+   ATLASSERT(m_reader != nullptr); // there must be a reader
+
+   m_reader->Load();
+
+   std::shared_ptr<INode> rootNode = m_reader->RootNode();
+   ATLASSERT(rootNode != nullptr);
+
+   AddNodesRecursive(*rootNode, TVI_ROOT);
+}
+
+void NodeAndContentView::AddNodesRecursive(const INode& node, HTREEITEM parentItem)
+{
+   HTREEITEM item = m_nodeTreeView.InsertItem(node.DisplayName(), parentItem, TVI_LAST);
+
+   int imageIndex = -1; // TODO
+   m_nodeTreeView.SetItemImage(item, imageIndex, imageIndex);
+   m_nodeTreeView.SetItemData(item, (DWORD_PTR)&node);
+
+   for (auto subnode : node.ChildNodes())
+      AddNodesRecursive(*subnode, item);
 }

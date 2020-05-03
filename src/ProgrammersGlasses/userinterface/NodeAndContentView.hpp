@@ -8,6 +8,7 @@
 #pragma once
 
 class IReader;
+class INode;
 
 /// \brief view to show a node tree and a content view
 class NodeAndContentView :
@@ -28,6 +29,7 @@ public:
 private:
    BEGIN_MSG_MAP(NodeAndContentView)
       MESSAGE_HANDLER(WM_CREATE, OnCreate)
+      NOTIFY_CODE_HANDLER(TVN_SELCHANGED, OnTreeViewSelChanged)
       CHAIN_MSG_MAP(baseClass)
    END_MSG_MAP()
 
@@ -41,6 +43,15 @@ private:
 
    /// called after receiving the final message
    virtual void OnFinalMessage(HWND hWnd);
+
+   /// called when the selection of the tree view has changed
+   LRESULT OnTreeViewSelChanged(int idCtrl, LPNMHDR pnmh, BOOL& bHandled);
+
+   /// initializes tree with content from reader
+   void InitTree();
+
+   /// adds nodes recursively to the tree
+   void AddNodesRecursive(const INode& node, HTREEITEM parentItem);
 
 private:
    // splitter for tree and content views
