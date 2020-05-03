@@ -127,6 +127,7 @@
     <ClInclude Include="App.hpp" />
     <ClInclude Include="modules\File.hpp" />
     <ClInclude Include="Helper.hpp" />
+    <ClInclude Include="modules\IContentView.hpp" />
     <ClInclude Include="modules\IModule.hpp" />
     <ClInclude Include="modules\INode.hpp" />
     <ClInclude Include="modules\IReader.hpp" />

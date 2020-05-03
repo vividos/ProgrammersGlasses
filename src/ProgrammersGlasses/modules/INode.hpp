@@ -10,6 +10,8 @@
 #include <vector>
 #include <memory>
 
+class IContentView;
+
 /// Icon IDs from resources for node tree items
 enum class NodeTreeIconID : UINT
 {
@@ -35,5 +37,5 @@ public:
    virtual const std::vector<std::shared_ptr<INode>>& ChildNodes() const = 0;
 
    /// returns a content view to display the node's data
-   virtual HWND GetContentView() = 0;
+   virtual std::shared_ptr<IContentView> GetContentView() = 0;
 };
