@@ -157,7 +157,10 @@ void MainFrame::OpenFile(const CString& filename)
 {
    if (!m_moduleManager.IsModuleAvailable(filename))
    {
-      AtlMessageBox(m_hWnd, IDR_MAINFRAME, _T("No suitable module found for file"), MB_OK | MB_ICONEXCLAMATION);
+      AtlMessageBox(m_hWnd,
+         _T("No suitable module found for file"),
+         IDR_MAINFRAME,
+         MB_OK | MB_ICONEXCLAMATION);
       return;
    }
 
