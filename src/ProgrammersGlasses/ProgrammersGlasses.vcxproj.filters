@@ -14,6 +14,9 @@
     <Filter Include="userinterface\res\Generated Files">
       <UniqueIdentifier>{4cbf98c2-ac65-4961-86a1-34507b54826c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\coff">
+      <UniqueIdentifier>{38dc68c8-f3fc-4f06-ad96-c52274b0d444}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -34,6 +37,15 @@
       <Filter>modules</Filter>
     </ClCompile>
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="modules\coff\CoffModule.cpp">
+      <Filter>modules\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\coff\CoffNode.cpp">
+      <Filter>modules\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\coff\CoffReader.cpp">
+      <Filter>modules\coff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -72,6 +84,15 @@
     </ClInclude>
     <ClInclude Include="modules\StaticNode.hpp">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\coff\CoffModule.hpp">
+      <Filter>modules\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\coff\CoffNode.hpp">
+      <Filter>modules\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\coff\CoffReader.hpp">
+      <Filter>modules\coff</Filter>
     </ClInclude>
     <ClInclude Include="modules\IContentView.hpp">
       <Filter>modules</Filter>

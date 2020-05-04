@@ -8,8 +8,11 @@
 #include "stdafx.h"
 #include "ModuleManager.hpp"
 #include "IModule.hpp"
+#include "coff/CoffModule.hpp"
+
 ModuleManager::ModuleManager()
 {
+   m_moduleList.push_back(std::make_shared<CoffModule>());
 }
 
 CString ModuleManager::GetAllFilterStrings() const
