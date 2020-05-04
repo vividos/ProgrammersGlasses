@@ -21,6 +21,9 @@ public:
    /// ctor
    ModuleManager();
 
+   /// returns the combined filter strings of all modules
+   CString GetAllFilterStrings() const;
+
    /// checks if there's a module available for the file
    bool IsModuleAvailable(const CString& filename) const;
 

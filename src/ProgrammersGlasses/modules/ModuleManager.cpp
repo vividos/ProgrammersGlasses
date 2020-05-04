@@ -12,6 +12,15 @@ ModuleManager::ModuleManager()
 {
 }
 
+CString ModuleManager::GetAllFilterStrings() const
+{
+   CString filter;
+   for (const auto& module : m_moduleList)
+      filter.Append(module->FilterStrings());
+
+   return filter;
+}
+
 bool ModuleManager::IsModuleAvailable(const CString& filename) const
 {
    CString extension = Path::ExtensionOnly(filename);
@@ -40,16 +49,16 @@ std::shared_ptr<IReader> ModuleManager::LoadFile(const CString& filename) const
 
 bool ModuleManager::IsMatchingModule(const IModule& module, const CString& extension)
 {
-   CString formatStrings = module.FormatStrings();
+   CString filterStrings = module.FilterStrings();
 
-   std::vector<CString> formatStringsList = StringSplit(formatStrings, _T("|"), true);
+   std::vector<CString> filterStringsList = StringSplit(filterStrings, _T("|"), true);
 
-   ATLASSERT(formatStringsList.size() % 2 == 0); // format strings list entries must be even
+   ATLASSERT(filterStringsList.size() % 2 == 0); // filter strings list entries must be even
 
-   for (size_t index = 0; index < formatStringsList.size(); index += 2)
+   for (size_t index = 0; index < filterStringsList.size(); index += 2)
    {
       std::vector<CString> extensionsList =
-         StringSplit(formatStringsList[index + 1], _T(";"), false);
+         StringSplit(filterStringsList[index + 1], _T(";"), false);
 
       for (CString extensionToCheck : extensionsList)
       {

@@ -31,9 +31,9 @@ public:
    /// Returns an icon resource ID for the module
    virtual ModuleIconID IconID() const = 0;
 
-   /// Returns a list of format strings that this module can handle; the format
+   /// Returns a list of filter strings that this module can handle; the format
    /// is: "Xzy Files (*.xyz)|*.xyz|"
-   virtual CString FormatStrings() const = 0;
+   virtual CString FilterStrings() const = 0;
 
    /// Called when a module should check an opened file if its format is correct
    /// and can be parsed with this module or not
