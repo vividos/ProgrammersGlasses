@@ -10,6 +10,7 @@
 #include "NodeAndContentView.hpp"
 #include "modules/IReader.hpp"
 #include "modules/INode.hpp"
+#include "modules/IContentView.hpp"
 
 /// first node bitmap ID
 const UINT c_firstNodeBitmap = IDB_NODE_DOCUMENT;
@@ -43,6 +44,17 @@ LRESULT NodeAndContentView::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*
    return 0;
 }
 
+LRESULT NodeAndContentView::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+{
+   if (m_contentView != nullptr)
+   {
+      m_contentView->DestroyView();
+      m_contentView.reset();
+   }
+
+   return 0;
+}
+
 void NodeAndContentView::OnFinalMessage(HWND /*hWnd*/)
 {
    if (m_reader != nullptr)
@@ -61,6 +73,8 @@ LRESULT NodeAndContentView::OnTreeViewSelChanged(int /*idCtrl*/, LPNMHDR pnmh, B
    HTREEITEM selectedItem = pnmtv->itemNew.hItem;
 
    INode* nodePtr = (INode *)m_nodeTreeView.GetItemData(selectedItem);
+
+   ChangeContentView(*nodePtr);
 
    return 0;
 }
@@ -100,4 +114,24 @@ void NodeAndContentView::AddNodesRecursive(const INode& node, HTREEITEM parentIt
 
    for (auto subnode : node.ChildNodes())
       AddNodesRecursive(*subnode, item);
+}
+
+void NodeAndContentView::ChangeContentView(INode& node)
+{
+   if (m_contentView != nullptr)
+   {
+      m_contentView->DestroyView();
+      m_contentView.reset();
+   }
+
+   m_contentView = node.GetContentView();
+
+   if (m_contentView)
+   {
+      HWND view = m_contentView->CreateView(m_splitter.m_hWnd);
+
+      m_splitter.SetSplitterPanes(m_pane, view);
+
+      m_splitter.SetSinglePaneMode(SPLIT_PANE_NONE);
+   }
 }

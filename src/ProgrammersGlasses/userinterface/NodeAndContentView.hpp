@@ -7,6 +7,8 @@
 //
 #pragma once
 
+#include "modules/IContentView.hpp"
+
 class IReader;
 class INode;
 
@@ -29,6 +31,7 @@ public:
 private:
    BEGIN_MSG_MAP(NodeAndContentView)
       MESSAGE_HANDLER(WM_CREATE, OnCreate)
+      MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
       NOTIFY_CODE_HANDLER(TVN_SELCHANGED, OnTreeViewSelChanged)
       CHAIN_MSG_MAP(baseClass)
    END_MSG_MAP()
@@ -40,6 +43,9 @@ private:
 
    /// called when the view is created
    LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+
+   /// called when the view is destroyed
+   LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 
    /// called after receiving the final message
    virtual void OnFinalMessage(HWND hWnd);
@@ -53,6 +59,9 @@ private:
    /// adds nodes recursively to the tree
    void AddNodesRecursive(const INode& node, HTREEITEM parentItem);
 
+   /// changes content view to show node's content
+   void ChangeContentView(INode& node);
+
 private:
    // splitter for tree and content views
    CSplitterWindow m_splitter;
@@ -65,4 +74,7 @@ private:
 
    /// module reader to use for reading the file to display
    std::shared_ptr<IReader> m_reader;
+
+   /// currently displayed content view
+   std::shared_ptr<IContentView> m_contentView;
 };
