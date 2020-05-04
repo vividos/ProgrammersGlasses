@@ -125,6 +125,9 @@ private:
    /// opens new file
    void OpenFile(const CString& filename);
 
+   /// adds a "all supported files" filter in front of the filter string
+   static CString AddSupportedFilesFilter(const CString& filter);
+
 public:
    /// MDI command bar for tabbing
    CTabbedMDICommandBarCtrl m_commandBar;

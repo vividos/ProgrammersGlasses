@@ -128,13 +128,16 @@ LRESULT MainFrame::OnFileExit(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl
 
 LRESULT MainFrame::OnFileOpen(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-   CString filter{ _T("All files (*.*)|*.*||")};
+   CString filter{ m_moduleManager.GetAllFilterStrings() };
+
+   filter = AddSupportedFilesFilter(filter);
+   filter += _T("All files (*.*)|*.*||");
 
    // exchange pipe char '|' with 0-char for commdlg
-   std::vector<TCHAR> buffer { filter.GetString(), filter.GetString() + filter.GetLength() };
+   std::vector<TCHAR> buffer{ filter.GetString(), filter.GetString() + filter.GetLength() };
    std::replace(buffer.begin(), buffer.end(), _T('|'), _T('\0'));
 
-   CFileDialog dlg{ TRUE, nullptr, nullptr, OFN_FILEMUSTEXIST, buffer.data(), m_hWnd };
+   CFileDialog dlg{ TRUE, nullptr, nullptr, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, buffer.data(), m_hWnd };
 
    if (IDOK == dlg.DoModal())
       OpenFile(dlg.m_ofn.lpstrFile);
@@ -170,4 +173,23 @@ void MainFrame::OpenFile(const CString& filename)
    view->CreateEx(m_hWndClient, rcDefault, Path::FilenameAndExt(filename));
 
    MDIMaximize(view->m_hWnd);
+}
+
+CString MainFrame::AddSupportedFilesFilter(const CString& filter)
+{
+   std::vector<CString> filterStringsList = StringSplit(filter, _T("|"), true);
+
+   ATLASSERT(filterStringsList.size() % 2 == 0); // filter strings list entries must be even
+
+   CString supportedExtensions;
+   for (size_t index = 0; index < filterStringsList.size(); index += 2)
+   {
+      CString extensions = filterStringsList[index + 1];
+      extensions.TrimRight(_T(';'));
+      supportedExtensions += extensions + _T(";");
+   }
+
+   supportedExtensions.TrimRight(_T(';'));
+
+   return _T("All supported files|") + supportedExtensions + _T("|") + filter;
 }
