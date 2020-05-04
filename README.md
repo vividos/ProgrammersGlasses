@@ -29,4 +29,4 @@ should be the case when you have Visual Studio 2019 installed.
 
 # License
 
-Programmer's Glasses is licensed under the [MIT License](License.md).
+Programmer's Glasses is licensed under the [MIT License](LICENSE.md).
