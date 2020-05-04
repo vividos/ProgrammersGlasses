@@ -81,7 +81,7 @@ LRESULT MainFrame::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/
    return 1;
 }
 
-LRESULT MainFrame::OnOpenFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+LRESULT MainFrame::OnOpenFiles(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
    for (auto filename : m_filenamesList)
       OpenFile(filename);
