@@ -115,7 +115,7 @@ LRESULT MainFrame::OnDropFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, 
 
 LRESULT MainFrame::OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-   AboutDlg dlg;
+   AboutDlg dlg{ m_moduleManager };
    dlg.DoModal();
    return 0;
 }

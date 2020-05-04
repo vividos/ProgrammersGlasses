@@ -19,3 +19,6 @@
 #define COPYRIGHT_TEXT "Copyright © 2020-" STRINGIFY(BUILD_YEAR) " Michael Fink"
 
 #define VERSION_TEXT STRINGIFY(MAJOR_VERSION) "." STRINGIFY(MINOR_VERSION)
+
+#define WEBLINK_PROJECT_PAGE "https://github.com/vividos/ProgrammersGlasses/"
+#define WEBLINK_LICENSE "https://github.com/vividos/ProgrammersGlasses/blob/master/LICENSE.md"

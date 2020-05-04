@@ -83,15 +83,20 @@ IDR_MAINFRAME           ICON                    "res\\App.ico"
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG 0, 0, 187, 102
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About"
-FONT 9, "Segoe UI"
+IDD_ABOUTBOX DIALOGEX 0, 0, 355, 150
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "About Programmer's Glasses"
+FONT 9, "Segoe UI", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,130,81,50,14
-    CTEXT           "Programmer's Glasses v1.0\n\n(c) Copyright 2020",IDC_STATIC,25,57,78,32
-    ICON            IDR_MAINFRAME,IDC_STATIC,55,26,18,20
-    GROUPBOX        "",IDC_STATIC,7,7,115,88
+    DEFPUSHBUTTON   "OK",IDOK,298,129,50,14
+    LTEXT           "Programmer's Glasses",IDC_STATIC,30,7,147,8
+    ICON            IDR_MAINFRAME,IDC_STATIC,7,7,20,20
+    LTEXT           "Version 1.2.3 Build 123",IDC_STATIC_ABOUT_VERSION,30,15,147,8
+    LTEXT           "Copyright (c) 2020 Michael Fink",IDC_STATIC,30,23,147,8
+    LTEXT           "Available modules",IDC_STATIC,7,38,170,8
+    CONTROL         "",IDC_LIST_ABOUT_MODULES,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,7,48,341,77
+    LTEXT           "GitHub project web page",IDC_STATIC_ABOUT_WEBPAGE,183,7,165,8
+    LTEXT           "License",IDC_STATIC_ABOUT_LICENSE,183,15,165,8
 END
 
 
@@ -106,9 +111,12 @@ BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 180
+        RIGHTMARGIN, 348
+        VERTGUIDE, 30
+        VERTGUIDE, 177
+        VERTGUIDE, 183
         TOPMARGIN, 7
-        BOTTOMMARGIN, 95
+        BOTTOMMARGIN, 143
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -126,6 +134,17 @@ BEGIN
     VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY 
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
 END
 
 
