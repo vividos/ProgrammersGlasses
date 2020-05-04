@@ -11,6 +11,12 @@
 #include "modules/IReader.hpp"
 #include "modules/INode.hpp"
 
+/// first node bitmap ID
+const UINT c_firstNodeBitmap = IDB_NODE_DOCUMENT;
+
+/// maximum number of node bitmaps
+const UINT c_maxNodeBitmapNumber = 512;
+
 LRESULT NodeAndContentView::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
    m_hWndClient = m_splitter.Create(m_hWnd, rcDefault, NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, WS_EX_CLIENTEDGE);
@@ -61,6 +67,19 @@ LRESULT NodeAndContentView::OnTreeViewSelChanged(int /*idCtrl*/, LPNMHDR pnmh, B
 
 void NodeAndContentView::InitTree()
 {
+   CImageList imageList;
+   imageList.Create(16, 16, ILC_COLOR24, 0, c_maxNodeBitmapNumber);
+
+   for (UINT bitmapId = c_firstNodeBitmap; bitmapId < c_firstNodeBitmap + c_maxNodeBitmapNumber; bitmapId++)
+   {
+      HBITMAP bitmap = AtlLoadBitmapImage(bitmapId);
+      if (bitmap == nullptr)
+         break;
+      imageList.Add(bitmap);
+   }
+
+   m_nodeTreeView.SetImageList(imageList, TVSIL_NORMAL);
+
    ATLASSERT(m_reader != nullptr); // there must be a reader
 
    m_reader->Load();
@@ -75,7 +94,7 @@ void NodeAndContentView::AddNodesRecursive(const INode& node, HTREEITEM parentIt
 {
    HTREEITEM item = m_nodeTreeView.InsertItem(node.DisplayName(), parentItem, TVI_LAST);
 
-   int imageIndex = -1; // TODO
+   int imageIndex = (UINT)node.IconID() - c_firstNodeBitmap;
    m_nodeTreeView.SetItemImage(item, imageIndex, imageIndex);
    m_nodeTreeView.SetItemData(item, (DWORD_PTR)&node);
 
