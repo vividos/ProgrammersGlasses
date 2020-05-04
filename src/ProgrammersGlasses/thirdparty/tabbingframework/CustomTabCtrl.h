@@ -26,6 +26,9 @@
 // History (Date/Author/Description):
 // ----------------------------------
 //
+// 2020/05/04: vividos
+// - Fixed warnings when converting GetDlgCtrlID() to UINT_PTR.
+//
 // 2005/07/13: Daniel Bowen
 // - Namespace qualify the use of more ATL and WTL classes.
 //
@@ -1094,7 +1097,7 @@ public:
 	{
 		T* pT = static_cast<T*>(this);
 
-		NMCTC2ITEMS nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_ACCEPTITEMDRAG }, m_iDragItemOriginal, m_iDragItem, {-1,-1}};
+		NMCTC2ITEMS nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_ACCEPTITEMDRAG }, m_iDragItemOriginal, m_iDragItem, {-1,-1}};
 		::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh);
 
 		// In this implementation, the tab is moved as they drag.
@@ -1115,7 +1118,7 @@ public:
 			pT->EnsureVisible(m_iDragItemOriginal);
 		}
 
-		NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_CANCELITEMDRAG }, m_iDragItemOriginal, {-1,-1}};
+		NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_CANCELITEMDRAG }, m_iDragItemOriginal, {-1,-1}};
 		::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh);
 
 		pT->StopItemDrag(bRedrawEffectedArea);
@@ -1166,7 +1169,7 @@ public:
 
 			if(CTCS_DRAGREARRANGE == (dwStyle & CTCS_DRAGREARRANGE))
 			{
-				NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_BEGINITEMDRAG }, index, {ptDragOrigin.x, ptDragOrigin.y} };
+				NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_BEGINITEMDRAG }, index, {ptDragOrigin.x, ptDragOrigin.y} };
 				if(FALSE != ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh))
 				{
 					// Returning non-zero prevents our default handling.
@@ -1658,7 +1661,7 @@ public:
 			tchti.pt = ptCursor;
 			int nIndex = pT->HitTest(&tchti);
 
-			NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), NM_CLICK }, nIndex, {ptCursor.x, ptCursor.y} };
+			NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), NM_CLICK }, nIndex, {ptCursor.x, ptCursor.y} };
 			if(FALSE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh))
 			{
 				// returning FALSE let's us do our default handling
@@ -1708,7 +1711,7 @@ public:
 				ectcMouseOver_CloseButton == (dwState & ectcMouseOver))
 			{
 				// Close Button
-				NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_CLOSE }, m_iCurSel, {ptCursor.x, ptCursor.y}};
+				NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_CLOSE }, m_iCurSel, {ptCursor.x, ptCursor.y}};
 				::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh);
 			}
 
@@ -1729,7 +1732,7 @@ public:
 		int nIndex = pT->HitTest(&tchti);
 
 		// returning TRUE tells us not to do our default handling
-		NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), NM_DBLCLK }, nIndex, {ptCursor.x, ptCursor.y}};
+		NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), NM_DBLCLK }, nIndex, {ptCursor.x, ptCursor.y}};
 		if(FALSE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh))
 		{
 			// returning FALSE let's us do our default handling
@@ -1754,7 +1757,7 @@ public:
 		int nIndex = pT->HitTest(&tchti);
 
 		// returning TRUE tells us not to do our default handling
-		NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), NM_RCLICK }, nIndex, {ptCursor.x, ptCursor.y}};
+		NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), NM_RCLICK }, nIndex, {ptCursor.x, ptCursor.y}};
 		if(FALSE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh))
 		{
 			// returning FALSE let's us do our default handling
@@ -1787,7 +1790,7 @@ public:
 		int nIndex = pT->HitTest(&tchti);
 
 		// returning TRUE tells us not to do our default handling
-		NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), NM_RDBLCLK }, nIndex, {ptCursor.x, ptCursor.y}};
+		NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), NM_RDBLCLK }, nIndex, {ptCursor.x, ptCursor.y}};
 		if(FALSE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh))
 		{
 			// returning FALSE let's us do our default handling
@@ -1812,7 +1815,7 @@ public:
 		int nIndex = pT->HitTest(&tchti);
 
 		// returning TRUE tells us not to do our default handling
-		NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_MCLICK }, nIndex, {ptCursor.x, ptCursor.y}};
+		NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_MCLICK }, nIndex, {ptCursor.x, ptCursor.y}};
 		if(FALSE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh))
 		{
 			// returning FALSE let's us do our default handling
@@ -1843,7 +1846,7 @@ public:
 		int nIndex = pT->HitTest(&tchti);
 
 		// returning TRUE tells us not to do our default handling
-		NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_MDBLCLK }, nIndex, {ptCursor.x, ptCursor.y}};
+		NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_MDBLCLK }, nIndex, {ptCursor.x, ptCursor.y}};
 		if(FALSE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh))
 		{
 			// returning FALSE let's us do our default handling
@@ -2767,7 +2770,7 @@ public:
 		size_t nNewCount = m_Items.GetCount();
 
 		// Send notification
-		NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_INSERTITEM }, nItem, {-1,-1}};
+		NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_INSERTITEM }, nItem, {-1,-1}};
 		::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh);
 		// Select if first tab
 		if( nNewCount==1 )
@@ -2825,7 +2828,7 @@ public:
 
 		if(bNotify)
 		{
-			NMCTC2ITEMS nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_MOVEITEM }, (int)nFromIndex, (int)nToIndex, {-1,-1}};
+			NMCTC2ITEMS nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_MOVEITEM }, (int)nFromIndex, (int)nToIndex, {-1,-1}};
 			::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh);
 		}
 
@@ -2868,7 +2871,7 @@ public:
 
 		if(bNotify)
 		{
-			NMCTC2ITEMS nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_SWAPITEMPOSITIONS }, (int)nFromIndex, (int)nToIndex, {-1,-1}};
+			NMCTC2ITEMS nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_SWAPITEMPOSITIONS }, (int)nFromIndex, (int)nToIndex, {-1,-1}};
 			::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh);
 		}
 
@@ -2889,7 +2892,7 @@ public:
 		if(bNotify)
 		{
 			// Returning TRUE tells us not to delete the item
-			NMCTCITEM nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_DELETEITEM }, (int)nItem, {-1,-1}};
+			NMCTCITEM nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_DELETEITEM }, (int)nItem, {-1,-1}};
 			if( TRUE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh) )
 			{
 				// Cancel the attempt
@@ -3111,7 +3114,7 @@ public:
 
 		int iOldSel = m_iCurSel;
 		// Send notification
-		NMCTC2ITEMS nmh = {{ m_hWnd, this->GetDlgCtrlID(), CTCN_SELCHANGING }, iOldSel, nItem, {-1,-1}};
+		NMCTC2ITEMS nmh = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_SELCHANGING }, iOldSel, nItem, {-1,-1}};
 		if(bNotify)
 		{
 			if( TRUE == ::SendMessage(GetParent(), WM_NOTIFY, nmh.hdr.idFrom, (LPARAM)&nmh) )
