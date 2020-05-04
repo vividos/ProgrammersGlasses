@@ -14,7 +14,7 @@ class File
 {
 public:
    /// opens file and maps it into memory
-   File(const CString& filename);
+   explicit File(const CString& filename);
 
    /// dtor; unmaps the file
    ~File();

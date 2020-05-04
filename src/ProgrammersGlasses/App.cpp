@@ -70,7 +70,7 @@ int App::Run(int commandShow)
 }
 
 /// main function
-int WINAPI _tWinMain(HINSTANCE instance, HINSTANCE /*previousInstance*/, LPTSTR commandLine, int commandShow)
+int WINAPI _tWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE /*previousInstance*/, _In_ LPTSTR commandLine, _In_ int commandShow)
 {
    App app{ instance };
    app.ParseCommandLine(commandLine);
