@@ -9,6 +9,8 @@
 #define IDC_STATIC_ABOUT_LICENSE        258
 #define IDC_LIST_ABOUT_MODULES          259
 #define IDB_MODULE_COFF                 512
+#define IDB_MODULE_PE                   513
+#define IDB_MODULE_ELF                  514
 #define IDB_NODE_DOCUMENT               1024
 #define IDB_NODE_LIBRARY                1025
 

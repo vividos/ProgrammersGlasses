@@ -160,5 +160,11 @@
     <Image Include="userinterface\res\node_document.bmp">
       <Filter>userinterface\res</Filter>
     </Image>
+    <Image Include="userinterface\res\module_elf.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\module_pe.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
   </ItemGroup>
 </Project>

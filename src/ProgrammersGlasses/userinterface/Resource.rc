@@ -67,6 +67,10 @@ IDB_NODE_DOCUMENT       BITMAP                  "res\\node_document.bmp"
 
 IDB_NODE_LIBRARY        BITMAP                  "res\\node_library.bmp"
 
+IDB_MODULE_PE           BITMAP                  "res\\module_pe.bmp"
+
+IDB_MODULE_ELF          BITMAP                  "res\\module_elf.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
