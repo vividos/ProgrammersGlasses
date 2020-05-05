@@ -6,13 +6,15 @@
 /// \brief main frame window
 //
 #include "stdafx.h"
-#include "res/Ribbon.h"
 #include "resource.h"
+#include "res/Ribbon.h"
 #include "AboutDlg.hpp"
 #include "MainFrame.hpp"
 #include "NodeAndContentView.hpp"
 #include <algorithm>
 #include <vector>
+
+LPCTSTR c_appSettingsRegKey = _T("Software\\ProgrammersView");
 
 BOOL MainFrame::PreTranslateMessage(MSG* msg)
 {
@@ -62,6 +64,8 @@ LRESULT MainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
    ShowRibbonUI(true);
 
    DragAcceptFiles(true);
+
+   m_mru.ReadFromRegistry(c_appSettingsRegKey);
 
    if (!m_filenamesList.empty())
       PostMessage(WM_OPEN_FILES);
@@ -147,6 +151,15 @@ LRESULT MainFrame::OnFileOpen(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl
    return 0;
 }
 
+LRESULT MainFrame::OnFileRecent(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+   CString filename;
+   if (m_mru.GetFromList(wID, filename))
+      OpenFile(filename);
+
+   return 0;
+}
+
 LRESULT MainFrame::OnFileClose(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
    HWND hWnd = MDIGetActive();
@@ -173,6 +186,9 @@ void MainFrame::OpenFile(const CString& filename)
    view->CreateEx(m_hWndClient, rcDefault, Path::FilenameAndExt(filename));
 
    MDIMaximize(view->m_hWnd);
+
+   m_mru.AddToList(filename);
+   m_mru.WriteToRegistry(c_appSettingsRegKey);
 }
 
 CString MainFrame::AddSupportedFilesFilter(const CString& filter)

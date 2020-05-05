@@ -32,7 +32,7 @@
 
     <!-- App Menu, MRU list, Help button and Quick Access Toolbar -->
     <Command Name="AppMenu" Symbol="ID_RIBBON_APP_MENU" />
-
+    <Command Name="RecentFiles" Symbol="ID_RIBBON_RECENT_FILES" LabelTitle="Recent Files" />
     <Command Name="QAT" Symbol="ID_RIBBON_QAT" />
   </Application.Commands>
 
@@ -41,10 +41,13 @@
       <!-- Application Menu -->
       <Ribbon.ApplicationMenu >
         <ApplicationMenu CommandName="AppMenu" >
+          <ApplicationMenu.RecentItems>
+            <RecentItems CommandName="RecentFiles" MaxCount="16" EnablePinning="false"/>
+          </ApplicationMenu.RecentItems>
           <MenuGroup Class="StandardItems" >
             <Button CommandName="wtl_FILE_OPEN" />
           </MenuGroup>
-          <MenuGroup >
+          <MenuGroup>
             <Button CommandName="wtl_APP_EXIT" />
           </MenuGroup>
         </ApplicationMenu>

@@ -41,6 +41,7 @@ public:
    DECLARE_FRAME_WND_CLASS(NULL, IDR_MAINFRAME)
 
    BEGIN_RIBBON_CONTROL_MAP(MainFrame)
+      RIBBON_CONTROL(m_mru)
    END_RIBBON_CONTROL_MAP()
 
    BEGIN_MSG_MAP(MainFrame)
@@ -50,6 +51,7 @@ public:
       MESSAGE_HANDLER(WM_DROPFILES, OnDropFiles)
       COMMAND_ID_HANDLER(ID_APP_EXIT, OnFileExit)
       COMMAND_ID_HANDLER(ID_FILE_OPEN, OnFileOpen)
+      COMMAND_RANGE_HANDLER(ID_FILE_MRU_FIRST, ID_FILE_MRU_LAST, OnFileRecent)
       COMMAND_ID_HANDLER(ID_FILE_CLOSE, OnFileClose)
       COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
       COMMAND_ID_HANDLER(ID_WINDOW_CASCADE, OnWindowCascade)
@@ -98,6 +100,9 @@ private:
    /// called to open a new file
    LRESULT OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 
+   /// called when a file from the MRU list is selected
+   LRESULT OnFileRecent(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+
    /// called to close the currently open file
    LRESULT OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 
@@ -134,6 +139,9 @@ public:
 
    /// tabbed MDI client window
    CTabbedMDIClient<CDotNetTabCtrl<CTabViewTabItem>> m_tabbedClient;
+
+   /// must recently used documents list
+   CRibbonRecentItemsCtrl<ID_RIBBON_RECENT_FILES> m_mru;
 
    /// list of filenames to open at startup
    std::vector<CString> m_filenamesList;

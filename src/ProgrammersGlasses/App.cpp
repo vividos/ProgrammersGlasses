@@ -7,6 +7,7 @@
 //
 #include "stdafx.h"
 #include "resource.h"
+#include "res/Ribbon.h"
 #include "App.hpp"
 #include "MainFrame.hpp"
 #include <ulib/CommandLineParser.hpp>
