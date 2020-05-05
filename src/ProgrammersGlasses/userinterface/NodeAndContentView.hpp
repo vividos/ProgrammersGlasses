@@ -7,10 +7,9 @@
 //
 #pragma once
 
-#include "modules/IContentView.hpp"
-
 class IReader;
 class INode;
+class IContentView;
 
 /// \brief view to show a node tree and a content view
 class NodeAndContentView :

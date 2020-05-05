@@ -46,6 +46,9 @@
     <ClCompile Include="modules\coff\CoffReader.cpp">
       <Filter>modules\coff</Filter>
     </ClCompile>
+    <ClCompile Include="userinterface\CodeTextView.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -96,6 +99,9 @@
     </ClInclude>
     <ClInclude Include="modules\IContentView.hpp">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="userinterface\CodeTextView.hpp">
+      <Filter>userinterface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
