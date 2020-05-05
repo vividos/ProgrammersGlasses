@@ -173,14 +173,25 @@ void MainFrame::OpenFile(const CString& filename)
 {
    if (!m_moduleManager.IsModuleAvailable(filename))
    {
+      CString message{ _T("No suitable module found for file: ") + filename };
       AtlMessageBox(m_hWnd,
-         _T("No suitable module found for file"),
+         message.GetString(),
          IDR_MAINFRAME,
          MB_OK | MB_ICONEXCLAMATION);
       return;
    }
 
    auto reader = m_moduleManager.LoadFile(filename);
+
+   if (reader == nullptr)
+   {
+      CString message{ _T("The module couldn't initialize a reader for the file: ") + filename };
+      AtlMessageBox(m_hWnd,
+         message.GetString(),
+         IDR_MAINFRAME,
+         MB_OK | MB_ICONEXCLAMATION);
+      return;
+   }
 
    NodeAndContentView* view = new NodeAndContentView(reader);
    view->CreateEx(m_hWndClient, rcDefault, Path::FilenameAndExt(filename));
