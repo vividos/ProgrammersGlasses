@@ -7,8 +7,9 @@
 //
 #include "stdafx.h"
 #include "CoffNode.hpp"
+#include "userinterface/CodeTextView.hpp"
 
 std::shared_ptr<IContentView> CoffNode::GetContentView()
 {
-   return nullptr;
+   return std::make_shared<CodeTextView>(m_text);
 }

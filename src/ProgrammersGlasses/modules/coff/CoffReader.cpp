@@ -24,7 +24,9 @@ CoffReader::CoffReader(const File& file)
 void CoffReader::Load()
 {
    // TODO implement
-   m_rootNode.reset(new CoffNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary));
+   auto rootNode = new CoffNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+
+   m_rootNode.reset(rootNode);
 }
 
 void CoffReader::Cleanup()

@@ -21,7 +21,16 @@ public:
    {
    }
 
+   /// sets node text to display
+   void SetText(const CString& text)
+   {
+      m_text = text;
+   }
+
    // Inherited via INode
    std::shared_ptr<IContentView> GetContentView();
-};
 
+private:
+   /// node text to display
+   CString m_text;
+};
