@@ -16,9 +16,6 @@ public:
    /// opens file and maps it into memory
    explicit File(const CString& filename);
 
-   /// dtor; unmaps the file
-   ~File();
-
    /// returns filename of mapped file
    const CString& Filename() const { return m_filename; }
 
@@ -26,7 +23,7 @@ public:
    bool IsAvail() const;
 
    /// returns pointer to the memory mapped file
-   const void* Data() const { return m_data; }
+   const void* Data() const { return m_data.get(); }
 
    /// returns size of memory mapped file
    size_t Size() const { return m_size; }
@@ -42,7 +39,7 @@ private:
    std::shared_ptr<void> m_mapping;
 
    /// pointer to the memory mapped file
-   LPCVOID m_data;
+   std::shared_ptr<const void> m_data;
 
    /// size of memory mapped file
    SIZE_T m_size;

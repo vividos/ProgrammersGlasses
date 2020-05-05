@@ -46,16 +46,7 @@ File::File(const CString& filename)
    VirtualQuery(ptr, &buffer, sizeof(buffer));
    m_size = buffer.RegionSize;
 
-   m_data = ptr;
-}
-
-File::~File()
-{
-   if (m_data != nullptr)
-   {
-      UnmapViewOfFile(m_data);
-      m_data = nullptr;
-   }
+   m_data.reset(ptr, UnmapViewOfFile);
 }
 
 bool File::IsAvail() const
