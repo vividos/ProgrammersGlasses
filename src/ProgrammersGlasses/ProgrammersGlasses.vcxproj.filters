@@ -103,6 +103,9 @@
     <ClInclude Include="userinterface\CodeTextView.hpp">
       <Filter>userinterface</Filter>
     </ClInclude>
+    <ClInclude Include="modules\coff\CoffHeader.hpp">
+      <Filter>modules\coff</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

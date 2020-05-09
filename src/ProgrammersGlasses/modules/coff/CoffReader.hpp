@@ -9,6 +9,9 @@
 
 #include "IReader.hpp"
 
+class CoffNode;
+struct CoffHeader;
+
 /// COFF file format reader
 class CoffReader : public IReader
 {
@@ -34,6 +37,9 @@ public:
    virtual void Cleanup() override;
 
 private:
+   /// adds summary text to node
+   void AddSummaryText(CoffNode& node, const CoffHeader& header);
+
    /// file to read from
    File m_file;
 

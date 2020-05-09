@@ -1,0 +1,30 @@
+//
+// Programmer's Glasses - a developer's file content viewer
+// Copyright (c) 2020 Michael Fink
+//
+/// \file CoffHeader.hpp
+/// \brief header definition of COFF files
+//
+#pragma once
+
+#pragma pack(push, 1)
+
+/// \brief COFF header
+/// \see https://web.archive.org/web/20061216043713/http://support.microsoft.com/?id=121460
+/// \see https://web.archive.org/web/20100314142533/http://www.microsoft.com/whdc/system/platform/firmware/PECOFFdwn.mspx
+/// The header is immediately followed by the section table. The string table is immediately
+/// following the symbol table, if there is any.
+struct CoffHeader
+{
+   WORD targetMachine;        ///< type of target machine
+   WORD numberOfSections;     ///< number of sections in the section table
+
+   DWORD timeStamp;           ///< file creation time stamp
+   DWORD offsetSymbolTable;   ///< offset of the symbol table in the file
+   DWORD numberOfSymbols;     ///< number of symbols in the symbol table
+
+   WORD optionalHeaderSize;   ///< size of the optional header
+   WORD characteristicsFlags; ///< attribute flags
+};
+
+#pragma pack(pop)
