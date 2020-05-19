@@ -28,3 +28,5 @@ struct CoffHeader
 };
 
 #pragma pack(pop)
+
+static_assert(sizeof(CoffHeader) == 20, "COFF header must be 20 bytes long");

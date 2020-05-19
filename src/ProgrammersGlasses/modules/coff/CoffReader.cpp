@@ -13,6 +13,7 @@
 #include "DisplayFormatHelper.hpp"
 #include <map>
 
+/// mapping of target machine to display text
 static std::map<WORD, LPCTSTR> g_mapTargetMachineToDisplayText =
 {
    { (WORD)0x0, _T("IMAGE_FILE_MACHINE_UNKNOWN")},
@@ -36,6 +37,26 @@ static std::map<WORD, LPCTSTR> g_mapTargetMachineToDisplayText =
    { (WORD)0x1a8, _T("IMAGE_FILE_MACHINE_SH5 (Hitachi SH5)") },
    { (WORD)0x1c2, _T("IMAGE_FILE_MACHINE_THUMB (ARM or Thumb(\"interworking\"))") },
    { (WORD)0x169, _T("IMAGE_FILE_MACHINE_WCEMIPSV2 (MIPS little - endian WCE v2)") },
+};
+
+/// mapping of COFF characteristics bits to display text
+static std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText =
+{
+   { 0x00001, _T("IMAGE_FILE_RELOCS_STRIPPED") },
+   { 0x00002, _T("IMAGE_FILE_EXECUTABLE_IMAGE") },
+   { 0x00004, _T("IMAGE_FILE_LINE_NUMS_STRIPPED") },
+   { 0x00008, _T("IMAGE_FILE_LOCAL_SYMS_STRIPPED") },
+   { 0x00010, _T("IMAGE_FILE_AGGRESSIVE_WS_TRIM") },
+   { 0x00020, _T("IMAGE_FILE_LARGE_ADDRESS_ AWARE") },
+   { 0x00080, _T("IMAGE_FILE_BYTES_REVERSED_LO") },
+   { 0x00100, _T("IMAGE_FILE_32BIT_MACHINE") },
+   { 0x00200, _T("IMAGE_FILE_DEBUG_STRIPPED") },
+   { 0x00400, _T("IMAGE_FILE_REMOVABLE_RUN_ FROM_SWAP") },
+   { 0x00800, _T("IMAGE_FILE_NET_RUN_FROM_SWAP") },
+   { 0x01000, _T("IMAGE_FILE_SYSTEM") },
+   { 0x02000, _T("IMAGE_FILE_DLL") },
+   { 0x04000, _T("IMAGE_FILE_UP_SYSTEM_ONLY") },
+   { 0x08000, _T("IMAGE_FILE_BYTES_REVERSED_HI") },
 };
 
 bool CoffReader::IsCoffFileFormat(const File& file)
@@ -102,7 +123,11 @@ void CoffReader::AddSummaryText(CoffNode& node, const CoffHeader& header)
 
    text.AppendFormat(_T("Optional header size: %u\n"), header.optionalHeaderSize);
 
-   text.AppendFormat(_T("Characteristics flags: 0x%08x\n"), header.characteristicsFlags);
+   text.AppendFormat(_T("Characteristics flags: 0x%08x (%s)\n"),
+      header.characteristicsFlags,
+      DisplayFormatHelper::FormatBitFlagsFromMap(
+         g_mapCoffCharacteristicsBitsToDisplayText,
+         header.characteristicsFlags).GetString());
 
    node.SetText(text);
 }
