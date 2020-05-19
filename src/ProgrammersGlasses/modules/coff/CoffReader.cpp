@@ -10,7 +10,7 @@
 #include "CoffNode.hpp"
 #include "CoffHeader.hpp"
 #include "File.hpp"
-#include <ctime>
+#include "DisplayFormatHelper.hpp"
 #include <map>
 
 static std::map<WORD, LPCTSTR> g_mapTargetMachineToDisplayText =
@@ -89,16 +89,10 @@ void CoffReader::AddSummaryText(CoffNode& node, const CoffHeader& header)
 
    text.AppendFormat(_T("Number of sections: %u\n"), header.numberOfSections);
 
-   time_t time = header.timeStamp;
-   struct tm tm = {};
-   if (0 == ::localtime_s(&tm, &time))
-   {
-      text.AppendFormat(_T("Creation date/time: %04i-%02i-%02i %02i:%02i:%02i\n"),
-         tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday,
-         tm.tm_hour, tm.tm_min, tm.tm_sec);
-   }
-   else
-      text.Append(_T("Warning: Error while formatting date/time\n"));
+   CString time = DisplayFormatHelper::FormatDateTime(header.timeStamp);
+   text += time.IsEmpty()
+      ? _T("Warning: Error while formatting date/time")
+      : _T("Creation date/time: ") + time + _T("\n");
 
    text.AppendFormat(_T("Symbol table offset: 0x%08x\n"), header.offsetSymbolTable);
    text.AppendFormat(_T("Symbol table length: %u\n"), header.numberOfSymbols);
