@@ -15,3 +15,6 @@ tab_width = 3
 [*.{cpp,hpp,c,h}]
 indent_style = space
 indent_size = 3
+
+# C++ rules
+vc_generate_documentation_comments = doxygen_triple_slash
