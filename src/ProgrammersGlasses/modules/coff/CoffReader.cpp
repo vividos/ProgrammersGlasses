@@ -11,6 +11,7 @@
 #include "CoffHeader.hpp"
 #include "File.hpp"
 #include "DisplayFormatHelper.hpp"
+#include "StructListViewNode.hpp"
 #include <map>
 
 bool CoffReader::IsCoffFileFormat(const File& file)
@@ -42,6 +43,14 @@ void CoffReader::Load()
    const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(m_file.Data());
 
    AddSummaryText(*rootNode, header);
+
+   auto coffHeaderNode = std::make_shared<StructListViewNode>(
+      _T("COFF header"),
+      NodeTreeIconID::nodeTreeIconDocument,
+      g_definitionCoffHeader,
+      &header);
+
+   rootNode->ChildNodes().push_back(coffHeaderNode);
 
    m_rootNode.reset(rootNode);
 }
