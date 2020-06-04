@@ -52,6 +52,9 @@
     <ClCompile Include="modules\DisplayFormatHelper.cpp">
       <Filter>modules</Filter>
     </ClCompile>
+    <ClCompile Include="modules\coff\CoffHeader.cpp">
+      <Filter>modules\coff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />

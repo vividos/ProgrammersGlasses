@@ -30,3 +30,9 @@ struct CoffHeader
 #pragma pack(pop)
 
 static_assert(sizeof(CoffHeader) == 20, "COFF header must be 20 bytes long");
+
+/// mapping of COFF target machine to display text
+extern std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText;
+
+/// mapping of COFF characteristics bits to display text
+extern std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText;

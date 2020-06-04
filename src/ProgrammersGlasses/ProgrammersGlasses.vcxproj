@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="modules\coff\CoffHeader.cpp" />
     <ClCompile Include="modules\coff\CoffModule.cpp" />
     <ClCompile Include="modules\coff\CoffNode.cpp" />
     <ClCompile Include="modules\coff\CoffReader.cpp" />
