@@ -85,12 +85,14 @@
     <ClCompile Include="modules\DisplayFormatHelper.cpp" />
     <ClCompile Include="modules\File.cpp" />
     <ClCompile Include="modules\ModuleManager.cpp" />
+    <ClCompile Include="modules\StructListViewNode.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="userinterface\AboutDlg.cpp" />
     <ClCompile Include="userinterface\CodeTextView.cpp" />
+    <ClCompile Include="userinterface\StructListView.cpp" />
     <ClCompile Include="userinterface\MainFrame.cpp" />
     <ClCompile Include="userinterface\NodeAndContentView.cpp" />
   </ItemGroup>
@@ -111,9 +113,11 @@
     <ClInclude Include="modules\ModuleManager.hpp" />
     <ClInclude Include="modules\StaticNode.hpp" />
     <ClInclude Include="modules\StructDefinition.hpp" />
+    <ClInclude Include="modules\StructListViewNode.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="userinterface\AboutDlg.hpp" />
     <ClInclude Include="userinterface\CodeTextView.hpp" />
+    <ClInclude Include="userinterface\StructListView.hpp" />
     <ClInclude Include="userinterface\MainFrame.hpp" />
     <ClInclude Include="userinterface\resource.h" />
     <ClInclude Include="userinterface\res\Ribbon.h" />

@@ -52,6 +52,12 @@
     <ClCompile Include="modules\DisplayFormatHelper.cpp">
       <Filter>modules</Filter>
     </ClCompile>
+    <ClCompile Include="modules\StructListViewNode.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="userinterface\StructListView.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
     <ClCompile Include="modules\coff\CoffHeader.cpp">
       <Filter>modules\coff</Filter>
     </ClCompile>
@@ -114,6 +120,12 @@
     </ClInclude>
     <ClInclude Include="modules\DisplayFormatHelper.hpp">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\StructListViewNode.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="userinterface\StructListView.hpp">
+      <Filter>userinterface</Filter>
     </ClInclude>
     <ClInclude Include="modules\StructDefinition.hpp">
       <Filter>modules</Filter>
