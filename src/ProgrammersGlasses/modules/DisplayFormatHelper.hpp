@@ -18,4 +18,7 @@ public:
 
    /// formats a 32-bit flags value with single bits mapped to texts
    static CString FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR>& bitflagsMap, DWORD flags);
+
+   /// formats raw data as hex values
+   static CString FormatRawData(const BYTE* rawData, size_t length, size_t valueSize);
 };

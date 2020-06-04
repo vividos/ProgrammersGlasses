@@ -19,7 +19,7 @@ CString DisplayFormatHelper::FormatDateTime(time_t time)
          tm.tm_hour, tm.tm_min, tm.tm_sec);
    }
 
-   return CString();
+   return text;
 }
 
 CString DisplayFormatHelper::FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR>& bitflagsMap, DWORD flags)
@@ -53,6 +53,46 @@ CString DisplayFormatHelper::FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR
 
    if (text.IsEmpty())
       text = _T("N/A");
+
+   return text;
+}
+
+CString DisplayFormatHelper::FormatRawData(const BYTE* rawData, size_t length, size_t valueSize)
+{
+   CString text;
+
+   size_t maxOffset = length - (length % valueSize);
+
+   for (size_t offset = 0; offset < maxOffset; offset += valueSize)
+   {
+      if (offset != 0)
+         text.AppendChar(_T(' '));
+
+      switch (valueSize)
+      {
+      case 1:
+         text.AppendFormat(_T("%02x"), rawData[offset]);
+         break;
+
+      case 2:
+         text.AppendFormat(_T("%04x"), *reinterpret_cast<const WORD*>(rawData + offset));
+         break;
+
+      case 4:
+         text.AppendFormat(_T("%08x"), *reinterpret_cast<const DWORD*>(rawData + offset));
+         break;
+
+      default:
+         ATLASSERT(false); // invalid valueSize value
+         break;
+      }
+   }
+
+   if (maxOffset < length)
+   {
+      text.AppendChar(_T(' '));
+      text += FormatRawData(rawData + maxOffset, length - maxOffset, 1);
+   }
 
    return text;
 }
