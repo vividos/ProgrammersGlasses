@@ -7,6 +7,8 @@
 //
 #pragma once
 
+#include "StructDefinition.hpp"
+
 #pragma pack(push, 1)
 
 /// \brief COFF header
@@ -36,3 +38,6 @@ extern std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText;
 
 /// mapping of COFF characteristics bits to display text
 extern std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText;
+
+/// struct definition for above COFF header
+extern StructDefinition g_definitionCoffHeader;

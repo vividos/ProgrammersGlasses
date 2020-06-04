@@ -7,6 +7,7 @@
 //
 #include "stdafx.h"
 #include "CoffHeader.hpp"
+#include "DisplayFormatHelper.hpp"
 
 std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText =
 {
@@ -51,3 +52,61 @@ std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText =
    { 0x04000, _T("IMAGE_FILE_UP_SYSTEM_ONLY") },
    { 0x08000, _T("IMAGE_FILE_BYTES_REVERSED_HI") },
 };
+
+StructDefinition g_definitionCoffHeader = StructDefinition({
+   StructField(
+      offsetof(CoffHeader, CoffHeader::targetMachine),
+      sizeof(CoffHeader::targetMachine),
+      2,
+      StructFieldType::valueMapping,
+      g_mapCoffTargetMachineToDisplayText,
+      _T("Target machine")),
+
+   StructField(
+      offsetof(CoffHeader, CoffHeader::numberOfSections),
+      sizeof(CoffHeader::numberOfSections),
+      2,
+      StructFieldType::unsignedInteger,
+      _T("Number of sections")),
+
+   StructField(
+      offsetof(CoffHeader, CoffHeader::timeStamp),
+      sizeof(CoffHeader::timeStamp),
+      4,
+      [](LPCVOID data, size_t)
+      {
+         time_t time = *reinterpret_cast<const DWORD*>(data);
+         return DisplayFormatHelper::FormatDateTime(time);
+      },
+      _T("Time stamp")),
+
+   StructField(
+      offsetof(CoffHeader, CoffHeader::offsetSymbolTable),
+      sizeof(CoffHeader::offsetSymbolTable),
+      1,
+      StructFieldType::unsignedInteger,
+      _T("Offset to symbol table")),
+
+   StructField(
+      offsetof(CoffHeader, CoffHeader::numberOfSymbols),
+      sizeof(CoffHeader::numberOfSymbols),
+      4,
+      StructFieldType::unsignedInteger,
+      _T("Number of symbols")),
+
+   StructField(
+      offsetof(CoffHeader, CoffHeader::optionalHeaderSize),
+      sizeof(CoffHeader::optionalHeaderSize),
+      1,
+      StructFieldType::unsignedInteger,
+      _T("Optional header size")),
+
+
+   StructField(
+      offsetof(CoffHeader, CoffHeader::characteristicsFlags),
+      sizeof(CoffHeader::characteristicsFlags),
+      2,
+      StructFieldType::flagsMapping,
+      g_mapCoffCharacteristicsBitsToDisplayText,
+      _T("Characteristics flags")),
+});
