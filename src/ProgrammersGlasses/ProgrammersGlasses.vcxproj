@@ -110,6 +110,7 @@
     <ClInclude Include="modules\IReader.hpp" />
     <ClInclude Include="modules\ModuleManager.hpp" />
     <ClInclude Include="modules\StaticNode.hpp" />
+    <ClInclude Include="modules\StructDefinition.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="userinterface\AboutDlg.hpp" />
     <ClInclude Include="userinterface\CodeTextView.hpp" />

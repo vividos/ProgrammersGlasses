@@ -115,6 +115,9 @@
     <ClInclude Include="modules\DisplayFormatHelper.hpp">
       <Filter>modules</Filter>
     </ClInclude>
+    <ClInclude Include="modules\StructDefinition.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
