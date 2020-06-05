@@ -11,8 +11,7 @@
 
 StructListViewNode::StructListViewNode(const CString& displayName, NodeTreeIconID iconID,
    const StructDefinition& structDefinition, LPCVOID basePointer)
-   :m_displayName(displayName),
-   m_iconID(iconID),
+   :StaticNode(displayName, iconID),
    m_structDefinition(structDefinition),
    m_basePointer(basePointer)
 {
