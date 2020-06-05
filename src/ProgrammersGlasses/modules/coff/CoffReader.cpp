@@ -7,7 +7,7 @@
 //
 #include "stdafx.h"
 #include "CoffReader.hpp"
-#include "CoffNode.hpp"
+#include "CodeTextViewNode.hpp"
 #include "CoffHeader.hpp"
 #include "File.hpp"
 #include "DisplayFormatHelper.hpp"
@@ -38,7 +38,7 @@ CoffReader::CoffReader(const File& file)
 void CoffReader::Load()
 {
    // TODO implement
-   auto rootNode = new CoffNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
 
    const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(m_file.Data());
 
@@ -60,7 +60,7 @@ void CoffReader::Cleanup()
    // nothing expensive to cleanup here
 }
 
-void CoffReader::AddSummaryText(CoffNode& node, const CoffHeader& header)
+void CoffReader::AddSummaryText(CodeTextViewNode& node, const CoffHeader& header)
 {
    CString text;
 

@@ -40,9 +40,6 @@
     <ClCompile Include="modules\coff\CoffModule.cpp">
       <Filter>modules\coff</Filter>
     </ClCompile>
-    <ClCompile Include="modules\coff\CoffNode.cpp">
-      <Filter>modules\coff</Filter>
-    </ClCompile>
     <ClCompile Include="modules\coff\CoffReader.cpp">
       <Filter>modules\coff</Filter>
     </ClCompile>
@@ -60,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="modules\coff\CoffHeader.cpp">
       <Filter>modules\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\CodeTextViewNode.cpp">
+      <Filter>modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,9 +103,6 @@
     <ClInclude Include="modules\coff\CoffModule.hpp">
       <Filter>modules\coff</Filter>
     </ClInclude>
-    <ClInclude Include="modules\coff\CoffNode.hpp">
-      <Filter>modules\coff</Filter>
-    </ClInclude>
     <ClInclude Include="modules\coff\CoffReader.hpp">
       <Filter>modules\coff</Filter>
     </ClInclude>
@@ -128,6 +125,9 @@
       <Filter>userinterface</Filter>
     </ClInclude>
     <ClInclude Include="modules\StructDefinition.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\CodeTextViewNode.hpp">
       <Filter>modules</Filter>
     </ClInclude>
   </ItemGroup>

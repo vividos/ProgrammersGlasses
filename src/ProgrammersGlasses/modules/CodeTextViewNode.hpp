@@ -2,21 +2,21 @@
 // Programmer's Glasses - a developer's file content viewer
 // Copyright (c) 2020 Michael Fink
 //
-/// \file CoffNode.hpp
-/// \brief single node in a tree structure of a COFF file
+/// \file CodeTextViewNode.hpp
+/// \brief node showing a code text view
 //
 #pragma once
 
-#include "modules/StaticNode.hpp"
+#include "StaticNode.hpp"
 
 class IContentView;
 
-/// \brief node in a COFF file tree structure
-class CoffNode : public StaticNode
+/// \brief node showing a code text view
+class CodeTextViewNode : public StaticNode
 {
 public:
    /// ctor
-   CoffNode(const CString& displayName, NodeTreeIconID iconID)
+   CodeTextViewNode(const CString& displayName, NodeTreeIconID iconID)
       :StaticNode(displayName, iconID)
    {
    }

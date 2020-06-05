@@ -9,7 +9,7 @@
 
 #include "IReader.hpp"
 
-class CoffNode;
+class CodeTextViewNode;
 struct CoffHeader;
 
 /// COFF file format reader
@@ -38,7 +38,7 @@ public:
 
 private:
    /// adds summary text to node
-   void AddSummaryText(CoffNode& node, const CoffHeader& header);
+   void AddSummaryText(CodeTextViewNode& node, const CoffHeader& header);
 
    /// file to read from
    File m_file;
