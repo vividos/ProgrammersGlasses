@@ -20,3 +20,27 @@ inline LPCTSTR GetValueFromMapOrDefault(const std::map<T, LPCTSTR>& map, const T
    auto iter = map.find(key);
    return iter != map.end() ? iter->second : defaultValue;
 }
+
+/// gets a BYTE, WORD or DWORD value from a byte buffer, with endianness
+DWORD GetBufferValueWithEndianness(const BYTE* buffer, size_t valueSize, bool littleEndian);
+
+/// template function to swap endianness
+template <typename T>
+T SwapEndianness(T);
+
+/// swaps 16-bit words from/to LE to BE
+template <>
+inline WORD SwapEndianness(WORD value)
+{
+   return ((value >> 8) & 0xFF) | ((value & 0xFF) << 8);
+}
+
+/// swaps 32-bit dwords from/to LE to BE
+template <>
+inline DWORD SwapEndianness(DWORD value)
+{
+   return ((value & 0xff000000) >> 24) |
+      ((value & 0x00ff0000) >> 8) |
+      ((value & 0x0000ff00) << 8) |
+      ((value & 0x000000ff) << 24);
+}

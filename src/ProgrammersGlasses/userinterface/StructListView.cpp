@@ -62,7 +62,7 @@ void StructListView::InitList()
 
 CString StructListView::FormatRawData(StructField& field, const BYTE* rawData)
 {
-   return DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_valueSize);
+   return DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_valueSize, field.m_littleEndian);
 }
 
 CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
@@ -71,8 +71,12 @@ CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
 
    switch (field.m_type)
    {
+   case StructFieldType::byteArray:
+      text = DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_valueSize, field.m_littleEndian);
+      break;
+
    case StructFieldType::unsignedInteger:
-      text = DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_length);
+      text = DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_length, field.m_littleEndian);
       break;
 
    case StructFieldType::custom:
@@ -84,15 +88,7 @@ CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
    case StructFieldType::valueMapping:
       ATLASSERT(field.m_valueMapping.has_value()); // value mapping must have been set
       {
-         DWORD flagsValue = 0;
-         if (field.m_length == 1)
-            flagsValue = rawData[0];
-         else if (field.m_length == 2)
-            flagsValue = *(const WORD*)rawData;
-         else if (field.m_length == 4)
-            flagsValue = *(const DWORD*)rawData;
-         else
-            ATLASSERT(false); // invalid field length; must be 1, 2 or 4
+         DWORD flagsValue = GetBufferValueWithEndianness(rawData, field.m_length, field.m_littleEndian);
 
          if (field.m_type == StructFieldType::flagsMapping)
             text = DisplayFormatHelper::FormatBitFlagsFromMap(field.m_valueMapping.value(), flagsValue);

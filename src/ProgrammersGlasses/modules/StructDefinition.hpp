@@ -25,9 +25,10 @@ enum class StructFieldType
 /// describes a single structure field
 struct StructField
 {
-   size_t m_offset;   ///< offset from struct start
-   size_t m_length;   ///< length of field, in bytes
-   size_t m_valueSize; ///< value size, for the byteArray and text field type
+   size_t m_offset;     ///< offset from struct start
+   size_t m_length;     ///< length of field, in bytes
+   size_t m_valueSize;  ///< value size, for the byteArray and text field type
+   bool m_littleEndian; ///< indicates if the source value is litte endian or big endian
    StructFieldType m_type;   ///< field type
 
    /// custom formatter; used when type is StructFieldType::custom
@@ -39,10 +40,11 @@ struct StructField
    LPCTSTR m_description;    ///< field description text
 
    /// ctor; initializes field without formatter
-   StructField(size_t offset, size_t length, size_t valueSize, StructFieldType type, LPCTSTR description = nullptr)
+   StructField(size_t offset, size_t length, size_t valueSize, bool littleEndian, StructFieldType type, LPCTSTR description = nullptr)
       :m_offset(offset),
       m_length(length),
       m_valueSize(valueSize),
+      m_littleEndian(littleEndian),
       m_type(type),
       m_description(description)
    {
@@ -51,11 +53,13 @@ struct StructField
 
    /// ctor; initializes field with custom formatter
    StructField(size_t offset, size_t length, size_t valueSize,
+      bool littleEndian,
       std::function<CString(LPCVOID, size_t)> formatter,
       LPCTSTR description = nullptr)
       :m_offset(offset),
       m_length(length),
       m_valueSize(valueSize),
+      m_littleEndian(littleEndian),
       m_type(StructFieldType::custom),
       m_formatter(formatter),
       m_description(description)
@@ -64,12 +68,14 @@ struct StructField
 
    /// ctor; initializes field with flags or value mapping
    StructField(size_t offset, size_t length, size_t valueSize,
+      bool littleEndian,
       StructFieldType type,
       const std::map<DWORD, LPCTSTR>& flagsOrValueMapping,
       LPCTSTR description = nullptr)
       :m_offset(offset),
       m_length(length),
       m_valueSize(valueSize),
+      m_littleEndian(littleEndian),
       m_type(type),
       m_valueMapping(std::make_optional(std::cref(flagsOrValueMapping))),
       m_description(description)

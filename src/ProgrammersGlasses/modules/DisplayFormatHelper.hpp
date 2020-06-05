@@ -20,5 +20,5 @@ public:
    static CString FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR>& bitflagsMap, DWORD flags);
 
    /// formats raw data as hex values
-   static CString FormatRawData(const BYTE* rawData, size_t length, size_t valueSize);
+   static CString FormatRawData(const BYTE* rawData, size_t length, size_t valueSize, bool littleEndian);
 };

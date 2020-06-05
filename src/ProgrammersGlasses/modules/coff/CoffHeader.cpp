@@ -58,6 +58,7 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       offsetof(CoffHeader, CoffHeader::targetMachine),
       sizeof(CoffHeader::targetMachine),
       2,
+      true, // little-endian
       StructFieldType::valueMapping,
       g_mapCoffTargetMachineToDisplayText,
       _T("Target machine")),
@@ -66,6 +67,7 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       offsetof(CoffHeader, CoffHeader::numberOfSections),
       sizeof(CoffHeader::numberOfSections),
       2,
+      true, // little-endian
       StructFieldType::unsignedInteger,
       _T("Number of sections")),
 
@@ -73,6 +75,7 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       offsetof(CoffHeader, CoffHeader::timeStamp),
       sizeof(CoffHeader::timeStamp),
       4,
+      true, // little-endian
       [](LPCVOID data, size_t)
       {
          time_t time = *reinterpret_cast<const DWORD*>(data);
@@ -84,6 +87,7 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       offsetof(CoffHeader, CoffHeader::offsetSymbolTable),
       sizeof(CoffHeader::offsetSymbolTable),
       1,
+      true, // little-endian
       StructFieldType::unsignedInteger,
       _T("Offset to symbol table")),
 
@@ -91,6 +95,7 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       offsetof(CoffHeader, CoffHeader::numberOfSymbols),
       sizeof(CoffHeader::numberOfSymbols),
       4,
+      true, // little-endian
       StructFieldType::unsignedInteger,
       _T("Number of symbols")),
 
@@ -98,6 +103,7 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       offsetof(CoffHeader, CoffHeader::optionalHeaderSize),
       sizeof(CoffHeader::optionalHeaderSize),
       1,
+      true, // little-endian
       StructFieldType::unsignedInteger,
       _T("Optional header size")),
 
@@ -106,6 +112,7 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       offsetof(CoffHeader, CoffHeader::characteristicsFlags),
       sizeof(CoffHeader::characteristicsFlags),
       2,
+      true, // little-endian
       StructFieldType::flagsMapping,
       g_mapCoffCharacteristicsBitsToDisplayText,
       _T("Characteristics flags")),
