@@ -34,7 +34,8 @@ public:
 
    virtual const std::vector<std::shared_ptr<INode>>& ChildNodes() const override
    {
-      return std::vector<std::shared_ptr<INode>>();
+      static std::vector<std::shared_ptr<INode>> emptyNodeList;
+      return emptyNodeList;
    }
 
    virtual std::shared_ptr<IContentView> GetContentView() override;
