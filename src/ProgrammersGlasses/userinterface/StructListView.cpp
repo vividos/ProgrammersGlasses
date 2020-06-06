@@ -71,17 +71,28 @@ CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
 
    switch (field.m_type)
    {
-   case StructFieldType::byteArray:
-      text = DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_valueSize, field.m_littleEndian);
-      break;
-
    case StructFieldType::unsignedInteger:
       text = DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_length, field.m_littleEndian);
       break;
 
-   case StructFieldType::custom:
-      ATLASSERT(field.m_formatter != nullptr); // field formatter must have been set
-      text = field.m_formatter(rawData, field.m_length);
+   case StructFieldType::byteArray:
+      text = DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_valueSize, field.m_littleEndian);
+      break;
+
+   case StructFieldType::text:
+      if (field.m_valueSize == 1)
+      {
+         text = CString{ reinterpret_cast<const CHAR*>(rawData), static_cast<int>(field.m_length) };
+      }
+      else if (field.m_valueSize == 2)
+      {
+         text = CString{ reinterpret_cast<const WCHAR*>(rawData), static_cast<int>(field.m_length / 2) };
+      }
+      else
+      {
+         ATLASSERT(false); // invalid valueSize value
+         text = _T("invalid");
+      }
       break;
 
    case StructFieldType::flagsMapping:
@@ -97,8 +108,12 @@ CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
       }
       break;
 
+   case StructFieldType::custom:
+      ATLASSERT(field.m_formatter != nullptr); // field formatter must have been set
+      text = field.m_formatter(rawData, field.m_length);
+      break;
+
    default:
-      // TODO format more types
       ATLASSERT(false); // invalid field type
       text = _T("invalid struct field type");
       break;

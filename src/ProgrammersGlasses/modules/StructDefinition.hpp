@@ -15,8 +15,8 @@
 enum class StructFieldType
 {
    unsignedInteger,  ///< unsigned integer of various size (allowed are 1, 2, 4 and 8 byte values)
-   byteArray,        ///< byte array
-   text,             ///< text, with fixed length (allowed are 1 and 2 byte values)
+   byteArray,        ///< byte array with values of specific size
+   text,             ///< text, with fixed length (allowed are 1 and 2 byte values), possibly not null terminated
    flagsMapping,     ///< flags value, with custom mapping
    valueMapping,     ///< value, with custom mapping
    custom,           ///< custom field that has its own formatter
