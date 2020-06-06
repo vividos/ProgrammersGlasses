@@ -8,9 +8,12 @@
 #define IDC_STATIC_ABOUT_WEBPAGE        257
 #define IDC_STATIC_ABOUT_LICENSE        258
 #define IDC_LIST_ABOUT_MODULES          259
-#define IDB_MODULE_COFF                 512
-#define IDB_MODULE_PE                   513
-#define IDB_MODULE_ELF                  514
+#define IDB_MODULE_STATIC_LIB           512
+#define IDB_MODULE_DYNAMIC_LIB          513
+#define IDB_MODULE_APP                  514
+#define IDB_MODULE_IMAGE                515
+#define IDB_MODULE_AUDIO                516
+#define IDB_MODULE_VIDEO                517
 #define IDB_NODE_DOCUMENT               1024
 #define IDB_NODE_LIBRARY                1025
 

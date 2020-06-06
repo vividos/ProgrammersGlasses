@@ -35,7 +35,7 @@ LRESULT AboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 
 void AboutDlg::InitModulesList()
 {
-   const UINT firstModuleBitmap = IDB_MODULE_COFF;
+   const UINT firstModuleBitmap = IDB_MODULE_STATIC_LIB;
    const UINT maxModuleNumber = 256;
 
    m_listModules.SetExtendedListViewStyle(LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT);

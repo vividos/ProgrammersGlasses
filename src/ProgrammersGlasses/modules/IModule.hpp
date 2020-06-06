@@ -14,9 +14,12 @@ class IReader;
 /// Icon IDs from resources for various modules
 enum class ModuleIconID : UINT
 {
-   moduleCoff = 512,    ///< COFF module icon
-   modulePE = 513,      ///< PE module icon
-   moduleElf = 514,     ///< ELF binary module icon
+   moduleStaticLib = 512,  ///< module icon for a static library
+   moduleDynamicLib = 513, ///< module icon for a dynamic library
+   moduleApp = 514,        ///< module icon for an application
+   moduleImage = 515,      ///< module icon for an image module
+   moduleAudio = 516,      ///< module icon for an audio module
+   moduleVideo = 517,      ///< module icon for a video module
 };
 
 /// \brief module interface

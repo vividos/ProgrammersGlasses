@@ -16,7 +16,7 @@ CString CoffModule::DisplayName() const
 
 ModuleIconID CoffModule::IconID() const
 {
-   return ModuleIconID::moduleCoff;
+   return ModuleIconID::moduleStaticLib;
 }
 
 CString CoffModule::FilterStrings() const

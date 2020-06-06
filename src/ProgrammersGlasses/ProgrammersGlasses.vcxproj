@@ -138,9 +138,12 @@
     <Image Include="userinterface\res\edit_copy.bmp" />
     <Image Include="userinterface\res\file_close.bmp" />
     <Image Include="userinterface\res\file_open.bmp" />
-    <Image Include="userinterface\res\module_coff.bmp" />
-    <Image Include="userinterface\res\module_elf.bmp" />
-    <Image Include="userinterface\res\module_pe.bmp" />
+    <Image Include="userinterface\res\module_app.bmp" />
+    <Image Include="userinterface\res\module_audio.bmp" />
+    <Image Include="userinterface\res\module_dynamiclib.bmp" />
+    <Image Include="userinterface\res\module_image.bmp" />
+    <Image Include="userinterface\res\module_staticlib.bmp" />
+    <Image Include="userinterface\res\module_video.bmp" />
     <Image Include="userinterface\res\node_library.bmp" />
     <Image Include="userinterface\res\node_document.bmp" />
     <Image Include="userinterface\res\window_cascade.bmp" />

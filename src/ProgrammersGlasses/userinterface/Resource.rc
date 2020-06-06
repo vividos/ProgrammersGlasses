@@ -61,15 +61,21 @@ ID_WINDOW_TILE_VERT     BITMAP                  "res\\window_vertical.bmp"
 
 ID_FILE_CLOSE           BITMAP                  "res\\file_close.bmp"
 
-IDB_MODULE_COFF         BITMAP                  "res\\module_coff.bmp"
+IDB_MODULE_STATIC_LIB   BITMAP                  "res\\module_staticlib.bmp"
 
 IDB_NODE_DOCUMENT       BITMAP                  "res\\node_document.bmp"
 
 IDB_NODE_LIBRARY        BITMAP                  "res\\node_library.bmp"
 
-IDB_MODULE_PE           BITMAP                  "res\\module_pe.bmp"
+IDB_MODULE_APP          BITMAP                  "res\\module_app.bmp"
 
-IDB_MODULE_ELF          BITMAP                  "res\\module_elf.bmp"
+IDB_MODULE_DYNAMIC_LIB  BITMAP                  "res\\module_dynamiclib.bmp"
+
+IDB_MODULE_IMAGE        BITMAP                  "res\\module_image.bmp"
+
+IDB_MODULE_AUDIO        BITMAP                  "res\\module_audio.bmp"
+
+IDB_MODULE_VIDEO        BITMAP                  "res\\module_video.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
