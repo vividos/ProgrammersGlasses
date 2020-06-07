@@ -53,5 +53,8 @@ DWORD GetBufferValueWithEndianness(const BYTE* buffer, size_t valueSize, bool li
 
    default:
       ATLASSERT(false); // invalid valueSize; must be 1, 2 or 4
+      break;
    }
+
+   return 0;
 }
