@@ -9,10 +9,12 @@
 #include "ModuleManager.hpp"
 #include "IModule.hpp"
 #include "coff/CoffModule.hpp"
+#include "audio/sid/SidAudioModule.hpp"
 
 ModuleManager::ModuleManager()
 {
    m_moduleList.push_back(std::make_shared<CoffModule>());
+   m_moduleList.push_back(std::make_shared<SidAudioModule>());
 }
 
 CString ModuleManager::GetAllFilterStrings() const
