@@ -101,6 +101,14 @@ public:
    {
    }
 
+   /// Ctor; extends struct definition with an extra initializer list containing more fields
+   StructDefinition(const StructDefinition& structDefinition, const std::initializer_list<StructField>& extraFieldList)
+      :m_fieldList(structDefinition.FieldList())
+   {
+      for (auto field : extraFieldList)
+         AddField(field);
+   }
+
    /// Adds structure field
    void AddField(const StructField& field)
    {
