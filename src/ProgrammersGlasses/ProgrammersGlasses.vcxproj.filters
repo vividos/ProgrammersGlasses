@@ -17,6 +17,12 @@
     <Filter Include="modules\coff">
       <UniqueIdentifier>{38dc68c8-f3fc-4f06-ad96-c52274b0d444}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\audio">
+      <UniqueIdentifier>{657c2e5a-ce6a-485f-ac8d-15ba4230a03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\audio\sid">
+      <UniqueIdentifier>{b9994aa6-5467-4203-8fed-e2b3d0893c5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -60,6 +66,15 @@
     </ClCompile>
     <ClCompile Include="modules\CodeTextViewNode.cpp">
       <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\audio\sid\SidAudioModule.cpp">
+      <Filter>modules\audio\sid</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\audio\sid\SidFileHeader.cpp">
+      <Filter>modules\audio\sid</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\audio\sid\SidFileReader.cpp">
+      <Filter>modules\audio\sid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +144,15 @@
     </ClInclude>
     <ClInclude Include="modules\CodeTextViewNode.hpp">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\audio\sid\SidAudioModule.hpp">
+      <Filter>modules\audio\sid</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\audio\sid\SidFileHeader.hpp">
+      <Filter>modules\audio\sid</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\audio\sid\SidFileReader.hpp">
+      <Filter>modules\audio\sid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
