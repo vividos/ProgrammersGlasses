@@ -27,6 +27,10 @@ https://ci.appveyor.com/project/vividos/programmersglasses/build/artifacts
 Please note that you need the Visual C++ 2019 redistributable installed, which
 should be the case when you have Visual Studio 2019 installed.
 
+The project is occasionally checked with SonarCloud:
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ProgrammersGlasses&metric=alert_status)](https://sonarcloud.io/dashboard?id=ProgrammersGlasses)
+
 # License
 
 Programmer's Glasses is licensed under the [MIT License](LICENSE.md).
