@@ -85,6 +85,7 @@
     <ClCompile Include="modules\coff\CoffHeader.cpp" />
     <ClCompile Include="modules\coff\CoffModule.cpp" />
     <ClCompile Include="modules\coff\CoffReader.cpp" />
+    <ClCompile Include="modules\coff\SectionHeader.cpp" />
     <ClCompile Include="modules\DisplayFormatHelper.cpp" />
     <ClCompile Include="modules\File.cpp" />
     <ClCompile Include="modules\ModuleManager.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="modules\coff\CoffHeader.hpp" />
     <ClInclude Include="modules\coff\CoffModule.hpp" />
     <ClInclude Include="modules\coff\CoffReader.hpp" />
+    <ClInclude Include="modules\coff\SectionHeader.hpp" />
     <ClInclude Include="modules\DisplayFormatHelper.hpp" />
     <ClInclude Include="modules\File.hpp" />
     <ClInclude Include="Helper.hpp" />

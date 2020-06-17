@@ -40,6 +40,9 @@ private:
    /// adds summary text to node
    void AddSummaryText(CodeTextViewNode& node, const CoffHeader& header);
 
+   /// adds section table to node
+   void AddSectionTable(CodeTextViewNode& sectionSummaryNode, const CoffHeader& header);
+
    /// file to read from
    File m_file;
 

@@ -9,6 +9,7 @@
 #include "CoffReader.hpp"
 #include "CodeTextViewNode.hpp"
 #include "CoffHeader.hpp"
+#include "SectionHeader.hpp"
 #include "File.hpp"
 #include "DisplayFormatHelper.hpp"
 #include "StructListViewNode.hpp"
@@ -37,11 +38,9 @@ CoffReader::CoffReader(const File& file)
 
 void CoffReader::Load()
 {
-   // TODO implement
-   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
-
    const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(m_file.Data());
 
+   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
    AddSummaryText(*rootNode, header);
 
    auto coffHeaderNode = std::make_shared<StructListViewNode>(
@@ -51,6 +50,10 @@ void CoffReader::Load()
       &header);
 
    rootNode->ChildNodes().push_back(coffHeaderNode);
+
+   auto sectionSummaryNode = std::make_shared<CodeTextViewNode>(_T("Section Table"), NodeTreeIconID::nodeTreeIconDocument);
+   AddSectionTable(*sectionSummaryNode, header);
+   rootNode->ChildNodes().push_back(sectionSummaryNode);
 
    m_rootNode.reset(rootNode);
 }
@@ -93,4 +96,51 @@ void CoffReader::AddSummaryText(CodeTextViewNode& node, const CoffHeader& header
          header.characteristicsFlags).GetString());
 
    node.SetText(text);
+}
+
+void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const CoffHeader& header)
+{
+   LPCVOID data = m_file.Data();
+   if (sizeof(header) + header.optionalHeaderSize + sizeof(SectionHeader) >= m_file.Size())
+   {
+      sectionSummaryNode.SetText(_T("Error: section header offset is outside of the file size!"));
+      return;
+   }
+
+   CString summaryText;
+
+   size_t maxSectionCount = static_cast<size_t>(header.numberOfSections);
+   summaryText.Format(_T("Number of sections: %i\n"), maxSectionCount);
+
+   for (size_t sectionIndex = 0; sectionIndex < maxSectionCount; sectionIndex++)
+   {
+      const BYTE* sectionStart =
+         (const BYTE*)data +
+         sizeof(header) +
+         header.optionalHeaderSize +
+         sizeof(SectionHeader) * sectionIndex;
+
+      const SectionHeader& sectionHeader = *reinterpret_cast<const SectionHeader*>(sectionStart);
+
+      CString sectionName{ sectionHeader.name, sizeof(sectionHeader.name) };
+
+      if (sectionHeader.virtualSize != 0)
+      {
+         summaryText.AppendFormat(_T("Section %i: %s at 0x%08x (size 0x%08x)\n"),
+            sectionIndex + 1,
+            sectionName.GetString(),
+            sectionHeader.virtualAddress,
+            sectionHeader.virtualSize);
+      }
+
+      auto sectionHeaderNode = std::make_shared<StructListViewNode>(
+         _T("Section header ") + sectionName,
+         NodeTreeIconID::nodeTreeIconDocument,
+         g_definitionSectionHeader,
+         sectionStart);
+
+      sectionSummaryNode.ChildNodes().push_back(sectionHeaderNode);
+   }
+
+   sectionSummaryNode.SetText(summaryText);
 }
