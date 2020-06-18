@@ -164,14 +164,11 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const Cof
 
       CString sectionName{ sectionHeader.name, sizeof(sectionHeader.name) };
 
-      if (sectionHeader.virtualSize != 0)
-      {
-         summaryText.AppendFormat(_T("Section %zu: %s at 0x%08x (size 0x%08x)\n"),
-            sectionIndex + 1,
-            sectionName.GetString(),
-            sectionHeader.virtualAddress,
-            sectionHeader.virtualSize);
-      }
+      summaryText.AppendFormat(_T("Section %zu: %s at 0x%08x (size 0x%08x)\n"),
+         sectionIndex + 1,
+         sectionName.GetString(),
+         sectionHeader.virtualAddress,
+         sectionHeader.virtualSize);
 
       auto sectionHeaderNode = std::make_shared<StructListViewNode>(
          _T("Section header ") + sectionName,
