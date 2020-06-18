@@ -7,6 +7,7 @@
 //
 #include "stdafx.h"
 #include "File.hpp"
+#include <algorithm>
 
 File::File(const CString& filename)
    :m_filename(filename),
@@ -45,6 +46,11 @@ File::File(const CString& filename)
    MEMORY_BASIC_INFORMATION buffer = {};
    VirtualQuery(ptr, &buffer, sizeof(buffer));
    m_size = buffer.RegionSize;
+
+   // restrict file size further by getting file size
+   LARGE_INTEGER fileSize = {};
+   if (GetFileSizeEx(file, &fileSize))
+      m_size = std::min(m_size, static_cast<size_t>(fileSize.QuadPart));
 
    m_data.reset(ptr, UnmapViewOfFile);
 }
