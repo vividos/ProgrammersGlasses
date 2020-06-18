@@ -150,7 +150,7 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const Cof
    CString summaryText;
 
    size_t maxSectionCount = static_cast<size_t>(header.numberOfSections);
-   summaryText.Format(_T("Number of sections: %i\n"), maxSectionCount);
+   summaryText.Format(_T("Number of sections: %zu\n"), maxSectionCount);
 
    for (size_t sectionIndex = 0; sectionIndex < maxSectionCount; sectionIndex++)
    {
@@ -166,7 +166,7 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const Cof
 
       if (sectionHeader.virtualSize != 0)
       {
-         summaryText.AppendFormat(_T("Section %i: %s at 0x%08x (size 0x%08x)\n"),
+         summaryText.AppendFormat(_T("Section %zu: %s at 0x%08x (size 0x%08x)\n"),
             sectionIndex + 1,
             sectionName.GetString(),
             sectionHeader.virtualAddress,

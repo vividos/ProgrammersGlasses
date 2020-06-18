@@ -16,7 +16,7 @@ class SidFileReader : public IReader
 {
 public:
    /// ctor
-   SidFileReader(const File& file)
+   explicit SidFileReader(const File& file)
       :m_file(file)
    {
    }

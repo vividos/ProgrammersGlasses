@@ -41,7 +41,7 @@ void StructListView::InitList()
       const BYTE* address = base + structField.m_offset;
 
       CString addressText;
-      addressText.Format(_T("0x%08x"), address);
+      addressText.Format(_T("0x%08p"), address);
 
       int itemIndex = InsertItem(GetItemCount(), addressText);
 
