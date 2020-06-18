@@ -26,7 +26,9 @@ CString CoffModule::FilterStrings() const
 
 bool CoffModule::IsModuleApplicableForFile(const File& file) const
 {
-   return CoffReader::IsCoffFileFormat(file);
+   return CoffReader::IsCoffObjectFile(file) ||
+      CoffReader::IsNonCoffOrAnonymousObjectFile(file) ||
+      CoffReader::IsArLibraryFile(file);
 }
 
 std::shared_ptr<IReader> CoffModule::OpenReader(const File& file) const

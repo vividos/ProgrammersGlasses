@@ -82,6 +82,7 @@
     <ClCompile Include="modules\audio\sid\SidFileHeader.cpp" />
     <ClCompile Include="modules\audio\sid\SidFileReader.cpp" />
     <ClCompile Include="modules\CodeTextViewNode.cpp" />
+    <ClCompile Include="modules\coff\ArchiveHeader.cpp" />
     <ClCompile Include="modules\coff\CoffHeader.cpp" />
     <ClCompile Include="modules\coff\CoffModule.cpp" />
     <ClCompile Include="modules\coff\CoffReader.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="modules\audio\sid\SidFileHeader.hpp" />
     <ClInclude Include="modules\audio\sid\SidFileReader.hpp" />
     <ClInclude Include="modules\CodeTextViewNode.hpp" />
+    <ClInclude Include="modules\coff\ArchiveHeader.hpp" />
     <ClInclude Include="modules\coff\CoffHeader.hpp" />
     <ClInclude Include="modules\coff\CoffModule.hpp" />
     <ClInclude Include="modules\coff\CoffReader.hpp" />

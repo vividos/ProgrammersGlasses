@@ -16,8 +16,14 @@ struct CoffHeader;
 class CoffReader : public IReader
 {
 public:
-   /// checks file if it a COFF file
-   static bool IsCoffFileFormat(const File& file);
+   /// checks file if it a COFF object file
+   static bool IsCoffObjectFile(const File& file);
+
+   /// checks file if it a non-COFF or anonymous object file
+   static bool IsNonCoffOrAnonymousObjectFile(const File& file);
+
+   /// checks file if it an "ar" archive library file
+   static bool IsArLibraryFile(const File& file);
 
    /// ctor
    explicit CoffReader(const File& file);
@@ -37,11 +43,20 @@ public:
    virtual void Cleanup() override;
 
 private:
+   /// loads COFF based object files
+   void LoadCoffObjectFile();
+
    /// adds summary text to node
-   void AddSummaryText(CodeTextViewNode& node, const CoffHeader& header);
+   void AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header);
 
    /// adds section table to node
    void AddSectionTable(CodeTextViewNode& sectionSummaryNode, const CoffHeader& header);
+
+   /// loads non-COFF or anonymous object files
+   void LoadNonCoffObjectFile();
+
+   /// loads archive library files
+   void LoadArchiveLibraryFile();
 
    /// file to read from
    File m_file;

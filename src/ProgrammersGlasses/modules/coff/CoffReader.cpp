@@ -9,13 +9,14 @@
 #include "CoffReader.hpp"
 #include "CodeTextViewNode.hpp"
 #include "CoffHeader.hpp"
+#include "ArchiveHeader.hpp"
 #include "SectionHeader.hpp"
 #include "File.hpp"
 #include "DisplayFormatHelper.hpp"
 #include "StructListViewNode.hpp"
 #include <map>
 
-bool CoffReader::IsCoffFileFormat(const File& file)
+bool CoffReader::IsCoffObjectFile(const File& file)
 {
    // COFF has no magic number, so all we can do is check a few parameters
    // from the header
@@ -31,6 +32,33 @@ bool CoffReader::IsCoffFileFormat(const File& file)
    return true;
 }
 
+bool CoffReader::IsNonCoffOrAnonymousObjectFile(const File& file)
+{
+   if (file.Size() < sizeof(IMPORT_OBJECT_HEADER))
+      return false;
+
+   const IMPORT_OBJECT_HEADER& header =
+      *reinterpret_cast<const IMPORT_OBJECT_HEADER*>(file.Data());
+
+   return
+      header.Sig1 == IMAGE_FILE_MACHINE_UNKNOWN &&
+      header.Sig2 == IMPORT_OBJECT_HDR_SIG2 &&
+      (header.Version == 0 || header.Version == 1);
+}
+
+bool CoffReader::IsArLibraryFile(const File& file)
+{
+   if (file.Size() < sizeof(ArchiveHeader))
+      return false;
+
+   const ArchiveHeader& archiveHeader =
+      *reinterpret_cast<const ArchiveHeader*>(file.Data());
+
+   CString signatureText{ archiveHeader.signature, sizeof(archiveHeader.signature) };
+
+   return signatureText == c_archiveHeaderSignatureText;
+}
+
 CoffReader::CoffReader(const File& file)
    :m_file(file)
 {
@@ -38,10 +66,27 @@ CoffReader::CoffReader(const File& file)
 
 void CoffReader::Load()
 {
+   if (IsCoffObjectFile(m_file))
+      LoadCoffObjectFile();
+   else if (IsNonCoffOrAnonymousObjectFile(m_file))
+      LoadNonCoffObjectFile();
+   else if (IsArLibraryFile(m_file))
+      LoadArchiveLibraryFile();
+   else
+      ATLASSERT(false);
+}
+
+void CoffReader::Cleanup()
+{
+   // nothing expensive to cleanup here
+}
+
+void CoffReader::LoadCoffObjectFile()
+{
    const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(m_file.Data());
 
    auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
-   AddSummaryText(*rootNode, header);
+   AddCoffHeaderSummaryText(*rootNode, header);
 
    auto coffHeaderNode = std::make_shared<StructListViewNode>(
       _T("COFF header"),
@@ -58,12 +103,7 @@ void CoffReader::Load()
    m_rootNode.reset(rootNode);
 }
 
-void CoffReader::Cleanup()
-{
-   // nothing expensive to cleanup here
-}
-
-void CoffReader::AddSummaryText(CodeTextViewNode& node, const CoffHeader& header)
+void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header)
 {
    CString text;
 
@@ -143,4 +183,31 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const Cof
    }
 
    sectionSummaryNode.SetText(summaryText);
+}
+
+void CoffReader::LoadNonCoffObjectFile()
+{
+   // TODO implement
+   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+   m_rootNode.reset(rootNode);
+}
+
+void CoffReader::LoadArchiveLibraryFile()
+{
+   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+
+   const ArchiveHeader& archiveHeader =
+      *reinterpret_cast<const ArchiveHeader*>(m_file.Data());
+
+   auto archiveHeaderNode = std::make_shared<StructListViewNode>(
+      _T("Archive header"),
+      NodeTreeIconID::nodeTreeIconDocument,
+      g_definitionArchiveHeader,
+      &archiveHeader);
+
+   rootNode->ChildNodes().push_back(archiveHeaderNode);
+
+   // TODO implement loading archive content
+
+   m_rootNode.reset(rootNode);
 }

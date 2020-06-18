@@ -79,6 +79,9 @@
     <ClCompile Include="modules\coff\SectionHeader.cpp">
       <Filter>modules\coff</Filter>
     </ClCompile>
+    <ClCompile Include="modules\coff\ArchiveHeader.cpp">
+      <Filter>modules\coff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -159,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="modules\audio\sid\SidFileReader.hpp">
       <Filter>modules\audio\sid</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\coff\ArchiveHeader.hpp">
+      <Filter>modules\coff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
