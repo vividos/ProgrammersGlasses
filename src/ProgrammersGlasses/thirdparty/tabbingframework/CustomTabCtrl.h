@@ -26,6 +26,11 @@
 // History (Date/Author/Description):
 // ----------------------------------
 //
+// 2020/06/18: vividos
+// - A middle mouse button click on a tab now closes the tab; previously it
+//   did nothing. The behavior can be customized by handling the CTCN_MCLICK
+//   notification message sent to the tab parent.
+//
 // 2020/05/04: vividos
 // - Fixed warnings when converting GetDlgCtrlID() to UINT_PTR.
 //
@@ -1821,8 +1826,8 @@ public:
 			// returning FALSE let's us do our default handling
 			if( nIndex!=-1 )
 			{
-				//pT->SetFocus();
-				//pT->SetCurSel(nIndex);
+				NMCTCITEM nmhClose = {{ m_hWnd, (UINT_PTR)this->GetDlgCtrlID(), CTCN_CLOSE }, nIndex, {ptCursor.x, ptCursor.y}};
+				::SendMessage(GetParent(), WM_NOTIFY, nmhClose.hdr.idFrom, (LPARAM)&nmhClose);
 			}
 		}
 
