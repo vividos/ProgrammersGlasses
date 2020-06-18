@@ -205,6 +205,35 @@ void CoffReader::LoadArchiveLibraryFile()
    rootNode->ChildNodes().push_back(archiveHeaderNode);
 
    // TODO implement loading archive content
+   size_t archiveMemberOffset = sizeof(ArchiveHeader);
+
+   for (; archiveMemberOffset < m_file.Size();)
+   {
+      const ArchiveMemberHeader& archiveMemberHeader =
+         *reinterpret_cast<const ArchiveMemberHeader*>(
+            (const BYTE*)m_file.Data() + archiveMemberOffset);
+
+      auto archiveMemberNode = std::make_shared<StructListViewNode>(
+         _T("Archive member"),
+         NodeTreeIconID::nodeTreeIconDocument,
+         g_definitionArchiveMemberHeader,
+         &archiveMemberHeader);
+
+      rootNode->ChildNodes().push_back(archiveMemberNode);
+
+      if (archiveMemberHeader.endOfHeader[0] != 0x60 &&
+         archiveMemberHeader.endOfHeader[1] != 0x0a)
+         break;
+
+      CString sizeText{ archiveMemberHeader.sizeText, sizeof(archiveMemberHeader.sizeText) };
+      size_t archiveMemberSize = _ttol(sizeText);
+
+      archiveMemberOffset += sizeof(ArchiveMemberHeader) + archiveMemberSize;
+
+      // ensure 2-byte alignment
+      if ((archiveMemberOffset & 1) != 0)
+         archiveMemberOffset++;
+   }
 
    m_rootNode.reset(rootNode);
 }

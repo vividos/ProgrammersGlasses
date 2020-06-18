@@ -19,3 +19,61 @@ StructDefinition g_definitionArchiveHeader = StructDefinition({
       StructFieldType::text,
       _T("Archive signature")),
    });
+
+StructDefinition g_definitionArchiveMemberHeader = StructDefinition({
+   StructField(
+      offsetof(ArchiveMemberHeader, ArchiveMemberHeader::name),
+      sizeof(ArchiveMemberHeader::name),
+      1,
+      true, // little-endian
+      StructFieldType::text,
+      _T("Entry name")),
+
+   StructField(
+      offsetof(ArchiveMemberHeader, ArchiveMemberHeader::dateText),
+      sizeof(ArchiveMemberHeader::dateText),
+      1,
+      true, // little-endian
+      StructFieldType::text,
+      _T("Date (Unix epoch)")),
+
+   StructField(
+      offsetof(ArchiveMemberHeader, ArchiveMemberHeader::userID),
+      sizeof(ArchiveMemberHeader::userID),
+      1,
+      true, // little-endian
+      StructFieldType::text,
+      _T("User ID")),
+
+   StructField(
+      offsetof(ArchiveMemberHeader, ArchiveMemberHeader::groupID),
+      sizeof(ArchiveMemberHeader::groupID),
+      1,
+      true, // little-endian
+      StructFieldType::text,
+      _T("Group ID")),
+
+   StructField(
+      offsetof(ArchiveMemberHeader, ArchiveMemberHeader::mode),
+      sizeof(ArchiveMemberHeader::mode),
+      1,
+      true, // little-endian
+      StructFieldType::text,
+      _T("File mode")),
+
+   StructField(
+      offsetof(ArchiveMemberHeader, ArchiveMemberHeader::sizeText),
+      sizeof(ArchiveMemberHeader::sizeText),
+      1,
+      true, // little-endian
+      StructFieldType::text,
+      _T("Size")),
+
+   StructField(
+      offsetof(ArchiveMemberHeader, ArchiveMemberHeader::endOfHeader),
+      sizeof(ArchiveMemberHeader::endOfHeader),
+      1,
+      true, // little-endian
+      StructFieldType::byteArray,
+      _T("End of header")),
+   });
