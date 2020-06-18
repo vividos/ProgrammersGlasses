@@ -107,7 +107,6 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       StructFieldType::unsignedInteger,
       _T("Optional header size")),
 
-
    StructField(
       offsetof(CoffHeader, CoffHeader::characteristicsFlags),
       sizeof(CoffHeader::characteristicsFlags),
@@ -116,4 +115,4 @@ StructDefinition g_definitionCoffHeader = StructDefinition({
       StructFieldType::flagsMapping,
       g_mapCoffCharacteristicsBitsToDisplayText,
       _T("Characteristics flags")),
-});
+   });
