@@ -17,6 +17,12 @@
     <Filter Include="modules\coff">
       <UniqueIdentifier>{38dc68c8-f3fc-4f06-ad96-c52274b0d444}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\images">
+      <UniqueIdentifier>{1f16c4b6-de3d-4a7a-9a21-e9d7ae2cffe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\images\png">
+      <UniqueIdentifier>{12b2673d-c2bf-415d-bb3b-a5e9ff48e7c3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="modules\audio">
       <UniqueIdentifier>{657c2e5a-ce6a-485f-ac8d-15ba4230a03a}</UniqueIdentifier>
     </Filter>
@@ -55,11 +61,17 @@
     <ClCompile Include="modules\DisplayFormatHelper.cpp">
       <Filter>modules</Filter>
     </ClCompile>
+    <ClCompile Include="modules\images\png\PngImageModule.cpp">
+      <Filter>modules\images\png</Filter>
+    </ClCompile>
     <ClCompile Include="modules\StructListViewNode.cpp">
       <Filter>modules</Filter>
     </ClCompile>
     <ClCompile Include="userinterface\StructListView.cpp">
       <Filter>userinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\images\png\PngHeader.cpp">
+      <Filter>modules\images\png</Filter>
     </ClCompile>
     <ClCompile Include="modules\coff\CoffHeader.cpp">
       <Filter>modules\coff</Filter>
@@ -84,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="modules\coff\CoffSymbolTable.cpp">
       <Filter>modules\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\images\png\PngImageReader.cpp">
+      <Filter>modules\images\png</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +160,9 @@
     <ClInclude Include="modules\coff\SectionHeader.hpp">
       <Filter>modules\coff</Filter>
     </ClInclude>
+    <ClInclude Include="modules\images\png\PngImageModule.hpp">
+      <Filter>modules\images\png</Filter>
+    </ClInclude>
     <ClInclude Include="modules\StructListViewNode.hpp">
       <Filter>modules</Filter>
     </ClInclude>
@@ -153,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="modules\StructDefinition.hpp">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\images\png\PngHeader.hpp">
+      <Filter>modules\images\png</Filter>
     </ClInclude>
     <ClInclude Include="modules\CodeTextViewNode.hpp">
       <Filter>modules</Filter>
@@ -171,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="modules\coff\CoffSymbolTable.hpp">
       <Filter>modules\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\images\png\PngImageReader.hpp">
+      <Filter>modules\images\png</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

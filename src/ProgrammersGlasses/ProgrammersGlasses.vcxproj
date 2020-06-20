@@ -90,6 +90,9 @@
     <ClCompile Include="modules\coff\CoffSymbolTable.cpp" />
     <ClCompile Include="modules\DisplayFormatHelper.cpp" />
     <ClCompile Include="modules\File.cpp" />
+    <ClCompile Include="modules\images\png\PngHeader.cpp" />
+    <ClCompile Include="modules\images\png\PngImageModule.cpp" />
+    <ClCompile Include="modules\images\png\PngImageReader.cpp" />
     <ClCompile Include="modules\ModuleManager.cpp" />
     <ClCompile Include="modules\StructListViewNode.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -119,6 +122,9 @@
     <ClInclude Include="modules\File.hpp" />
     <ClInclude Include="Helper.hpp" />
     <ClInclude Include="modules\IContentView.hpp" />
+    <ClInclude Include="modules\images\png\PngHeader.hpp" />
+    <ClInclude Include="modules\images\png\PngImageModule.hpp" />
+    <ClInclude Include="modules\images\png\PngImageReader.hpp" />
     <ClInclude Include="modules\IModule.hpp" />
     <ClInclude Include="modules\INode.hpp" />
     <ClInclude Include="modules\IReader.hpp" />
