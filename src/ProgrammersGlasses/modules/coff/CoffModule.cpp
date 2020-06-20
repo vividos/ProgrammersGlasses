@@ -21,7 +21,7 @@ ModuleIconID CoffModule::IconID() const
 
 CString CoffModule::FilterStrings() const
 {
-   return CString{ "COFF library files (*.lib)|*.lib|COFF object files (*.obj)|*.obj|" };
+   return CString{ "COFF library files (*.lib;*.exp)|*.lib;*.exp|COFF object files (*.obj;*.cof)|*.obj;*.cof|" };
 }
 
 bool CoffModule::IsModuleApplicableForFile(const File& file) const
