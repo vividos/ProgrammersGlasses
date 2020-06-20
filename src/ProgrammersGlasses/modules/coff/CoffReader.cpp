@@ -86,7 +86,7 @@ void CoffReader::LoadCoffObjectFile()
    const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(m_file.Data());
 
    auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
-   AddCoffHeaderSummaryText(*rootNode, header);
+   AddCoffHeaderSummaryText(*rootNode, header, false);
 
    auto coffHeaderNode = std::make_shared<StructListViewNode>(
       _T("COFF header"),
@@ -103,7 +103,7 @@ void CoffReader::LoadCoffObjectFile()
    m_rootNode.reset(rootNode);
 }
 
-void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header)
+void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header, bool isImage)
 {
    CString text;
 
@@ -123,9 +123,10 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHead
 
    text.AppendFormat(_T("Symbol table offset: 0x%08x\n"), header.offsetSymbolTable);
    text.AppendFormat(_T("Symbol table length: %u\n"), header.numberOfSymbols);
-   if (header.offsetSymbolTable != 0 ||
+   if (isImage &&
+      header.offsetSymbolTable != 0 ||
       header.numberOfSymbols != 0)
-      text.Append(_T("Warning: COFF symbol table is deprecated\n"));
+      text.Append(_T("Warning: COFF symbol table for images is deprecated\n"));
 
    text.AppendFormat(_T("Optional header size: %u\n"), header.optionalHeaderSize);
 

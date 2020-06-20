@@ -47,7 +47,7 @@ private:
    void LoadCoffObjectFile();
 
    /// adds summary text to node
-   void AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header);
+   void AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header, bool isImage);
 
    /// adds section table to node
    void AddSectionTable(CodeTextViewNode& sectionSummaryNode, const CoffHeader& header);
