@@ -15,8 +15,12 @@ class IContentView;
 /// Icon IDs from resources for node tree items
 enum class NodeTreeIconID : UINT
 {
-   nodeTreeIconDocument = 1024,   ///< general document icon
-   nodeTreeIconLibrary = 1025,    ///< library icon
+   nodeTreeIconDocument = 1024,  ///< general document icon
+   nodeTreeIconLibrary = 1025,   ///< library icon
+   nodeTreeIconBinary = 1026,    ///< binary data icon
+   nodeTreeIconItem = 1027,      ///< item (list item) icon
+   nodeTreeIconObject = 1028,    ///< object (file) icon
+   nodeTreeIconTable = 1029,     ///< table icon
 };
 
 /// \brief Node interface

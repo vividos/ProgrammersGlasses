@@ -238,5 +238,17 @@
     <Image Include="userinterface\res\module_video.bmp">
       <Filter>userinterface\res</Filter>
     </Image>
+    <Image Include="userinterface\res\node_binary.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\node_item.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\node_object.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
+    <Image Include="userinterface\res\node_table.bmp">
+      <Filter>userinterface\res</Filter>
+    </Image>
   </ItemGroup>
 </Project>

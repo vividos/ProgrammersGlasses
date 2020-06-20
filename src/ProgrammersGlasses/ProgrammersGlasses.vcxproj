@@ -154,8 +154,12 @@
     <Image Include="userinterface\res\module_image.bmp" />
     <Image Include="userinterface\res\module_staticlib.bmp" />
     <Image Include="userinterface\res\module_video.bmp" />
+    <Image Include="userinterface\res\node_binary.bmp" />
+    <Image Include="userinterface\res\node_item.bmp" />
     <Image Include="userinterface\res\node_library.bmp" />
     <Image Include="userinterface\res\node_document.bmp" />
+    <Image Include="userinterface\res\node_object.bmp" />
+    <Image Include="userinterface\res\node_table.bmp" />
     <Image Include="userinterface\res\window_cascade.bmp" />
     <Image Include="userinterface\res\window_horizontal.bmp" />
     <Image Include="userinterface\res\window_vertical.bmp" />

@@ -16,12 +16,16 @@
 #define IDB_MODULE_VIDEO                517
 #define IDB_NODE_DOCUMENT               1024
 #define IDB_NODE_LIBRARY                1025
+#define IDB_NODE_BINARY                 1026
+#define IDB_NODE_ITEM                   1027
+#define IDB_NODE_OBJECT                 1028
+#define IDB_NODE_TABLE                  1029
 
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        1026
+#define _APS_NEXT_RESOURCE_VALUE        1030
 #define _APS_NEXT_COMMAND_VALUE         32775
 #define _APS_NEXT_CONTROL_VALUE         260
 #define _APS_NEXT_SYMED_VALUE           102

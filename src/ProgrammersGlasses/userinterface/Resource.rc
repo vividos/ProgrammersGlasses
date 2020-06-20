@@ -77,6 +77,14 @@ IDB_MODULE_AUDIO        BITMAP                  "res\\module_audio.bmp"
 
 IDB_MODULE_VIDEO        BITMAP                  "res\\module_video.bmp"
 
+IDB_NODE_BINARY         BITMAP                  "res\\node_binary.bmp"
+
+IDB_NODE_ITEM           BITMAP                  "res\\node_item.bmp"
+
+IDB_NODE_OBJECT         BITMAP                  "res\\node_object.bmp"
+
+IDB_NODE_TABLE          BITMAP                  "res\\node_table.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
