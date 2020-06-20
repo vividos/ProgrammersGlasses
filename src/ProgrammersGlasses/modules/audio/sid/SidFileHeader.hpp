@@ -5,7 +5,8 @@
 /// \file SidFileHeader.hpp
 /// \brief SID file header
 //
-#include "stdafx.h"
+#pragma once
+
 #include "StructDefinition.hpp"
 
 #pragma pack(push, 1)
@@ -65,6 +66,7 @@ struct SidFileHeader
    /// address middle bytes ($Dxx0) of a third SID chip
    BYTE thirdSidAddress;
 };
+
 #pragma pack(pop)
 
 static_assert(sizeof(SidFileHeader) == 0x7C, "SID file header must be 0x76 bytes long");
