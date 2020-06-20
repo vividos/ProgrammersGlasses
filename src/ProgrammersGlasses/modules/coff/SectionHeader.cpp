@@ -9,7 +9,6 @@
 #include "SectionHeader.hpp"
 #include "DisplayFormatHelper.hpp"
 
-
 /// section flags bits to display text mapping
 std::map<DWORD, LPCTSTR> g_mapSectionFlagsBitsToDisplayText =
 {
