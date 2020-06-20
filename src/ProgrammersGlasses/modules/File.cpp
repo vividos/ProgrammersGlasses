@@ -61,3 +61,22 @@ bool File::IsAvail() const
       m_mapping != nullptr &&
       m_data != nullptr;
 }
+
+bool File::IsValidPointer(const void* ptr) const
+{
+   const BYTE* endFilePtr = reinterpret_cast<const BYTE*>(m_data.get()) + m_size;
+   const BYTE* bytePtr = reinterpret_cast<const BYTE*>(ptr);
+
+   return
+      bytePtr >= m_data.get() &&
+      bytePtr < endFilePtr;
+}
+
+bool File::IsValidRange(const void* ptr, size_t size) const
+{
+   const BYTE* endPtr = reinterpret_cast<const BYTE*>(ptr) + size - 1;
+
+   return
+      IsValidPointer(endPtr) &&
+      IsValidPointer(ptr);
+}

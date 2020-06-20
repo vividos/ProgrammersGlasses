@@ -28,6 +28,13 @@ public:
    /// returns size of memory mapped file
    size_t Size() const { return m_size; }
 
+   /// checks if given pointer lies inside the mapped file
+   bool IsValidPointer(const void* ptr) const;
+
+   /// checks if given area (by pointer and byte size) lies completely inside
+   /// the mapped file
+   bool IsValidRange(const void* ptr, size_t size) const;
+
 private:
    /// file name of mapped file
    CString m_filename;
