@@ -52,6 +52,9 @@ private:
    /// adds section table to node
    void AddSectionTable(CodeTextViewNode& sectionSummaryNode, const CoffHeader& header);
 
+   /// adds symbol table to node
+   void AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode, const CoffHeader& header);
+
    /// loads non-COFF or anonymous object files
    void LoadNonCoffObjectFile();
 
