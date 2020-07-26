@@ -20,6 +20,9 @@
     <Filter Include="modules\elf">
       <UniqueIdentifier>{b58cbd8c-9697-4c95-b450-fbef684e763c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\pe">
+      <UniqueIdentifier>{6cd47a13-dc7c-4c4a-8330-988f399faee1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="modules\images">
       <UniqueIdentifier>{1f16c4b6-de3d-4a7a-9a21-e9d7ae2cffe0}</UniqueIdentifier>
     </Filter>
@@ -105,6 +108,15 @@
     </ClCompile>
     <ClCompile Include="modules\images\png\PngImageReader.cpp">
       <Filter>modules\images\png</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\pe\PortableExecutableModule.cpp">
+      <Filter>modules\pe</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\pe\PortableExecutableReader.cpp">
+      <Filter>modules\pe</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\pe\DosMzHeader.cpp">
+      <Filter>modules\pe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +216,15 @@
     </ClInclude>
     <ClInclude Include="modules\images\png\PngImageReader.hpp">
       <Filter>modules\images\png</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\pe\PortableExecutableModule.hpp">
+      <Filter>modules\pe</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\pe\PortableExecutableReader.hpp">
+      <Filter>modules\pe</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\pe\DosMzHeader.hpp">
+      <Filter>modules\pe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

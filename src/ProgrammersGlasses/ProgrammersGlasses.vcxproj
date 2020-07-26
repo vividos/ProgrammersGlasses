@@ -95,6 +95,9 @@
     <ClCompile Include="modules\images\png\PngImageModule.cpp" />
     <ClCompile Include="modules\images\png\PngImageReader.cpp" />
     <ClCompile Include="modules\ModuleManager.cpp" />
+    <ClCompile Include="modules\pe\DosMzHeader.cpp" />
+    <ClCompile Include="modules\pe\PortableExecutableModule.cpp" />
+    <ClCompile Include="modules\pe\PortableExecutableReader.cpp" />
     <ClCompile Include="modules\StructListViewNode.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -131,6 +134,9 @@
     <ClInclude Include="modules\INode.hpp" />
     <ClInclude Include="modules\IReader.hpp" />
     <ClInclude Include="modules\ModuleManager.hpp" />
+    <ClInclude Include="modules\pe\DosMzHeader.hpp" />
+    <ClInclude Include="modules\pe\PortableExecutableModule.hpp" />
+    <ClInclude Include="modules\pe\PortableExecutableReader.hpp" />
     <ClInclude Include="modules\StaticNode.hpp" />
     <ClInclude Include="modules\StructDefinition.hpp" />
     <ClInclude Include="modules\StructListViewNode.hpp" />
