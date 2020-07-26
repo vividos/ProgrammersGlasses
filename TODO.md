@@ -19,7 +19,6 @@
 
 - Use system icons for tabs
 - Show dialog with possible modules when the selected module can't load the file
-- Mouse wheel click should close tabs
 - Remove file from MRU file list when it couldn't be loaded
 - Show relative file offset instead of mapped virtual address
-- 
+- Replace non-printable characters from text
