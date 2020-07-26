@@ -9,12 +9,14 @@
 #include "ModuleManager.hpp"
 #include "IModule.hpp"
 #include "coff/CoffModule.hpp"
+#include "elf/ElfModule.hpp"
 #include "images/png/PngImageModule.hpp"
 #include "audio/sid/SidAudioModule.hpp"
 
 ModuleManager::ModuleManager()
 {
    m_moduleList.push_back(std::make_shared<CoffModule>());
+   m_moduleList.push_back(std::make_shared<ElfModule>());
    m_moduleList.push_back(std::make_shared<PngImageModule>());
    m_moduleList.push_back(std::make_shared<SidAudioModule>());
 }

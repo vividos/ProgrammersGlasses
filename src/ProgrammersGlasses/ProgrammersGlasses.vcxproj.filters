@@ -17,6 +17,9 @@
     <Filter Include="modules\coff">
       <UniqueIdentifier>{38dc68c8-f3fc-4f06-ad96-c52274b0d444}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\elf">
+      <UniqueIdentifier>{b58cbd8c-9697-4c95-b450-fbef684e763c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="modules\images">
       <UniqueIdentifier>{1f16c4b6-de3d-4a7a-9a21-e9d7ae2cffe0}</UniqueIdentifier>
     </Filter>
@@ -57,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="userinterface\CodeTextView.cpp">
       <Filter>userinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\elf\ElfModule.cpp">
+      <Filter>modules\elf</Filter>
     </ClCompile>
     <ClCompile Include="modules\DisplayFormatHelper.cpp">
       <Filter>modules</Filter>
@@ -153,6 +159,9 @@
     </ClInclude>
     <ClInclude Include="modules\coff\CoffHeader.hpp">
       <Filter>modules\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\elf\ElfModule.hpp">
+      <Filter>modules\elf</Filter>
     </ClInclude>
     <ClInclude Include="modules\DisplayFormatHelper.hpp">
       <Filter>modules</Filter>

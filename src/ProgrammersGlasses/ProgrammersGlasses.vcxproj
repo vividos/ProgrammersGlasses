@@ -89,6 +89,7 @@
     <ClCompile Include="modules\coff\SectionHeader.cpp" />
     <ClCompile Include="modules\coff\CoffSymbolTable.cpp" />
     <ClCompile Include="modules\DisplayFormatHelper.cpp" />
+    <ClCompile Include="modules\elf\ElfModule.cpp" />
     <ClCompile Include="modules\File.cpp" />
     <ClCompile Include="modules\images\png\PngHeader.cpp" />
     <ClCompile Include="modules\images\png\PngImageModule.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="modules\coff\SectionHeader.hpp" />
     <ClInclude Include="modules\coff\CoffSymbolTable.hpp" />
     <ClInclude Include="modules\DisplayFormatHelper.hpp" />
+    <ClInclude Include="modules\elf\ElfModule.hpp" />
     <ClInclude Include="modules\File.hpp" />
     <ClInclude Include="Helper.hpp" />
     <ClInclude Include="modules\IContentView.hpp" />
