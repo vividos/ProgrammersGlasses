@@ -3,7 +3,7 @@
 	Copyright (c) 2020 Michael Fink
 
 .SYNOPSIS
-	Writes a version number to the files version.hpp
+	Writes a version number to the file version.hpp
 #>
 
 param (
