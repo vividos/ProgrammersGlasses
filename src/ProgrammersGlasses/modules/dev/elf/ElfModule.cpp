@@ -38,5 +38,6 @@ bool ElfModule::IsModuleApplicableForFile(const File& file) const
 
 std::shared_ptr<IReader> ElfModule::OpenReader(const File& file) const
 {
+   (void)file;
    return nullptr;
 }
