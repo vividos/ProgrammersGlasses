@@ -43,6 +43,10 @@ void PortableExecutableReader::Load()
 
    rootNode->ChildNodes().push_back(pngHeaderNode);
 
+   // TODO add PE signature
+   // TODO add COFF file header
+   // TODO add optional header
+
    rootNode->SetText(summaryText);
 
    m_rootNode.reset(rootNode);
