@@ -8,9 +8,9 @@
 #include "stdafx.h"
 #include "ModuleManager.hpp"
 #include "IModule.hpp"
-#include "coff/CoffModule.hpp"
-#include "pe/PortableExecutableModule.hpp"
-#include "elf/ElfModule.hpp"
+#include "dev/coff/CoffModule.hpp"
+#include "dev/pe/PortableExecutableModule.hpp"
+#include "dev/elf/ElfModule.hpp"
 #include "images/png/PngImageModule.hpp"
 #include "audio/sid/SidAudioModule.hpp"
 

@@ -14,13 +14,13 @@
     <Filter Include="userinterface\res\Generated Files">
       <UniqueIdentifier>{4cbf98c2-ac65-4961-86a1-34507b54826c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="modules\coff">
+    <Filter Include="modules\dev\coff">
       <UniqueIdentifier>{38dc68c8-f3fc-4f06-ad96-c52274b0d444}</UniqueIdentifier>
     </Filter>
-    <Filter Include="modules\elf">
+    <Filter Include="modules\dev\elf">
       <UniqueIdentifier>{b58cbd8c-9697-4c95-b450-fbef684e763c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="modules\pe">
+    <Filter Include="modules\dev\pe">
       <UniqueIdentifier>{6cd47a13-dc7c-4c4a-8330-988f399faee1}</UniqueIdentifier>
     </Filter>
     <Filter Include="modules\images">
@@ -34,6 +34,9 @@
     </Filter>
     <Filter Include="modules\audio\sid">
       <UniqueIdentifier>{b9994aa6-5467-4203-8fed-e2b3d0893c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\dev">
+      <UniqueIdentifier>{99764e6c-b632-49bb-a342-96505770ded5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,17 +58,8 @@
       <Filter>modules</Filter>
     </ClCompile>
     <ClCompile Include="Helper.cpp" />
-    <ClCompile Include="modules\coff\CoffModule.cpp">
-      <Filter>modules\coff</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\coff\CoffReader.cpp">
-      <Filter>modules\coff</Filter>
-    </ClCompile>
     <ClCompile Include="userinterface\CodeTextView.cpp">
       <Filter>userinterface</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\elf\ElfModule.cpp">
-      <Filter>modules\elf</Filter>
     </ClCompile>
     <ClCompile Include="modules\DisplayFormatHelper.cpp">
       <Filter>modules</Filter>
@@ -82,9 +76,6 @@
     <ClCompile Include="modules\images\png\PngHeader.cpp">
       <Filter>modules\images\png</Filter>
     </ClCompile>
-    <ClCompile Include="modules\coff\CoffHeader.cpp">
-      <Filter>modules\coff</Filter>
-    </ClCompile>
     <ClCompile Include="modules\CodeTextViewNode.cpp">
       <Filter>modules</Filter>
     </ClCompile>
@@ -97,26 +88,38 @@
     <ClCompile Include="modules\audio\sid\SidFileReader.cpp">
       <Filter>modules\audio\sid</Filter>
     </ClCompile>
-    <ClCompile Include="modules\coff\SectionHeader.cpp">
-      <Filter>modules\coff</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\coff\ArchiveHeader.cpp">
-      <Filter>modules\coff</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\coff\CoffSymbolTable.cpp">
-      <Filter>modules\coff</Filter>
-    </ClCompile>
     <ClCompile Include="modules\images\png\PngImageReader.cpp">
       <Filter>modules\images\png</Filter>
     </ClCompile>
-    <ClCompile Include="modules\pe\PortableExecutableModule.cpp">
-      <Filter>modules\pe</Filter>
+    <ClCompile Include="modules\dev\coff\ArchiveHeader.cpp">
+      <Filter>modules\dev\coff</Filter>
     </ClCompile>
-    <ClCompile Include="modules\pe\PortableExecutableReader.cpp">
-      <Filter>modules\pe</Filter>
+    <ClCompile Include="modules\dev\coff\CoffHeader.cpp">
+      <Filter>modules\dev\coff</Filter>
     </ClCompile>
-    <ClCompile Include="modules\pe\DosMzHeader.cpp">
-      <Filter>modules\pe</Filter>
+    <ClCompile Include="modules\dev\coff\CoffModule.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\coff\CoffReader.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\coff\CoffSymbolTable.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\coff\SectionHeader.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\elf\ElfModule.cpp">
+      <Filter>modules\dev\elf</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\pe\DosMzHeader.cpp">
+      <Filter>modules\dev\pe</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\pe\PortableExecutableModule.cpp">
+      <Filter>modules\dev\pe</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\pe\PortableExecutableReader.cpp">
+      <Filter>modules\dev\pe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,29 +160,14 @@
     <ClInclude Include="modules\StaticNode.hpp">
       <Filter>modules</Filter>
     </ClInclude>
-    <ClInclude Include="modules\coff\CoffModule.hpp">
-      <Filter>modules\coff</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\coff\CoffReader.hpp">
-      <Filter>modules\coff</Filter>
-    </ClInclude>
     <ClInclude Include="modules\IContentView.hpp">
       <Filter>modules</Filter>
     </ClInclude>
     <ClInclude Include="userinterface\CodeTextView.hpp">
       <Filter>userinterface</Filter>
     </ClInclude>
-    <ClInclude Include="modules\coff\CoffHeader.hpp">
-      <Filter>modules\coff</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\elf\ElfModule.hpp">
-      <Filter>modules\elf</Filter>
-    </ClInclude>
     <ClInclude Include="modules\DisplayFormatHelper.hpp">
       <Filter>modules</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\coff\SectionHeader.hpp">
-      <Filter>modules\coff</Filter>
     </ClInclude>
     <ClInclude Include="modules\images\png\PngImageModule.hpp">
       <Filter>modules\images\png</Filter>
@@ -208,23 +196,38 @@
     <ClInclude Include="modules\audio\sid\SidFileReader.hpp">
       <Filter>modules\audio\sid</Filter>
     </ClInclude>
-    <ClInclude Include="modules\coff\ArchiveHeader.hpp">
-      <Filter>modules\coff</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\coff\CoffSymbolTable.hpp">
-      <Filter>modules\coff</Filter>
-    </ClInclude>
     <ClInclude Include="modules\images\png\PngImageReader.hpp">
       <Filter>modules\images\png</Filter>
     </ClInclude>
-    <ClInclude Include="modules\pe\PortableExecutableModule.hpp">
-      <Filter>modules\pe</Filter>
+    <ClInclude Include="modules\dev\coff\ArchiveHeader.hpp">
+      <Filter>modules\dev\coff</Filter>
     </ClInclude>
-    <ClInclude Include="modules\pe\PortableExecutableReader.hpp">
-      <Filter>modules\pe</Filter>
+    <ClInclude Include="modules\dev\coff\CoffHeader.hpp">
+      <Filter>modules\dev\coff</Filter>
     </ClInclude>
-    <ClInclude Include="modules\pe\DosMzHeader.hpp">
-      <Filter>modules\pe</Filter>
+    <ClInclude Include="modules\dev\coff\CoffModule.hpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\CoffReader.hpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\CoffSymbolTable.hpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\SectionHeader.hpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\elf\ElfModule.hpp">
+      <Filter>modules\dev\elf</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\pe\PortableExecutableReader.hpp">
+      <Filter>modules\dev\pe</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\pe\DosMzHeader.hpp">
+      <Filter>modules\dev\pe</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\pe\PortableExecutableModule.hpp">
+      <Filter>modules\dev\pe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
