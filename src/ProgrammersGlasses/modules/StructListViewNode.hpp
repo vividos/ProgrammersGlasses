@@ -19,7 +19,8 @@ class StructListViewNode : public StaticNode
 public:
    /// ctor
    StructListViewNode(const CString& displayName, NodeTreeIconID iconID,
-      const StructDefinition& structDefinition, LPCVOID basePointer);
+      const StructDefinition& structDefinition, LPCVOID structBasePointer,
+      LPCVOID fileBasePointer);
 
    // Inherited via INode
    virtual const std::vector<std::shared_ptr<INode>>& ChildNodes() const override
@@ -35,5 +36,8 @@ private:
    const StructDefinition& m_structDefinition;
 
    /// base pointer where structure is located in memory
-   LPCVOID m_basePointer;
+   LPCVOID m_structBasePointer;
+
+   /// file's base pointer in memory
+   LPCVOID m_fileBasePointer;
 };

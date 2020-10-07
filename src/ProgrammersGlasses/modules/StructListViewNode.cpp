@@ -10,14 +10,16 @@
 #include "userinterface/StructListView.hpp"
 
 StructListViewNode::StructListViewNode(const CString& displayName, NodeTreeIconID iconID,
-   const StructDefinition& structDefinition, LPCVOID basePointer)
+   const StructDefinition& structDefinition, LPCVOID structBasePointer,
+   LPCVOID fileBasePointer)
    :StaticNode(displayName, iconID),
    m_structDefinition(structDefinition),
-   m_basePointer(basePointer)
+   m_structBasePointer(structBasePointer),
+   m_fileBasePointer(fileBasePointer)
 {
 }
 
 std::shared_ptr<IContentView> StructListViewNode::GetContentView()
 {
-   return std::make_shared<StructListView>(m_structDefinition, m_basePointer);
+   return std::make_shared<StructListView>(m_structDefinition, m_structBasePointer, m_fileBasePointer);
 }

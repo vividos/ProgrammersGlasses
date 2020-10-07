@@ -37,7 +37,8 @@ void PngImageReader::Load()
       _T("PNG header"),
       NodeTreeIconID::nodeTreeIconTable,
       g_definitionPngFileHeader,
-      &fileHeader);
+      &fileHeader,
+      m_file.Data());
 
    rootNode->ChildNodes().push_back(pngHeaderNode);
 
@@ -53,7 +54,8 @@ void PngImageReader::Load()
          _T("PNG chunk: ") + chunkType,
          NodeTreeIconID::nodeTreeIconTable,
          g_definitionPngChunkHeader,
-         &chunkHeader);
+         &chunkHeader,
+         m_file.Data());
 
       rootNode->ChildNodes().push_back(pngChunkNode);
 
@@ -80,7 +82,8 @@ void PngImageReader::Load()
             _T("PNG image header"),
             NodeTreeIconID::nodeTreeIconItem,
             g_definitionPngImageHeader,
-            &imageHeader);
+            &imageHeader,
+            m_file.Data());
 
          rootNode->ChildNodes().push_back(pngImageHeaderNode);
       }

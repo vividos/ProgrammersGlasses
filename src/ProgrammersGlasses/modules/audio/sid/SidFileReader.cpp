@@ -41,7 +41,8 @@ void SidFileReader::Load()
       _T("SID file header"),
       NodeTreeIconID::nodeTreeIconDocument,
       structDefinition,
-      &header);
+      &header,
+      m_file.Data());
 
    rootNode->ChildNodes().push_back(sidFileHeaderNode);
 

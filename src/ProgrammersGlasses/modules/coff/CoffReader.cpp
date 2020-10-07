@@ -93,7 +93,8 @@ void CoffReader::LoadCoffObjectFile()
       _T("COFF header"),
       NodeTreeIconID::nodeTreeIconDocument,
       g_definitionCoffHeader,
-      &header);
+      &header,
+      m_file.Data());
 
    rootNode->ChildNodes().push_back(coffHeaderNode);
 
@@ -185,7 +186,8 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const Cof
          _T("Section header ") + sectionName,
          NodeTreeIconID::nodeTreeIconDocument,
          g_definitionSectionHeader,
-         sectionStart);
+         sectionStart,
+         m_file.Data());
 
       sectionSummaryNode.ChildNodes().push_back(sectionHeaderNode);
    }
@@ -238,7 +240,8 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode, const 
          _T("Symbol table entry ") + symbolName,
          NodeTreeIconID::nodeTreeIconDocument,
          g_definitionCoffSymbolTable,
-         symbolTableStart);
+         symbolTableStart,
+         m_file.Data());
 
       symbolTableSummaryNode.ChildNodes().push_back(symbolTableEntryNode);
 
@@ -270,7 +273,8 @@ void CoffReader::LoadArchiveLibraryFile()
       _T("Archive header"),
       NodeTreeIconID::nodeTreeIconDocument,
       g_definitionArchiveHeader,
-      &archiveHeader);
+      &archiveHeader,
+      m_file.Data());
 
    rootNode->ChildNodes().push_back(archiveHeaderNode);
 
@@ -287,7 +291,8 @@ void CoffReader::LoadArchiveLibraryFile()
          _T("Archive member"),
          NodeTreeIconID::nodeTreeIconDocument,
          g_definitionArchiveMemberHeader,
-         &archiveMemberHeader);
+         &archiveMemberHeader,
+         m_file.Data());
 
       rootNode->ChildNodes().push_back(archiveMemberNode);
 

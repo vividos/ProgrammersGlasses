@@ -38,7 +38,8 @@ void PortableExecutableReader::Load()
       _T("MZ header"),
       NodeTreeIconID::nodeTreeIconTable,
       g_definitionDosMzHeader,
-      &dosMzHeader);
+      &dosMzHeader,
+      m_file.Data());
 
    rootNode->ChildNodes().push_back(pngHeaderNode);
 

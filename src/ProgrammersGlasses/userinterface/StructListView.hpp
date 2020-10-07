@@ -28,9 +28,10 @@ class StructListView :
 
 public:
    /// ctor
-   StructListView(const StructDefinition& structDefinition, LPCVOID baseAddress)
+   StructListView(const StructDefinition& structDefinition, LPCVOID structBaseAddress, LPCVOID fileBaseAddress)
       :m_structDefinition(structDefinition),
-      m_baseAddress(baseAddress)
+      m_structBaseAddress(structBaseAddress),
+      m_fileBaseAddress(fileBaseAddress)
    {
    }
 
@@ -80,5 +81,8 @@ private:
    const StructDefinition& m_structDefinition;
 
    /// structure base address
-   LPCVOID m_baseAddress;
+   LPCVOID m_structBaseAddress;
+
+   /// file base address
+   LPCVOID m_fileBaseAddress;
 };

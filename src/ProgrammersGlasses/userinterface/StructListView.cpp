@@ -34,14 +34,15 @@ void StructListView::InitList()
    InsertColumn(2, _T("Value"), LVCFMT_LEFT, 200);
    InsertColumn(3, _T("Description"), LVCFMT_LEFT, 200);
 
-   const BYTE* base = reinterpret_cast<const BYTE*>(m_baseAddress);
+   const BYTE* fileBase = reinterpret_cast<const BYTE*>(m_fileBaseAddress);
+   const BYTE* structBase = reinterpret_cast<const BYTE*>(m_structBaseAddress);
 
    for (auto structField : m_structDefinition.FieldList())
    {
-      const BYTE* address = base + structField.m_offset;
+      const BYTE* address = structBase + structField.m_offset;
 
       CString addressText;
-      addressText.Format(_T("0x%08p"), address);
+      addressText.Format(_T("0x%08p"), address - fileBase);
 
       int itemIndex = InsertItem(GetItemCount(), addressText);
 
