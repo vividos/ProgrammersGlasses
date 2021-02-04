@@ -212,15 +212,16 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode, const 
 
    size_t maxSymbolTableEntries = header.numberOfSymbols;
 
+   const BYTE* symbolTableCurrent = symbolTableStart;
    for (size_t symbolTableEntry = 0; symbolTableEntry < maxSymbolTableEntries; symbolTableEntry++)
    {
-      if (!m_file.IsValidRange(symbolTableStart, sizeof(CoffSymbolTable)))
+      if (!m_file.IsValidRange(symbolTableCurrent, sizeof(CoffSymbolTable)))
       {
          summaryText.AppendFormat(_T("Warning: File ended while scanning the symbol table"));
          break;
       }
 
-      const CoffSymbolTable& symbolTable = *reinterpret_cast<const CoffSymbolTable*>(symbolTableStart);
+      const CoffSymbolTable& symbolTable = *reinterpret_cast<const CoffSymbolTable*>(symbolTableCurrent);
 
       CString symbolName;
       if (symbolTable.name[0] == 0 &&
@@ -240,13 +241,13 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode, const 
          _T("Symbol table entry ") + symbolName,
          NodeTreeIconID::nodeTreeIconDocument,
          g_definitionCoffSymbolTable,
-         symbolTableStart,
+         symbolTableCurrent,
          m_file.Data());
 
       symbolTableSummaryNode.ChildNodes().push_back(symbolTableEntryNode);
 
       // advance pointer
-      symbolTableStart += sizeof(CoffSymbolTable) + (symbolTable.numberOfAuxSymbols *sizeof(CoffSymbolTable));
+      symbolTableCurrent += sizeof(CoffSymbolTable) + (symbolTable.numberOfAuxSymbols *sizeof(CoffSymbolTable));
 
       // the number of symbols also includes the aux symbols, so also add these to the index
       symbolTableEntry += symbolTable.numberOfAuxSymbols;
