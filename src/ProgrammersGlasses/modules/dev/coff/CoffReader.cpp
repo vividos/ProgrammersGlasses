@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2021 Michael Fink
 //
 /// \file CoffReader.cpp
 /// \brief reader for COFF format files
@@ -176,11 +176,11 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const Cof
 
       CString sectionName{ sectionHeader.name, sizeof(sectionHeader.name) };
 
-      summaryText.AppendFormat(_T("Section %zu: %s at 0x%08x (size 0x%08x)\n"),
+      summaryText.AppendFormat(_T("Section %zu: %s at offset 0x%08x (size 0x%08x)\n"),
          sectionIndex + 1,
          sectionName.GetString(),
-         sectionHeader.virtualAddress,
-         sectionHeader.virtualSize);
+         sectionHeader.pointerToRawData,
+         sectionHeader.sizeOfRawData);
 
       auto sectionHeaderNode = std::make_shared<StructListViewNode>(
          _T("Section header ") + sectionName,
