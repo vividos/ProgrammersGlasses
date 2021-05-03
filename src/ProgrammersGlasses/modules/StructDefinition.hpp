@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2021 Michael Fink
 //
 /// \file StructDefinition.hpp
 /// \brief structure definition
@@ -117,6 +117,16 @@ public:
 
    /// Returns the field list
    const std::vector<StructField>& FieldList() const { return m_fieldList; }
+
+   /// Returns maximum offset of any field in the field list
+   size_t GetMaxStructFieldOffset() const
+   {
+      size_t maxOffset = 0;
+      for (const StructField& field : m_fieldList)
+         maxOffset = std::max(maxOffset, field.m_offset + field.m_length);
+
+      return maxOffset;
+   }
 
 private:
    /// Field list

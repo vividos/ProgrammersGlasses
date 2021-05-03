@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2021 Michael Fink
 //
 /// \file StructListView.cpp
 /// \brief list view showing data structure fields
@@ -29,20 +29,24 @@ void StructListView::InitList()
 
    SetFont(codeFont);
 
-   InsertColumn(0, _T("Offset"), LVCFMT_LEFT, 100);
+   const BYTE* fileBase = reinterpret_cast<const BYTE*>(m_fileBaseAddress);
+   const BYTE* structBase = reinterpret_cast<const BYTE*>(m_structBaseAddress);
+
+   size_t maxOffset = (structBase - fileBase) + m_structDefinition.GetMaxStructFieldOffset();
+   bool useShortOffset = maxOffset < 0xFFFFFFFF;
+
+   InsertColumn(0, _T("Offset"), LVCFMT_LEFT, useShortOffset ? 110 : 180);
    InsertColumn(1, _T("Raw data"), LVCFMT_LEFT, 200);
    InsertColumn(2, _T("Value"), LVCFMT_LEFT, 200);
    InsertColumn(3, _T("Description"), LVCFMT_LEFT, 200);
-
-   const BYTE* fileBase = reinterpret_cast<const BYTE*>(m_fileBaseAddress);
-   const BYTE* structBase = reinterpret_cast<const BYTE*>(m_structBaseAddress);
 
    for (auto structField : m_structDefinition.FieldList())
    {
       const BYTE* address = structBase + structField.m_offset;
 
       CString addressText;
-      addressText.Format(_T("0x%08p"), address - fileBase);
+      auto offset = address - fileBase;
+      addressText.Format(useShortOffset ? _T("0x%08x") : _T("0x%016x"), offset);
 
       int itemIndex = InsertItem(GetItemCount(), addressText);
 
