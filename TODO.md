@@ -11,9 +11,13 @@
 
 ### Media files
 
-- Implement PNG module
+- Implement more chunks for the PNG module
 - Implement MP4 module
 - Implement Ogg module
+
+### Other files
+
+- Support D64 image formats: *.d64, *.d71, *.d80, *.d81, *.d82, *.t64, *.prg, *.p00
 
 ## User Interface
 
