@@ -16,7 +16,7 @@ CodeTextView::CodeTextView(const CString& text)
 
 BOOL CodeTextView::PreTranslateMessage(MSG* msg)
 {
-   msg;
+   (void)msg;
    return FALSE;
 }
 
