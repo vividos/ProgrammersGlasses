@@ -171,6 +171,16 @@ LRESULT MainFrame::OnFileClose(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 
 void MainFrame::OpenFile(const CString& filename)
 {
+   if (!Path::FileExists(filename))
+   {
+      CString message{ _T("Couldn't open file: ") + filename };
+      AtlMessageBox(m_hWnd,
+         message.GetString(),
+         IDR_MAINFRAME,
+         MB_OK | MB_ICONEXCLAMATION);
+      return;
+   }
+
    if (!m_moduleManager.IsModuleAvailable(filename))
    {
       CString message{ _T("No suitable module found for file: ") + filename };
