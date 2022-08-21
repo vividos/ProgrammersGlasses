@@ -24,8 +24,8 @@ https://ci.appveyor.com/project/vividos/programmersglasses/build/artifacts
 
 [![Build status](https://ci.appveyor.com/api/projects/status/9v3mbipallo7bf29?svg=true)](https://ci.appveyor.com/project/vividos/programmersglasses)
 
-Please note that you need the Visual C++ 2019 redistributable installed, which
-should be the case when you have Visual Studio 2019 installed.
+Please note that you need the Visual C++ 2022 redistributable installed, which
+should be the case when you have Visual Studio 2022 installed.
 
 The project is occasionally checked with SonarCloud:
 
