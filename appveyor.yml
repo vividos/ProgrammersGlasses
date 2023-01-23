@@ -1,6 +1,6 @@
 #
 # Programmer's Glasses - a developer's file content viewer
-# Copyright (c) 2022 Michael Fink
+# Copyright (c) 2022-2023 Michael Fink
 #
 # AppVeyor build configuration file
 #
@@ -8,13 +8,21 @@ version: 0.1.0.{build}
 
 image: Visual Studio 2022
 
+cache:
+  - C:\Users\appveyor\AppData\Local\vcpkg\archives -> appveyor.yml
+  - C:\projects\programmersglasses\intermediate\vcpkg_installed -> appveyor.yml
+
 platform: x64
 
 configuration: Release
 
 before_build:
-- ps: src\Patch-BuildVersion.ps1 -version $env:appveyor_build_version
-- cmd: nuget restore src\ProgrammersGlasses.sln
+  - ps: src\Patch-BuildVersion.ps1 -version $env:appveyor_build_version
+  - cmd: nuget restore src\ProgrammersGlasses.sln
+  - cmd: |
+      cd "C:\Tools\vcpkg"
+      git pull > nul
+      call .\bootstrap-vcpkg.bat -disableMetrics
 
 build:
   project: src\ProgrammersGlasses.sln
