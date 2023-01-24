@@ -137,9 +137,6 @@ public:
    /// MDI command bar for tabbing
    CTabbedMDICommandBarCtrl m_commandBar;
 
-   /// tabbed MDI client window
-   CTabbedMDIClient<CDotNetTabCtrl<CTabViewTabItem>> m_tabbedClient;
-
    /// must recently used documents list
    CRibbonRecentItemsCtrl<ID_RIBBON_RECENT_FILES> m_mru;
 

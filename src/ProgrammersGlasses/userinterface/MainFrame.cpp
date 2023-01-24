@@ -43,15 +43,13 @@ BOOL MainFrame::OnIdle()
 LRESULT MainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
    m_commandBar.Create(m_hWnd, rcDefault, NULL, ATL_SIMPLE_CMDBAR_PANE_STYLE);
-   m_tabbedClient.UseMDIChildIcon(true);
 
    CreateSimpleStatusBar();
 
-   CreateMDIClient();
-
-   // subclass MDI client
+   // create MDI client
+   m_tabbedClient.UseMDIChildIcon(true);
    m_tabbedClient.SetTabOwnerParent(m_hWnd);
-   ATLVERIFY(TRUE == m_tabbedClient.SubclassWindow(m_hWndMDIClient));
+   CreateMDIClient();
 
    m_commandBar.SetMDIClient(m_hWndMDIClient);
 
