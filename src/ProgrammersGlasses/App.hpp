@@ -12,9 +12,13 @@ class App
 {
 public:
    /// ctor
-   App(HINSTANCE instance);
+   explicit App(HINSTANCE hInstance);
    /// dtor
    ~App() noexcept;
+   // copy ctor
+   App(const App&) = delete;
+   // copy assignment operator
+   App& operator=(const App&) = delete;
 
    /// parses command line
    void ParseCommandLine(LPCTSTR commandLine = nullptr);

@@ -25,7 +25,7 @@ App::App(HINSTANCE instance)
    ATLASSERT(SUCCEEDED(result));
 }
 
-App::~App()
+App::~App() noexcept
 {
    _Module.Term();
    ::CoUninitialize();
