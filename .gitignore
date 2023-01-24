@@ -360,3 +360,4 @@ src/ProgrammersGlasses/userinterface/res/Ribbon.rc
 .sonarqube/
 bw-output/
 /intermediate/vcpkg_installed/
+.sonar-cache/
