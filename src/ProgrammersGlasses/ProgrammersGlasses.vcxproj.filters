@@ -231,11 +231,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="userinterface\res\Ribbon.bml">
       <Filter>userinterface\res\Generated Files</Filter>
     </None>
     <None Include="vcpkg.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="userinterface\res\Ribbon.rc">
