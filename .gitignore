@@ -358,6 +358,6 @@ src/ProgrammersGlasses/userinterface/res/Ribbon.bml
 src/ProgrammersGlasses/userinterface/res/Ribbon.h
 src/ProgrammersGlasses/userinterface/res/Ribbon.rc
 .sonarqube/
-bw-output/
+.bw-output/
 /intermediate/vcpkg_installed/
 .sonar-cache/

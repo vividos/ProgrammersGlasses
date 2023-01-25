@@ -26,12 +26,13 @@ REM
 REM Build using SonarQube scanner for MSBuild
 REM
 rmdir .\.sonarqube /s /q 2> nul
-rmdir .\bw-output /s /q 2> nul
+rmdir .\.bw-output /s /q 2> nul
+mkdir .\.sonar-cache 2> nul
 
 SonarScanner.MSBuild.exe begin ^
     /k:"ProgrammersGlasses" ^
     /v:"0.1.0" ^
-    /d:"sonar.cfamily.build-wrapper-output=%CD%\bw-output" ^
+    /d:"sonar.cfamily.build-wrapper-output=%CD%\.bw-output" ^
     /d:"sonar.host.url=https://sonarcloud.io" ^
     /d:"sonar.cfamily.threads=4" ^
     /d:"sonar.cfamily.cache.enabled=true" ^
@@ -43,7 +44,9 @@ if errorlevel 1 goto end
 REM
 REM Rebuild Release|Win32
 REM
-build-wrapper-win-x86-64.exe --out-dir bw-output msbuild ProgrammersGlasses.sln /m /property:Configuration=Release,Platform=x64 /target:Rebuild
+build-wrapper-win-x86-64.exe ^
+   --out-dir .bw-output ^
+   msbuild ProgrammersGlasses.sln /m /property:Configuration=Release,Platform=x64 /target:Rebuild
 
 SonarScanner.MSBuild.exe end /d:"sonar.login=%SONARLOGIN%"
 
