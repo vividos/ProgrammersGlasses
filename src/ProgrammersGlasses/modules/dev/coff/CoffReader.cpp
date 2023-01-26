@@ -135,8 +135,8 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHead
    text.AppendFormat(_T("Symbol table offset: 0x%08x\n"), header.offsetSymbolTable);
    text.AppendFormat(_T("Symbol table length: %u\n"), header.numberOfSymbols);
    if (isImage &&
-      header.offsetSymbolTable != 0 ||
-      header.numberOfSymbols != 0)
+      (header.offsetSymbolTable != 0 ||
+      header.numberOfSymbols != 0))
       text.Append(_T("Warning: COFF symbol table for images is deprecated\n"));
 
    text.AppendFormat(_T("Optional header size: %u\n"), header.optionalHeaderSize);
