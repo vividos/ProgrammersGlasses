@@ -84,10 +84,19 @@ void CoffReader::Cleanup()
 
 void CoffReader::LoadCoffObjectFile()
 {
-   const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(m_file.Data());
-
    auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
-   AddCoffHeaderSummaryText(*rootNode, header, false);
+
+   AddCoffObjectFile(*rootNode, 0);
+
+   m_rootNode.reset(rootNode);
+}
+
+void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode, size_t fileOffset)
+{
+   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
+   const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(data);
+
+   AddCoffHeaderSummaryText(coffSummaryNode, header, false);
 
    auto coffHeaderNode = std::make_shared<StructListViewNode>(
       _T("COFF header"),
@@ -96,22 +105,20 @@ void CoffReader::LoadCoffObjectFile()
       &header,
       m_file.Data());
 
-   rootNode->ChildNodes().push_back(coffHeaderNode);
+   coffSummaryNode.ChildNodes().push_back(coffHeaderNode);
 
    auto sectionSummaryNode = std::make_shared<CodeTextViewNode>(_T("Section Table"), NodeTreeIconID::nodeTreeIconDocument);
-   AddSectionTable(*sectionSummaryNode, header);
-   rootNode->ChildNodes().push_back(sectionSummaryNode);
+   AddSectionTable(*sectionSummaryNode, header, fileOffset);
+   coffSummaryNode.ChildNodes().push_back(sectionSummaryNode);
 
    if (header.offsetSymbolTable != 0 &&
       header.numberOfSymbols != 0)
    {
       auto symbolTableNode = std::make_shared<CodeTextViewNode>(_T("Symbol Table"), NodeTreeIconID::nodeTreeIconDocument);
-      AddSymbolTable(*symbolTableNode, header);
+      AddSymbolTable(*symbolTableNode, header, fileOffset);
 
-      rootNode->ChildNodes().push_back(symbolTableNode);
+      coffSummaryNode.ChildNodes().push_back(symbolTableNode);
    }
-
-   m_rootNode.reset(rootNode);
 }
 
 void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header, bool isImage)
@@ -150,9 +157,10 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHead
    node.SetText(text);
 }
 
-void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const CoffHeader& header)
+void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
+   const CoffHeader& header, size_t fileOffset)
 {
-   LPCVOID data = m_file.Data();
+   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    if (sizeof(header) + header.optionalHeaderSize + sizeof(SectionHeader) >= m_file.Size())
    {
       sectionSummaryNode.SetText(_T("Error: section header offset is outside of the file size!"));
@@ -195,9 +203,10 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode, const Cof
    sectionSummaryNode.SetText(summaryText);
 }
 
-void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode, const CoffHeader& header)
+void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
+   const CoffHeader& header, size_t fileOffset)
 {
-   LPCVOID data = m_file.Data();
+   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    if (sizeof(header) + header.offsetSymbolTable + sizeof(CoffSymbolTable) >= m_file.Size())
    {
       symbolTableSummaryNode.SetText(_T("Error: COFF symbol table offset is outside of the file size!"));
