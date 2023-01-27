@@ -247,7 +247,7 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode, const 
       symbolTableSummaryNode.ChildNodes().push_back(symbolTableEntryNode);
 
       // advance pointer
-      symbolTableCurrent += sizeof(CoffSymbolTable) + (symbolTable.numberOfAuxSymbols *sizeof(CoffSymbolTable));
+      symbolTableCurrent += sizeof(CoffSymbolTable) + (symbolTable.numberOfAuxSymbols * sizeof(CoffSymbolTable));
 
       // the number of symbols also includes the aux symbols, so also add these to the index
       symbolTableEntry += symbolTable.numberOfAuxSymbols;
