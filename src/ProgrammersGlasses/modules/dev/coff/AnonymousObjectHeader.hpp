@@ -14,7 +14,6 @@
 /// \brief Anonymous object header
 /// \see https://www.geoffchappell.com/studies/msvc/link/dump/infiles/obj.htm
 /// The header corresponds with winnt.h's ANON_OBJECT_HEADER struct.
-/// The haeder is followed by TODO what.
 struct AnonymousObjectHeader
 {
    WORD signature1;        ///< must be IMAGE_FILE_MACHINE_UNKNOWN
