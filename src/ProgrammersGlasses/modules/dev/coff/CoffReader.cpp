@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2021 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file CoffReader.cpp
 /// \brief reader for COFF format files
@@ -9,6 +9,8 @@
 #include "CoffReader.hpp"
 #include "CodeTextViewNode.hpp"
 #include "CoffHeader.hpp"
+#include "ImportObjectHeader.hpp"
+#include "AnonymousObjectHeader.hpp"
 #include "ArchiveHeader.hpp"
 #include "SectionHeader.hpp"
 #include "CoffSymbolTable.hpp"
@@ -267,9 +269,59 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
 
 void CoffReader::LoadNonCoffObjectFile()
 {
-   // TODO implement
-   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+   auto rootNode = new CodeTextViewNode(
+      _T("Summary"),
+      NodeTreeIconID::nodeTreeIconObject);
+
+   AddNonCoffObjectFile(*rootNode, 0);
+
    m_rootNode.reset(rootNode);
+}
+
+void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode, size_t fileOffset)
+{
+   LPCVOID header = (const BYTE*)m_file.Data() + fileOffset;
+
+   // use the shorter IMPORT_OBJECT_HEADER to check the version field
+   const ImportObjectHeader& importObjectHeader =
+      *reinterpret_cast<const ImportObjectHeader*>(header);
+
+   if (importObjectHeader.version == 0)
+   {
+      // TODO add summary field
+      nonCoffSummaryNode.SetText(_T("Import object"));
+
+      auto importObjectHeaderNode = std::make_shared<StructListViewNode>(
+         _T("Import object header"),
+         NodeTreeIconID::nodeTreeIconBinary,
+         g_definitionImportObjectHeader,
+         header,
+         m_file.Data());
+
+      nonCoffSummaryNode.ChildNodes().push_back(importObjectHeaderNode);
+   }
+   else if (importObjectHeader.version == 1)
+   {
+      // TODO add summary field
+      nonCoffSummaryNode.SetText(_T("Anonymous object"));
+
+      auto anonymousObjectHeaderNode = std::make_shared<StructListViewNode>(
+         _T("Anonymous object header"),
+         NodeTreeIconID::nodeTreeIconBinary,
+         g_definitionAnonymousObjectHeader,
+         header,
+         m_file.Data());
+
+      nonCoffSummaryNode.ChildNodes().push_back(anonymousObjectHeaderNode);
+   }
+   else
+   {
+      nonCoffSummaryNode.SetText(_T("Invalid non-COFF object header"));
+
+      // code flow shouldn't arrive here, since IsNonCoffOrAnonymousObjectFile()
+      // explicitly checked for the version field.
+      ATLASSERT(false);
+   }
 }
 
 void CoffReader::LoadArchiveLibraryFile()
