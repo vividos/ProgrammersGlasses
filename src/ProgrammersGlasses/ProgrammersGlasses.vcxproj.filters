@@ -121,6 +121,12 @@
     <ClCompile Include="modules\dev\pe\PortableExecutableReader.cpp">
       <Filter>modules\dev\pe</Filter>
     </ClCompile>
+    <ClCompile Include="modules\dev\coff\ImportObjectHeader.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\dev\coff\AnonymousObjectHeader.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -228,6 +234,12 @@
     </ClInclude>
     <ClInclude Include="modules\dev\pe\PortableExecutableModule.hpp">
       <Filter>modules\dev\pe</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\ImportObjectHeader.hpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\AnonymousObjectHeader.hpp">
+      <Filter>modules\dev\coff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
