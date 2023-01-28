@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file CoffHeader.hpp
 /// \brief header definition of COFF files
@@ -32,7 +32,11 @@ struct CoffHeader
 
 #pragma pack(pop)
 
-static_assert(sizeof(CoffHeader) == 20, "COFF header must be 20 bytes long");
+static_assert(sizeof(CoffHeader) == 20,
+   "COFF header must be 20 bytes long");
+
+static_assert(sizeof(CoffHeader) == sizeof(IMAGE_FILE_HEADER),
+   "COFF header must have same size as IMAGE_FILE_HEADER");
 
 /// mapping of COFF target machine to display text
 extern std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText;
