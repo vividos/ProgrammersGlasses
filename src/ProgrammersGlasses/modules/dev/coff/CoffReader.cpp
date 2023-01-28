@@ -333,42 +333,82 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode, size
 
 void CoffReader::LoadArchiveLibraryFile()
 {
-   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+   auto rootNode = new CodeTextViewNode(_T("Library Summary"), NodeTreeIconID::nodeTreeIconLibrary);
 
    const ArchiveHeader& archiveHeader =
       *reinterpret_cast<const ArchiveHeader*>(m_file.Data());
 
    auto archiveHeaderNode = std::make_shared<StructListViewNode>(
       _T("Archive header"),
-      NodeTreeIconID::nodeTreeIconDocument,
+      NodeTreeIconID::nodeTreeIconBinary,
       g_definitionArchiveHeader,
       &archiveHeader,
       m_file.Data());
 
    rootNode->ChildNodes().push_back(archiveHeaderNode);
 
-   // TODO implement loading archive content
    size_t archiveMemberOffset = sizeof(ArchiveHeader);
 
-   for (; archiveMemberOffset < m_file.Size();)
+   for (size_t archiveMemberIndex = 0; archiveMemberOffset < m_file.Size(); archiveMemberIndex++)
    {
       const ArchiveMemberHeader& archiveMemberHeader =
          *reinterpret_cast<const ArchiveMemberHeader*>(
             (const BYTE*)m_file.Data() + archiveMemberOffset);
 
-      auto archiveMemberNode = std::make_shared<StructListViewNode>(
-         _T("Archive member"),
-         NodeTreeIconID::nodeTreeIconDocument,
+      CString archiveMemberName{ archiveMemberHeader.name, sizeof(archiveMemberHeader.name) };
+      auto archiveMemberNode = std::make_shared<CodeTextViewNode>(
+         _T("Archive member: ") + archiveMemberName,
+         NodeTreeIconID::nodeTreeIconDocument);
+
+      // TODO add code text
+      rootNode->ChildNodes().push_back(archiveMemberNode);
+
+      auto archiveMemberHeaderNode = std::make_shared<StructListViewNode>(
+         _T("Archive member header"),
+         NodeTreeIconID::nodeTreeIconBinary,
          g_definitionArchiveMemberHeader,
          &archiveMemberHeader,
          m_file.Data());
 
-      rootNode->ChildNodes().push_back(archiveMemberNode);
+      archiveMemberNode->ChildNodes().push_back(archiveMemberHeaderNode);
 
       if (archiveMemberHeader.endOfHeader[0] != 0x60 &&
          archiveMemberHeader.endOfHeader[1] != 0x0a)
          break;
 
+      // add COFF object / anonymous object
+      size_t archiveMemberStart = archiveMemberOffset + sizeof(ArchiveMemberHeader);
+
+      // note: the first two are the linker members
+      if (archiveMemberIndex >= 2)
+      {
+         if (IsNonCoffOrAnonymousObjectFile(m_file, archiveMemberStart))
+         {
+            auto nonCoffSummaryNode = std::make_shared<CodeTextViewNode>(
+               _T("non-COFF Summary"),
+               NodeTreeIconID::nodeTreeIconDocument);
+
+            AddNonCoffObjectFile(
+               *nonCoffSummaryNode,
+               archiveMemberStart);
+
+            archiveMemberNode->ChildNodes().push_back(nonCoffSummaryNode);
+         }
+         else
+         {
+            auto coffSummaryNode = std::make_shared<CodeTextViewNode>(
+               _T("COFF Summary"),
+               NodeTreeIconID::nodeTreeIconDocument);
+
+            AddCoffObjectFile(
+               *coffSummaryNode,
+               archiveMemberStart);
+
+            archiveMemberNode->ChildNodes().push_back(coffSummaryNode);
+         }
+      }
+
+      // advance to next header
       CString sizeText{ archiveMemberHeader.sizeText, sizeof(archiveMemberHeader.sizeText) };
       size_t archiveMemberSize = _ttol(sizeText);
 
