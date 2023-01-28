@@ -183,6 +183,12 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
          header.optionalHeaderSize +
          sizeof(SectionHeader) * sectionIndex;
 
+      if (!m_file.IsValidRange(sectionStart, sizeof(SectionHeader)))
+      {
+         summaryText.AppendFormat(_T("Error: Section header #%zu is outside of the file size!"), sectionIndex);
+         break;
+      }
+
       const SectionHeader& sectionHeader = *reinterpret_cast<const SectionHeader*>(sectionStart);
 
       CString sectionName{ sectionHeader.name, sizeof(sectionHeader.name) };
