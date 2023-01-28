@@ -12,7 +12,7 @@
 #pragma pack(push, 1)
 
 /// COFF file section header
-/// \see https://docs.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers
+/// \see https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers
 struct SectionHeader
 {
    /// section name, or when starting with '/' char, string decimal value of offset into string

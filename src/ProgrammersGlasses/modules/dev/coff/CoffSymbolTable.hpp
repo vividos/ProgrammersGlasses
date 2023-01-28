@@ -11,7 +11,7 @@
 
 #pragma pack(push, 1)
 
-/// \see https://docs.microsoft.com/en-us/windows/win32/debug/pe-format#coff-symbol-table
+/// \see https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#coff-symbol-table
 struct CoffSymbolTable
 {
    /// symbol name
