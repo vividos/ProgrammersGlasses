@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file StructListView.hpp
 /// \brief list view showing data structure fields
@@ -76,6 +76,8 @@ private:
    /// formats struct field value
    static CString FormatValue(StructField& field, const BYTE* rawData);
 
+   /// formats a bitfield struct field
+   static CString FormatBitfieldValue(StructField& field, const BYTE* rawData);
 private:
    /// structure definition
    const StructDefinition& m_structDefinition;

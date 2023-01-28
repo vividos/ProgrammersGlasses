@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2021 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file StructDefinition.hpp
 /// \brief structure definition
@@ -19,7 +19,47 @@ enum class StructFieldType
    text,             ///< text, with fixed length (allowed are 1 and 2 byte values), possibly not null terminated
    flagsMapping,     ///< flags value, with custom mapping
    valueMapping,     ///< value, with custom mapping
+   bitfieldMapping,  ///< bitfield values, with custom mapping
    custom,           ///< custom field that has its own formatter
+};
+
+/// describes a single bitfield value
+struct BitfieldDescriptor
+{
+   size_t m_startBit;         ///< start bit number, 0-based
+   size_t m_bitCount;         ///< number of bits
+   StructFieldType m_type;    ///< bit field type
+
+   /// flags or value mapping; used when type is StructFieldType::flagsMapping or valueMapping
+   std::optional<std::reference_wrapper<const std::map<DWORD, LPCTSTR>>> m_flagsOrValueMapping;
+
+   /// ctor; initializes field as unsigned integer
+   BitfieldDescriptor(
+      size_t startBit,
+      size_t bitCount,
+      StructFieldType type = StructFieldType::unsignedInteger)
+      :m_startBit(startBit),
+      m_bitCount(bitCount),
+      m_type(type)
+   {
+      ATLASSERT(type == StructFieldType::unsignedInteger);
+   }
+
+   /// ctor; initializes bitfield value with flags or value mapping
+   BitfieldDescriptor(
+      size_t startBit,
+      size_t bitCount,
+      StructFieldType type,
+      const std::map<DWORD, LPCTSTR>& flagsOrValueMapping)
+      :m_startBit(startBit),
+      m_bitCount(bitCount),
+      m_type(type),
+      m_flagsOrValueMapping(flagsOrValueMapping)
+   {
+      ATLASSERT(
+         type == StructFieldType::flagsMapping ||
+         type == StructFieldType::valueMapping);
+   }
 };
 
 /// describes a single structure field
@@ -37,10 +77,14 @@ struct StructField
    /// flags or value mapping; used when type is StructFieldType::flagsMapping or valueMapping
    std::optional<std::reference_wrapper<const std::map<DWORD, LPCTSTR>>> m_valueMapping;
 
+   /// bitfield mapping; used when type is StructFieldType::bitfieldMapping
+   std::optional<std::reference_wrapper<const std::vector<BitfieldDescriptor>>> m_bitfieldMapping;
+
    LPCTSTR m_description;    ///< field description text
 
    /// ctor; initializes field without formatter
-   StructField(size_t offset, size_t length, size_t valueSize, bool littleEndian, StructFieldType type, LPCTSTR description = nullptr)
+   StructField(size_t offset, size_t length, size_t valueSize,
+      bool littleEndian, StructFieldType type, LPCTSTR description = nullptr)
       :m_offset(offset),
       m_length(length),
       m_valueSize(valueSize),
@@ -82,6 +126,24 @@ struct StructField
    {
       ATLASSERT(type == StructFieldType::flagsMapping ||
          type == StructFieldType::valueMapping); // can only specify flagsMapping or valueMapping
+   }
+
+   /// ctor; initializes field with bitfield mapping
+   StructField(size_t offset, size_t length, size_t valueSize,
+      bool littleEndian,
+      StructFieldType type,
+      const std::vector<BitfieldDescriptor>& bitfieldMapping,
+      LPCTSTR description = nullptr)
+      :m_offset(offset),
+      m_length(length),
+      m_valueSize(valueSize),
+      m_littleEndian(littleEndian),
+      m_type(type),
+      m_bitfieldMapping(std::make_optional(std::cref(bitfieldMapping))),
+      m_description(description)
+   {
+      // can only specify bitfieldMapping
+      ATLASSERT(type == StructFieldType::bitfieldMapping);
    }
 };
 

@@ -44,3 +44,14 @@ inline DWORD SwapEndianness(DWORD value)
       ((value & 0x0000ff00) << 8) |
       ((value & 0x000000ff) << 24);
 }
+
+/// returns bitfield bits from given value
+template <typename T>
+inline T GetBits(T value, size_t start, size_t count)
+{
+   ATLASSERT(
+      start < sizeof(T) * 8 &&
+      start + count <= sizeof(T) * 8);
+
+   return (value >> start) & ((1UL << count) - 1);
+}

@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2021 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file StructListView.cpp
 /// \brief list view showing data structure fields
@@ -113,6 +113,12 @@ CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
       }
       break;
 
+   case StructFieldType::bitfieldMapping:
+      // bitfield mapping must have been set
+      ATLASSERT(field.m_bitfieldMapping.has_value());
+      text = FormatBitfieldValue(field, rawData);
+      break;
+
    case StructFieldType::custom:
       ATLASSERT(field.m_formatter != nullptr); // field formatter must have been set
       text = field.m_formatter(rawData, field.m_length);
@@ -122,6 +128,60 @@ CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
       ATLASSERT(false); // invalid field type
       text = _T("invalid struct field type");
       break;
+   }
+
+   return text;
+}
+
+CString StructListView::FormatBitfieldValue(StructField& field, const BYTE* rawData)
+{
+   DWORD value = GetBufferValueWithEndianness(
+      rawData,
+      field.m_length,
+      field.m_littleEndian);
+
+   CString text;
+   for (const auto& bitfieldDescriptor : field.m_bitfieldMapping.value().get())
+   {
+      if (!text.IsEmpty())
+      {
+         text += ", ";
+      }
+
+      DWORD bitValue = GetBits(value,
+         bitfieldDescriptor.m_startBit,
+         bitfieldDescriptor.m_bitCount);
+
+      text.AppendFormat(_T("bits %zu..%zu: "),
+         bitfieldDescriptor.m_startBit,
+         bitfieldDescriptor.m_startBit + bitfieldDescriptor.m_bitCount - 1);
+
+      if (bitfieldDescriptor.m_type == StructFieldType::flagsMapping)
+      {
+         text += DisplayFormatHelper::FormatBitFlagsFromMap(
+            bitfieldDescriptor.m_flagsOrValueMapping.value(),
+            bitValue);
+      }
+      else if (bitfieldDescriptor.m_type == StructFieldType::valueMapping)
+      {
+         text += GetValueFromMapOrDefault<DWORD>(
+            bitfieldDescriptor.m_flagsOrValueMapping.value(),
+            bitValue,
+            _T("unknown"));
+      }
+      else
+      {
+         if (bitValue == 0)
+            text += _T("0x0");
+         else
+         {
+            CString unsignedValueText;
+            unsignedValueText.Format(_T("%08x"), bitValue);
+            unsignedValueText.TrimLeft(_T('0'));
+
+            text += _T("0x") + unsignedValueText;
+         }
+      }
    }
 
    return text;
