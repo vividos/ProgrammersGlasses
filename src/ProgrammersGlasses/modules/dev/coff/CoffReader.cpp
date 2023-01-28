@@ -35,13 +35,14 @@ bool CoffReader::IsCoffObjectFile(const File& file)
    return true;
 }
 
-bool CoffReader::IsNonCoffOrAnonymousObjectFile(const File& file)
+bool CoffReader::IsNonCoffOrAnonymousObjectFile(const File& file, size_t fileOffset)
 {
-   if (file.Size() < sizeof(IMPORT_OBJECT_HEADER))
+   if (file.Size() < fileOffset + sizeof(IMPORT_OBJECT_HEADER))
       return false;
 
    const IMPORT_OBJECT_HEADER& header =
-      *reinterpret_cast<const IMPORT_OBJECT_HEADER*>(file.Data());
+      *reinterpret_cast<const IMPORT_OBJECT_HEADER*>(
+         (const BYTE*)file.Data() + fileOffset);
 
    return
       header.Sig1 == IMAGE_FILE_MACHINE_UNKNOWN &&
@@ -71,7 +72,7 @@ void CoffReader::Load()
 {
    if (IsCoffObjectFile(m_file))
       LoadCoffObjectFile();
-   else if (IsNonCoffOrAnonymousObjectFile(m_file))
+   else if (IsNonCoffOrAnonymousObjectFile(m_file, 0))
       LoadNonCoffObjectFile();
    else if (IsArLibraryFile(m_file))
       LoadArchiveLibraryFile();

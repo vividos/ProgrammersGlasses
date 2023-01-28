@@ -27,7 +27,7 @@ CString CoffModule::FilterStrings() const
 bool CoffModule::IsModuleApplicableForFile(const File& file) const
 {
    return CoffReader::IsCoffObjectFile(file) ||
-      CoffReader::IsNonCoffOrAnonymousObjectFile(file) ||
+      CoffReader::IsNonCoffOrAnonymousObjectFile(file, 0) ||
       CoffReader::IsArLibraryFile(file);
 }
 

@@ -20,7 +20,7 @@ public:
    static bool IsCoffObjectFile(const File& file);
 
    /// checks file if it a non-COFF or anonymous object file
-   static bool IsNonCoffOrAnonymousObjectFile(const File& file);
+   static bool IsNonCoffOrAnonymousObjectFile(const File& file, size_t fileOffset);
 
    /// checks file if it an "ar" archive library file
    static bool IsArLibraryFile(const File& file);
