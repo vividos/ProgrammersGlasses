@@ -98,3 +98,20 @@ CString DisplayFormatHelper::FormatRawData(const BYTE* rawData, size_t length, s
 
    return text;
 }
+
+CString DisplayFormatHelper::FormatGUID(const BYTE* rawData, size_t length)
+{
+   if (length != sizeof(GUID))
+      return _T("Invalid GUID data length");
+
+   const GUID* guid = reinterpret_cast<const GUID*>(rawData);
+
+   OLECHAR* guidString = nullptr;
+   ATLVERIFY(S_OK == ::StringFromCLSID(*guid, &guidString));
+
+   CString text{ guidString };
+
+   ::CoTaskMemFree(guidString);
+
+   return text;
+}

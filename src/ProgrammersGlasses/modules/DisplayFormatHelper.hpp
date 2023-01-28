@@ -21,4 +21,7 @@ public:
 
    /// formats raw data as hex values
    static CString FormatRawData(const BYTE* rawData, size_t length, size_t valueSize, bool littleEndian);
+
+   /// formats GUID as human-readable text
+   static CString FormatGUID(const BYTE* rawData, size_t length);
 };
