@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file CoffSymbolTable.cpp
 /// \brief COFF symbol table definition
@@ -29,9 +29,8 @@ std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableBaseTypeToDisplayText =
    { 15, _T("IMAGE_SYM_TYPE_DWORD (4-byte unsigned int)") },
 
    // note that Microsoft COFF symbol table only ever uses 0x00 and 0x20 for
-   // the type field, so additionally define this value here instead of using
-   // a bit field value (for now).
-   { 0x20, _T("IMAGE_SYM_DTYPE_POINTER") }
+   // the type field, so additionally define this value here.
+   { 0x20, _T("MSVC: function") }
 };
 
 /// COFF symbol table complex type to display text mapping (for completeness)
@@ -41,6 +40,13 @@ std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableComplexTypeToDisplayText =
    { 1, _T("IMAGE_SYM_DTYPE_POINTER") },
    { 2, _T("IMAGE_SYM_DTYPE_FUNCTION") },
    { 3, _T("IMAGE_SYM_DTYPE_ARRAY") },
+};
+
+/// COFF symbol table type bitfield
+std::vector<BitfieldDescriptor> g_listCoffSymbolTableTypeBits =
+{
+   BitfieldDescriptor{ 0, 8, StructFieldType::valueMapping, g_mapCoffSymbolTableBaseTypeToDisplayText },
+   BitfieldDescriptor{ 8, 8, StructFieldType::valueMapping, g_mapCoffSymbolTableComplexTypeToDisplayText },
 };
 
 /// COFF symbol table storage class to display text mapping
@@ -86,8 +92,8 @@ StructDefinition g_definitionCoffSymbolTable = StructDefinition({
       sizeof(CoffSymbolTable::type),
       1,
       true, // little-endian
-      StructFieldType::valueMapping, // TODO rather bit-field
-      g_mapCoffSymbolTableBaseTypeToDisplayText,
+      StructFieldType::bitfieldMapping,
+      g_listCoffSymbolTableTypeBits,
       _T("Symbol type")),
 
    StructField(
