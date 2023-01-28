@@ -26,8 +26,8 @@ ModuleManager::ModuleManager()
 CString ModuleManager::GetAllFilterStrings() const
 {
    CString filter;
-   for (const auto& module : m_moduleList)
-      filter.Append(module->FilterStrings());
+   for (const auto& theModule : m_moduleList)
+      filter.Append(theModule->FilterStrings());
 
    return filter;
 }
@@ -36,8 +36,8 @@ bool ModuleManager::IsModuleAvailable(const CString& filename) const
 {
    CString extension = Path::ExtensionOnly(filename);
 
-   for (auto module : m_moduleList)
-      if (IsMatchingModule(*module, extension))
+   for (auto theModule : m_moduleList)
+      if (IsMatchingModule(*theModule, extension))
          return true;
 
    return false;
@@ -47,20 +47,20 @@ std::shared_ptr<IReader> ModuleManager::LoadFile(const CString& filename) const
 {
    CString extension = Path::ExtensionOnly(filename);
 
-   for (auto module : m_moduleList)
-      if (IsMatchingModule(*module, extension))
+   for (auto theModule : m_moduleList)
+      if (IsMatchingModule(*theModule, extension))
       {
          File file{ filename };
-         if (module->IsModuleApplicableForFile(file))
-            return module->OpenReader(file);
+         if (theModule->IsModuleApplicableForFile(file))
+            return theModule->OpenReader(file);
       }
 
    return nullptr;
 }
 
-bool ModuleManager::IsMatchingModule(const IModule& module, const CString& extension)
+bool ModuleManager::IsMatchingModule(const IModule& theModule, const CString& extension)
 {
-   CString filterStrings = module.FilterStrings();
+   CString filterStrings = theModule.FilterStrings();
 
    std::vector<CString> filterStringsList = StringSplit(filterStrings, _T("|"), true);
 

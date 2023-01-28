@@ -38,7 +38,7 @@ public:
 
 private:
    /// checks if the given module matches the file extension
-   static bool IsMatchingModule(const IModule& module, const CString& extension);
+   static bool IsMatchingModule(const IModule& theModule, const CString& extension);
 
    /// list of all available modules
    std::vector<std::shared_ptr<IModule>> m_moduleList;
