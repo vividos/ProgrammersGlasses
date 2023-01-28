@@ -128,7 +128,14 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHead
 {
    CString text;
 
-   text.Append(_T("COFF file: ") + m_file.Filename() + _T("\n\n"));
+   size_t fileOffset = (const BYTE*)&header - (const BYTE*)m_file.Data();
+
+   text.Append(_T("COFF file: ") + m_file.Filename());
+
+   if (fileOffset > 0)
+      text.AppendFormat(_T(" at offset 0x%08x"), fileOffset);
+
+   text.Append(_T("\n\n"));
    text.Append(_T("COFF Header\n"));
 
    text.AppendFormat(_T("Target machine: %s (0x%04x)\n"),
