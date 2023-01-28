@@ -24,7 +24,7 @@ public:
    void ParseCommandLine(LPCTSTR commandLine = nullptr);
 
    /// runs the application
-   int Run(int commandShow = SW_SHOWDEFAULT);
+   int Run(int commandShow = SW_SHOWDEFAULT) const;
 
 private:
    /// list of filenames to open at startup

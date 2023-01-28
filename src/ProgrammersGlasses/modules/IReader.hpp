@@ -19,7 +19,7 @@ class IReader
 {
 public:
    /// dtor
-   virtual ~IReader() noexcept {}
+   virtual ~IReader() = default;
 
    /// Returns the filename of the file to be read
    virtual const CString& Filename() const = 0;

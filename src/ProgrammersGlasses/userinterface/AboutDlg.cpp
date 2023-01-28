@@ -55,12 +55,12 @@ void AboutDlg::InitModulesList()
    m_listModules.SetImageList(imageList, LVSIL_SMALL);
 
    ModuleManager manager;
-   for (auto module : manager.GetModuleList())
+   for (auto theModule : manager.GetModuleList())
    {
-      int imageIndex = (UINT)module->IconID() - firstModuleBitmap;
+      int imageIndex = (UINT)theModule->IconID() - firstModuleBitmap;
 
       m_listModules.InsertItem(m_listModules.GetItemCount(),
-         module->DisplayName(),
+         theModule->DisplayName(),
          imageIndex);
    }
 

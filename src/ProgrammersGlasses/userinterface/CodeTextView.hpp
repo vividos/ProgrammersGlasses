@@ -26,10 +26,10 @@ public:
    /// ctor; takes text to display
    CodeTextView(const CString& text);
 
-   DECLARE_WND_SUPERCLASS(NULL, CEdit::GetWndClassName())
+   DECLARE_WND_SUPERCLASS(nullptr, CEdit::GetWndClassName())
 
    /// called before messages are translated
-   BOOL PreTranslateMessage(MSG* msg);
+   BOOL PreTranslateMessage(MSG* msg) const;
 
    // Inherited via IContentView
    virtual HWND CreateView(HWND parent) override
@@ -55,9 +55,9 @@ private:
    END_MSG_MAP()
 
    // Handler prototypes (uncomment arguments if needed):
-   // LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
-   // LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
-   // LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
+   // LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+   // LRESULT CommandHandler(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+   // LRESULT NotifyHandler(int idCtrl, LPNMHDR pnmh, BOOL& bHandled)
 
    /// called when the window is about to be created
    LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);

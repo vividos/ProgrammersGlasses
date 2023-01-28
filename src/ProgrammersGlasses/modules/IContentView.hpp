@@ -14,7 +14,7 @@ class IContentView
 {
 public:
    /// dtor
-   virtual ~IContentView() noexcept {}
+   virtual ~IContentView() = default;
 
    /// creates the content view
    virtual HWND CreateView(HWND parent) = 0;

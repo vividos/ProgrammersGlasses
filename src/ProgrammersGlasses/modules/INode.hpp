@@ -29,7 +29,7 @@ class INode
 {
 public:
    /// dtor
-   virtual ~INode() noexcept {}
+   virtual ~INode() = default;
 
    /// returns a display name for the node
    virtual const CString& DisplayName() const = 0;

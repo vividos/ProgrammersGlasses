@@ -38,7 +38,7 @@ public:
    {
    }
 
-   DECLARE_FRAME_WND_CLASS(NULL, IDR_MAINFRAME)
+   DECLARE_FRAME_WND_CLASS(nullptr, IDR_MAINFRAME)
 
    BEGIN_RIBBON_CONTROL_MAP(MainFrame)
       RIBBON_CONTROL(m_mru)
@@ -75,9 +75,9 @@ private:
    virtual BOOL OnIdle();
 
    // Handler prototypes (uncomment arguments if needed):
-   // LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled)
+   // LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
    // LRESULT CommandHandler(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
-   // LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& bHandled)
+   // LRESULT NotifyHandler(int idCtrl, LPNMHDR pnmh, BOOL& bHandled)
 
    /// called when the window is about to be created
    LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -92,7 +92,7 @@ private:
    LRESULT OnDropFiles(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
    /// called when the about command is clicked
-   LRESULT OnAppAbout(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+   LRESULT OnAppAbout(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled) const;
 
    /// called when the exit command is clicked
    LRESULT OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);

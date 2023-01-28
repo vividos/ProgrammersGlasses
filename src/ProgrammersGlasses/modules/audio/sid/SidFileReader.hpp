@@ -44,7 +44,8 @@ public:
 
 private:
    /// adds summary text from header to node
-   void AddSummaryText(const SidFileHeader& header, std::shared_ptr<CodeTextViewNode> summaryNode);
+   void AddSummaryText(const SidFileHeader& header,
+      std::shared_ptr<CodeTextViewNode> summaryNode) const;
 
    /// the SID file
    File m_file;

@@ -28,7 +28,7 @@ class IModule
 {
 public:
    /// dtor
-   virtual ~IModule() noexcept {}
+   virtual ~IModule() = default;
 
    /// Returns a displayable name for the module
    virtual CString DisplayName() const = 0;

@@ -14,7 +14,7 @@ CodeTextView::CodeTextView(const CString& text)
    m_text.Replace(_T("\n"), _T("\r\n"));
 }
 
-BOOL CodeTextView::PreTranslateMessage(MSG* msg)
+BOOL CodeTextView::PreTranslateMessage(MSG* msg) const
 {
    (void)msg;
    return FALSE;

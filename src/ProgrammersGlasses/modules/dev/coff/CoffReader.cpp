@@ -124,7 +124,8 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode, size_t fil
    }
 }
 
-void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header, bool isImage)
+void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node,
+   const CoffHeader& header, bool isImage) const
 {
    CString text;
 
@@ -168,7 +169,7 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHead
 }
 
 void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
-   const CoffHeader& header, size_t fileOffset)
+   const CoffHeader& header, size_t fileOffset) const
 {
    LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    if (sizeof(header) + header.optionalHeaderSize + sizeof(SectionHeader) >= m_file.Size())
@@ -220,7 +221,7 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
 }
 
 void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
-   const CoffHeader& header, size_t fileOffset)
+   const CoffHeader& header, size_t fileOffset) const
 {
    LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    if (sizeof(header) + header.offsetSymbolTable + sizeof(CoffSymbolTable) >= m_file.Size())
@@ -292,7 +293,8 @@ void CoffReader::LoadNonCoffObjectFile()
    m_rootNode.reset(rootNode);
 }
 
-void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode, size_t fileOffset)
+void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
+   size_t fileOffset) const
 {
    LPCVOID header = (const BYTE*)m_file.Data() + fileOffset;
 

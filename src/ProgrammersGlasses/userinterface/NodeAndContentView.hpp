@@ -25,7 +25,7 @@ public:
    }
 
    /// called when the view is about to be destroyed
-   DECLARE_FRAME_WND_CLASS(NULL, IDR_MAINFRAME)
+   DECLARE_FRAME_WND_CLASS(nullptr, IDR_MAINFRAME)
 
 private:
    BEGIN_MSG_MAP(NodeAndContentView)
@@ -36,15 +36,15 @@ private:
    END_MSG_MAP()
 
    // Handler prototypes (uncomment arguments if needed):
-   // LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
-   // LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
-   // LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
+   // LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+   // LRESULT CommandHandler(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+   // LRESULT NotifyHandler(int idCtrl, LPNMHDR pnmh, BOOL& bHandled)
 
    /// called when the view is created
-   LRESULT OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+   LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
    /// called when the view is destroyed
-   LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+   LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
    /// called after receiving the final message
    virtual void OnFinalMessage(HWND hWnd);

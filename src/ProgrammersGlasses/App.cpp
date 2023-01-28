@@ -43,11 +43,11 @@ void App::ParseCommandLine(LPCTSTR commandLine)
       m_filenamesList.push_back(filename);
 }
 
-int App::Run(int commandShow)
+int App::Run(int commandShow) const
 {
    if (!RunTimeHelper::IsRibbonUIAvailable())
    {
-      AtlMessageBox(NULL, L"Cannot run with this version of Windows", IDR_MAINFRAME);
+      AtlMessageBox(nullptr, L"Cannot run with this version of Windows", IDR_MAINFRAME);
       return -1;
    }
 

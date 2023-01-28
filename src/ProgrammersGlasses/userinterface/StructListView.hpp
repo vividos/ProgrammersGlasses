@@ -35,7 +35,7 @@ public:
    {
    }
 
-   DECLARE_WND_SUPERCLASS(NULL, CListViewCtrl::GetWndClassName())
+   DECLARE_WND_SUPERCLASS(nullptr, CListViewCtrl::GetWndClassName())
 
    // Inherited via IContentView
    virtual HWND CreateView(HWND parent) override
@@ -60,9 +60,9 @@ private:
    END_MSG_MAP()
 
    // Handler prototypes (uncomment arguments if needed):
-   // LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
-   // LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
-   // LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
+   // LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+   // LRESULT CommandHandler(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+   // LRESULT NotifyHandler(int idCtrl, LPNMHDR pnmh, BOOL& bHandled)
 
    /// called when the window is about to be created
    LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -71,13 +71,13 @@ private:
    void InitList();
 
    /// formats raw data
-   static CString FormatRawData(StructField& field, const BYTE* rawData);
+   static CString FormatRawData(const StructField& field, const BYTE* rawData);
 
    /// formats struct field value
-   static CString FormatValue(StructField& field, const BYTE* rawData);
+   static CString FormatValue(const StructField& field, const BYTE* rawData);
 
    /// formats a bitfield struct field
-   static CString FormatBitfieldValue(StructField& field, const BYTE* rawData);
+   static CString FormatBitfieldValue(const StructField& field, const BYTE* rawData);
 private:
    /// structure definition
    const StructDefinition& m_structDefinition;

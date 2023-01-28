@@ -50,22 +50,24 @@ private:
    void AddCoffObjectFile(CodeTextViewNode& coffSummaryNode, size_t fileOffset);
 
    /// adds summary text to node
-   void AddCoffHeaderSummaryText(CodeTextViewNode& node, const CoffHeader& header, bool isImage);
+   void AddCoffHeaderSummaryText(CodeTextViewNode& node,
+      const CoffHeader& header, bool isImage) const;
 
    /// adds section table to node
    void AddSectionTable(CodeTextViewNode& sectionSummaryNode,
-      const CoffHeader& header, size_t fileOffset);
+      const CoffHeader& header, size_t fileOffset) const;
 
    /// adds symbol table to node
    void AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
-      const CoffHeader& header, size_t fileOffset);
+      const CoffHeader& header, size_t fileOffset) const;
 
    /// loads non-COFF (import or anonymous) object files
    void LoadNonCoffObjectFile();
 
    /// adds a non-COFF (import or anonymous) object file to node
-   void AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode, size_t fileOffset);
-   
+   void AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
+      size_t fileOffset) const;
+
    /// loads archive library files
    void LoadArchiveLibraryFile();
 

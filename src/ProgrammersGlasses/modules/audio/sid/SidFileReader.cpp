@@ -49,7 +49,8 @@ void SidFileReader::Load()
    m_rootNode = rootNode;
 }
 
-void SidFileReader::AddSummaryText(const SidFileHeader& header, std::shared_ptr<CodeTextViewNode> summaryNode)
+void SidFileReader::AddSummaryText(const SidFileHeader& header,
+   std::shared_ptr<CodeTextViewNode> summaryNode) const
 {
    CString text;
 

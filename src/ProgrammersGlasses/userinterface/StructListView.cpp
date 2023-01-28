@@ -65,12 +65,16 @@ void StructListView::InitList()
    SetColumnWidth(3, LVSCW_AUTOSIZE_USEHEADER);
 }
 
-CString StructListView::FormatRawData(StructField& field, const BYTE* rawData)
+CString StructListView::FormatRawData(const StructField& field, const BYTE* rawData)
 {
-   return DisplayFormatHelper::FormatRawData(rawData, field.m_length, field.m_valueSize, field.m_littleEndian);
+   return DisplayFormatHelper::FormatRawData(
+      rawData,
+      field.m_length,
+      field.m_valueSize,
+      field.m_littleEndian);
 }
 
-CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
+CString StructListView::FormatValue(const StructField& field, const BYTE* rawData)
 {
    CString text;
 
@@ -133,7 +137,7 @@ CString StructListView::FormatValue(StructField& field, const BYTE* rawData)
    return text;
 }
 
-CString StructListView::FormatBitfieldValue(StructField& field, const BYTE* rawData)
+CString StructListView::FormatBitfieldValue(const StructField& field, const BYTE* rawData)
 {
    DWORD value = GetBufferValueWithEndianness(
       rawData,

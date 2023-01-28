@@ -22,7 +22,7 @@ BOOL MainFrame::PreTranslateMessage(MSG* msg)
       return TRUE;
 
    HWND hWnd = MDIGetActive();
-   if (hWnd != NULL)
+   if (hWnd != nullptr)
       return (BOOL)::SendMessage(hWnd, WM_FORWARDMSG, 0, (LPARAM)msg);
 
    return FALSE;
@@ -42,7 +42,7 @@ BOOL MainFrame::OnIdle()
 
 LRESULT MainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
-   m_commandBar.Create(m_hWnd, rcDefault, NULL, ATL_SIMPLE_CMDBAR_PANE_STYLE);
+   m_commandBar.Create(m_hWnd, rcDefault, nullptr, ATL_SIMPLE_CMDBAR_PANE_STYLE);
 
    CreateSimpleStatusBar();
 
@@ -55,7 +55,7 @@ LRESULT MainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 
    // register object for message filtering and idle updates
    CMessageLoop* pLoop = _Module.GetMessageLoop();
-   ATLASSERT(pLoop != NULL);
+   ATLASSERT(pLoop != nullptr);
    pLoop->AddMessageFilter(this);
    pLoop->AddIdleHandler(this);
 
@@ -75,7 +75,7 @@ LRESULT MainFrame::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/
 {
    // unregister message filtering and idle updates
    CMessageLoop* pLoop = _Module.GetMessageLoop();
-   ATLASSERT(pLoop != NULL);
+   ATLASSERT(pLoop != nullptr);
    pLoop->RemoveMessageFilter(this);
    pLoop->RemoveIdleHandler(this);
 
@@ -96,7 +96,7 @@ LRESULT MainFrame::OnOpenFiles(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 LRESULT MainFrame::OnDropFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
    HDROP hDropInfo = (HDROP)wParam;
-   UINT maxIndex = ::DragQueryFile(hDropInfo, UINT(-1), NULL, 0);
+   UINT maxIndex = ::DragQueryFile(hDropInfo, UINT(-1), nullptr, 0);
 
    CString filename;
 
@@ -115,7 +115,7 @@ LRESULT MainFrame::OnDropFiles(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, 
    return 0;
 }
 
-LRESULT MainFrame::OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+LRESULT MainFrame::OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/) const
 {
    AboutDlg dlg{ m_moduleManager };
    dlg.DoModal();
@@ -161,7 +161,7 @@ LRESULT MainFrame::OnFileRecent(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/
 LRESULT MainFrame::OnFileClose(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
    HWND hWnd = MDIGetActive();
-   if (hWnd != NULL)
+   if (hWnd != nullptr)
       return (BOOL)::SendMessage(hWnd, WM_CLOSE, 0, 0);
 
    return 0;

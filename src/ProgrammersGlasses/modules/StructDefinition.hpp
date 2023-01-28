@@ -153,18 +153,17 @@ class StructDefinition
 {
 public:
    /// Default ctor; creates a struct definition with an empty field list that can be added to
-   StructDefinition()
-   {
-   }
+   StructDefinition() = default;
 
    /// Ctor; creates a struct definition with a field list passed as initializer list
-   StructDefinition(const std::initializer_list<StructField>& fieldList)
+   explicit StructDefinition(const std::initializer_list<StructField>& fieldList)
       :m_fieldList(fieldList)
    {
    }
 
    /// Ctor; extends struct definition with an extra initializer list containing more fields
-   StructDefinition(const StructDefinition& structDefinition, const std::initializer_list<StructField>& extraFieldList)
+   explicit StructDefinition(const StructDefinition& structDefinition,
+      const std::initializer_list<StructField>& extraFieldList)
       :m_fieldList(structDefinition.FieldList())
    {
       for (auto field : extraFieldList)
