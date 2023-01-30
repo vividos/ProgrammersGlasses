@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file DisplayFormatHelper.hpp
 /// \brief display format helper
@@ -8,6 +8,8 @@
 #pragma once
 
 #include <ctime>
+
+struct StructField;
 
 /// Helper class to format display text from data
 class DisplayFormatHelper
@@ -24,4 +26,11 @@ public:
 
    /// formats GUID as human-readable text
    static CString FormatGUID(const BYTE* rawData, size_t length);
+
+   /// formats value using struct field definition
+   static CString FormatValue(const StructField& field, const BYTE* rawData);
+
+private:
+   /// formats struct field bitfield value
+   static CString FormatBitfieldValue(const StructField& field, const BYTE* rawData);
 };
