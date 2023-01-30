@@ -117,10 +117,21 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode, size_t fil
    if (header.offsetSymbolTable != 0 &&
       header.numberOfSymbols != 0)
    {
-      auto symbolTableNode = std::make_shared<CodeTextViewNode>(_T("Symbol Table"), NodeTreeIconID::nodeTreeIconDocument);
+      auto symbolTableNode = std::make_shared<CodeTextViewNode>(
+         _T("Symbol Table"),
+         NodeTreeIconID::nodeTreeIconDocument);
+
       AddSymbolTable(*symbolTableNode, header, fileOffset);
 
       coffSummaryNode.ChildNodes().push_back(symbolTableNode);
+
+      auto stringTableNode = std::make_shared<CodeTextViewNode>(
+         _T("String Table"),
+         NodeTreeIconID::nodeTreeIconDocument);
+
+      AddStringTable(*stringTableNode, header, fileOffset);
+
+      coffSummaryNode.ChildNodes().push_back(stringTableNode);
    }
 }
 
@@ -278,6 +289,51 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
       // the number of symbols also includes the aux symbols, so also add these to the index
       symbolTableEntry += symbolTable.numberOfAuxSymbols;
    }
+
+   symbolTableSummaryNode.SetText(summaryText);
+}
+
+void CoffReader::AddStringTable(CodeTextViewNode& symbolTableSummaryNode,
+   const CoffHeader& header, size_t fileOffset)
+{
+   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
+
+   const BYTE* symbolTableStart =
+      (const BYTE*)data +
+      header.offsetSymbolTable;
+
+   const BYTE* stringTableStart =
+      symbolTableStart + header.numberOfSymbols * sizeof(CoffSymbolTable);
+
+   DWORD stringTableLength = *reinterpret_cast<const DWORD*>(stringTableStart);
+   const BYTE* stringTableEnd = stringTableStart + stringTableLength;
+
+   CString summaryText;
+   const BYTE* stringTableText = stringTableStart + 4;
+
+   DWORD stringTableIndex = 0;
+   for (; stringTableText < stringTableEnd; stringTableIndex++)
+   {
+      if (!m_file.IsValidRange(stringTableText, stringTableEnd - stringTableText))
+      {
+         summaryText.AppendFormat(_T("Warning: File ended while scanning the string table"));
+         break;
+      }
+
+      summaryText.AppendFormat(
+         _T("0x%08x: %hs\n"),
+         stringTableText - stringTableStart,
+         stringTableText);
+
+      stringTableText += strlen(
+         reinterpret_cast<const CHAR*>(stringTableText)) + 1;
+   }
+
+   CString headerText;
+   headerText.AppendFormat(_T("String table with %u entries, length 0x%08x bytes.\n\n"),
+      stringTableIndex, stringTableLength);
+
+   summaryText.Insert(0, headerText);
 
    symbolTableSummaryNode.SetText(summaryText);
 }

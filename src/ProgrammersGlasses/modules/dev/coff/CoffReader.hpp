@@ -61,6 +61,10 @@ private:
    void AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
       const CoffHeader& header, size_t fileOffset) const;
 
+   /// adds string table to node
+   void AddStringTable(CodeTextViewNode& stringTableSummaryNode,
+      const CoffHeader& header, size_t fileOffset);
+
    /// loads non-COFF (import or anonymous) object files
    void LoadNonCoffObjectFile();
 
