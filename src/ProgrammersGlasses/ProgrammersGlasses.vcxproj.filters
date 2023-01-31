@@ -127,6 +127,7 @@
     <ClCompile Include="modules\dev\coff\AnonymousObjectHeader.cpp">
       <Filter>modules\dev\coff</Filter>
     </ClCompile>
+    <ClCompile Include="SymbolsHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="modules\dev\coff\AnonymousObjectHeader.hpp">
       <Filter>modules\dev\coff</Filter>
     </ClInclude>
+    <ClInclude Include="SymbolsHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="userinterface\res\Ribbon.bml">

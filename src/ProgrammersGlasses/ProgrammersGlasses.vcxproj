@@ -114,6 +114,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SymbolsHelper.cpp" />
     <ClCompile Include="userinterface\AboutDlg.cpp" />
     <ClCompile Include="userinterface\CodeTextView.cpp" />
     <ClCompile Include="userinterface\StructListView.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="modules\StructDefinition.hpp" />
     <ClInclude Include="modules\StructListViewNode.hpp" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SymbolsHelper.hpp" />
     <ClInclude Include="userinterface\AboutDlg.hpp" />
     <ClInclude Include="userinterface\CodeTextView.hpp" />
     <ClInclude Include="userinterface\StructListView.hpp" />
