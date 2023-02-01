@@ -61,6 +61,11 @@ private:
    void AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
       const CoffHeader& header, size_t fileOffset) const;
 
+   /// loads string table into map
+   void LoadStringTable(
+      const CoffHeader& header, size_t fileOffset,
+      std::map<size_t, CString>& offsetToStringMapping) const;
+
    /// adds string table to node
    void AddStringTable(CodeTextViewNode& stringTableSummaryNode,
       const CoffHeader& header, size_t fileOffset);

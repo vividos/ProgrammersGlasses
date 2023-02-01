@@ -241,6 +241,9 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
       return;
    }
 
+   std::map<size_t, CString> offsetToStringMapping;
+   LoadStringTable(header, fileOffset, offsetToStringMapping);
+
    const BYTE* symbolTableStart =
       (const BYTE*)data +
       header.offsetSymbolTable;
@@ -267,7 +270,12 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
          symbolTable.name[3] == 0)
       {
          DWORD offset = *reinterpret_cast<const DWORD*>(&symbolTable.name[4]);
-         symbolName.Format(_T("offset 0x%08x"), offset);
+
+         auto iter = offsetToStringMapping.find(offset);
+         if (iter != offsetToStringMapping.end())
+            symbolName = iter->second;
+         else
+            symbolName.Format(_T("offset 0x%08x"), offset);
       }
       else
          symbolName = CString{ symbolTable.name, sizeof(symbolTable.name) };
@@ -291,6 +299,39 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
    }
 
    symbolTableSummaryNode.SetText(summaryText);
+}
+
+void CoffReader::LoadStringTable(
+   const CoffHeader& header, size_t fileOffset,
+   std::map<size_t, CString>& offsetToStringMapping) const
+{
+   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
+
+   const BYTE* symbolTableStart =
+      (const BYTE*)data +
+      header.offsetSymbolTable;
+
+   const BYTE* stringTableStart =
+      symbolTableStart + header.numberOfSymbols * sizeof(CoffSymbolTable);
+
+   DWORD stringTableLength = *reinterpret_cast<const DWORD*>(stringTableStart);
+   const BYTE* stringTableEnd = stringTableStart + stringTableLength;
+
+   CString summaryText;
+   const BYTE* stringTableText = stringTableStart + 4;
+
+   DWORD stringTableIndex = 0;
+   for (; stringTableText < stringTableEnd; stringTableIndex++)
+   {
+      size_t offset = stringTableText - stringTableStart;
+      CString text{ stringTableText };
+
+      offsetToStringMapping.insert(
+         std::make_pair(offset, text));
+
+      stringTableText += strlen(
+         reinterpret_cast<const CHAR*>(stringTableText)) + 1;
+   }
 }
 
 void CoffReader::AddStringTable(CodeTextViewNode& symbolTableSummaryNode,
