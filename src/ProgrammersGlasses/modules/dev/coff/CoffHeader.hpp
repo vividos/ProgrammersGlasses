@@ -12,8 +12,7 @@
 #pragma pack(push, 1)
 
 /// \brief COFF header
-/// \see https://web.archive.org/web/20061216043713/http://support.microsoft.com/?id=121460
-/// \see https://web.archive.org/web/20100314142533/http://www.microsoft.com/whdc/system/platform/firmware/PECOFFdwn.mspx
+/// \see https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#coff-file-header-object-and-image
 /// The header corresponds with winnt.h's IMAGE_FILE_HEADER struct.
 /// The header is immediately followed by the section table. The string table is immediately
 /// following the symbol table, if there is any.
