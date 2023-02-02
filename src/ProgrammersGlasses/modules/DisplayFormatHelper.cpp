@@ -108,7 +108,9 @@ CString DisplayFormatHelper::FormatGUID(const BYTE* rawData, size_t length)
    const GUID* guid = reinterpret_cast<const GUID*>(rawData);
 
    OLECHAR* guidString = nullptr;
-   ATLVERIFY(S_OK == ::StringFromCLSID(*guid, &guidString));
+   HRESULT hr = ::StringFromCLSID(*guid, &guidString);
+   if (FAILED(hr))
+      return _T("???");
 
    CString text{ guidString };
 
