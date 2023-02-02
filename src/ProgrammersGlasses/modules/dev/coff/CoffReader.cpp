@@ -151,7 +151,7 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node,
    text.Append(_T("COFF file: ") + m_file.Filename());
 
    if (fileOffset > 0)
-      text.AppendFormat(_T(" at offset 0x%08x"), fileOffset);
+      text.AppendFormat(_T(" at offset 0x%08zx"), fileOffset);
 
    text.Append(_T("\n\n"));
    text.Append(_T("COFF Header\n"));
@@ -368,7 +368,7 @@ void CoffReader::AddStringTable(CodeTextViewNode& symbolTableSummaryNode,
       }
 
       summaryText.AppendFormat(
-         _T("0x%08x: %hs\n"),
+         _T("0x%08zx: %hs\n"),
          stringTableText - stringTableStart,
          stringTableText);
 
