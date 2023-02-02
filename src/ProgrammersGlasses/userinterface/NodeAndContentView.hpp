@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file NodeAndContentView.hpp
 /// \brief node and content view
@@ -32,6 +32,7 @@ private:
       MESSAGE_HANDLER(WM_CREATE, OnCreate)
       MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
       NOTIFY_CODE_HANDLER(TVN_SELCHANGED, OnTreeViewSelChanged)
+      if (ForwardToContentView(hWnd, uMsg, wParam, lParam, lResult)) return TRUE;
       CHAIN_MSG_MAP(baseClass)
    END_MSG_MAP()
 
@@ -51,6 +52,9 @@ private:
 
    /// called when the selection of the tree view has changed
    LRESULT OnTreeViewSelChanged(int idCtrl, LPNMHDR pnmh, BOOL& bHandled);
+
+   /// forwards messages to content view, e.g. edit commands
+   BOOL ForwardToContentView(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT lResult);
 
    /// initializes tree with content from reader
    void InitTree();

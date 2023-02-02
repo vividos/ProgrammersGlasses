@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file NodeAndContentView.cpp
 /// \brief node and content view
@@ -77,6 +77,14 @@ LRESULT NodeAndContentView::OnTreeViewSelChanged(int /*idCtrl*/, LPNMHDR pnmh, B
    ChangeContentView(*nodePtr);
 
    return 0;
+}
+
+BOOL NodeAndContentView::ForwardToContentView(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT lResult)
+{
+   if (m_contentView != nullptr)
+      return m_contentView->ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult);
+   else
+      return FALSE;
 }
 
 void NodeAndContentView::InitTree()
