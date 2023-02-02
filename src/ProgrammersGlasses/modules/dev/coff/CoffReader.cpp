@@ -89,13 +89,19 @@ void CoffReader::LoadCoffObjectFile()
 {
    auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
 
-   AddCoffObjectFile(*rootNode, 0);
+   CString objectFileSummary;
+   AddCoffObjectFile(*rootNode, 0, objectFileSummary);
+
+   rootNode->SetText(objectFileSummary);
 
    m_rootNode.reset(rootNode);
 }
 
-void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode, size_t fileOffset)
+void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
+   size_t fileOffset, CString& objectFileSummary)
 {
+   objectFileSummary = _T("COFF object file\n");
+
    LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(data);
 
@@ -385,13 +391,16 @@ void CoffReader::LoadNonCoffObjectFile()
       _T("Summary"),
       NodeTreeIconID::nodeTreeIconObject);
 
-   AddNonCoffObjectFile(*rootNode, 0);
+   CString objectFileSummary;
+   AddNonCoffObjectFile(*rootNode, 0, objectFileSummary);
+
+   rootNode->SetText(objectFileSummary);
 
    m_rootNode.reset(rootNode);
 }
 
 void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
-   size_t fileOffset) const
+   size_t fileOffset, CString& objectFileSummary) const
 {
    LPCVOID header = (const BYTE*)m_file.Data() + fileOffset;
 
@@ -401,8 +410,14 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
 
    if (importObjectHeader.version == 0)
    {
-      // TODO add summary field
       nonCoffSummaryNode.SetText(_T("Import object"));
+
+      objectFileSummary = _T("Import object\n");
+      objectFileSummary += CString{ _T("Architecture: ") } +
+         GetValueFromMapOrDefault<DWORD>(
+            g_mapCoffTargetMachineToDisplayText,
+            (DWORD)importObjectHeader.targetMachine,
+            _T("unknown"));
 
       auto importObjectHeaderNode = std::make_shared<StructListViewNode>(
          _T("Import object header"),
@@ -415,8 +430,17 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
    }
    else if (importObjectHeader.version == 1)
    {
-      // TODO add summary field
       nonCoffSummaryNode.SetText(_T("Anonymous object"));
+
+      const AnonymousObjectHeader& anonymousObjectHeader =
+         *reinterpret_cast<const AnonymousObjectHeader*>(header);
+
+      objectFileSummary = _T("Anonymous object\n");
+      objectFileSummary += CString{ _T("Architecture: ") } +
+         GetValueFromMapOrDefault<DWORD>(
+            g_mapCoffTargetMachineToDisplayText,
+            (DWORD)anonymousObjectHeader.targetMachine,
+            _T("unknown"));
 
       auto anonymousObjectHeaderNode = std::make_shared<StructListViewNode>(
          _T("Anonymous object header"),
@@ -431,10 +455,14 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
    {
       nonCoffSummaryNode.SetText(_T("Invalid non-COFF object header"));
 
+      objectFileSummary = _T("Invalid non-COFF object header");
+
       // code flow shouldn't arrive here, since IsNonCoffOrAnonymousObjectFile()
       // explicitly checked for the version field.
       ATLASSERT(false);
    }
+
+   nonCoffSummaryNode.SetText(objectFileSummary);
 }
 
 void CoffReader::LoadArchiveLibraryFile()
@@ -494,9 +522,11 @@ void CoffReader::LoadArchiveLibraryFile()
                _T("non-COFF Summary"),
                NodeTreeIconID::nodeTreeIconDocument);
 
+            CString objectFileSummary;
             AddNonCoffObjectFile(
                *nonCoffSummaryNode,
-               archiveMemberStart);
+               archiveMemberStart,
+               objectFileSummary);
 
             archiveMemberNode->ChildNodes().push_back(nonCoffSummaryNode);
          }
@@ -506,9 +536,11 @@ void CoffReader::LoadArchiveLibraryFile()
                _T("COFF Summary"),
                NodeTreeIconID::nodeTreeIconDocument);
 
+            CString objectFileSummary;
             AddCoffObjectFile(
                *coffSummaryNode,
-               archiveMemberStart);
+               archiveMemberStart,
+               objectFileSummary);
 
             archiveMemberNode->ChildNodes().push_back(coffSummaryNode);
          }

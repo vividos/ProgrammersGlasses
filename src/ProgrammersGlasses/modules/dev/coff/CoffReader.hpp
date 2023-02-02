@@ -47,7 +47,8 @@ private:
    void LoadCoffObjectFile();
 
    /// adds COFF header, section and symbol tables
-   void AddCoffObjectFile(CodeTextViewNode& coffSummaryNode, size_t fileOffset);
+   void AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
+      size_t fileOffset, CString& objectFileSummary);
 
    /// adds summary text to node
    void AddCoffHeaderSummaryText(CodeTextViewNode& node,
@@ -75,7 +76,7 @@ private:
 
    /// adds a non-COFF (import or anonymous) object file to node
    void AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
-      size_t fileOffset) const;
+      size_t fileOffset, CString& objectFileSummary) const;
 
    /// loads archive library files
    void LoadArchiveLibraryFile();
