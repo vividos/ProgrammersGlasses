@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file Helper.cpp
 /// \brief helper functions
@@ -24,6 +24,15 @@ std::vector<CString> StringSplit(const CString& text, LPCTSTR splitChars, bool a
    } while (tokenPos != -1);
 
    return elements;
+}
+
+void IndentText(CString& text, int numberOfSpaces)
+{
+   CString indentText(_T(' '), numberOfSpaces);
+
+   text.Replace(_T("\n"), _T("\n") + indentText);
+   text.Insert(0, indentText);
+   text.TrimRight();
 }
 
 DWORD GetBufferValueWithEndianness(const BYTE* buffer, size_t valueSize, bool littleEndian)

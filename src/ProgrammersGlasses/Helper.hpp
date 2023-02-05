@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file Helper.hpp
 /// \brief helper functions
@@ -12,6 +12,9 @@
 
 /// Splits a string by one or more split characters
 std::vector<CString> StringSplit(const CString& text, LPCTSTR splitChars, bool addEmptyEntries);
+
+/// indents a multiline string with space characters
+void IndentText(CString& text, int numberOfSpaces);
 
 /// Returns value from a std::map with given key, or a default value when the key is not found in the map
 template <typename T>
