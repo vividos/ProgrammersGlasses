@@ -467,6 +467,120 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
    nonCoffSummaryNode.SetText(objectFileSummary);
 }
 
+void CoffReader::AddArchiveLinkerMember(CodeTextViewNode& linkerMemberSummaryNode,
+   size_t archiveMemberIndex, size_t fileOffset, size_t linkerMemberSize,
+   CString& linkerMemberSummary) const
+{
+   CString linkerMemberDetails;
+
+   if (archiveMemberIndex == 0)
+   {
+      linkerMemberDetails += _T("First linker member\n\n");
+
+      const DWORD* firstLinkerMember =
+         reinterpret_cast<const DWORD*>(
+            (const BYTE*)m_file.Data() + fileOffset);
+
+      if (!m_file.IsValidRange(firstLinkerMember, linkerMemberSize))
+      {
+         linkerMemberSummary.AppendFormat(
+            _T("Error: Linker member size #%u is outside of the file size!"),
+            linkerMemberSize);
+         return;
+      }
+
+      DWORD numSymbolsBigEndian = *(firstLinkerMember++);
+      DWORD numSymbols = SwapEndianness(numSymbolsBigEndian);
+
+      linkerMemberSummary.AppendFormat(
+         _T("First linker member, containing %u symbols"), numSymbols);
+
+      linkerMemberDetails.AppendFormat(
+         _T("Symbols list, number of symbols: %u\n"), numSymbols);
+
+      const CHAR* symbolTableText =
+         reinterpret_cast<const CHAR*>(firstLinkerMember + numSymbols);
+
+      for (DWORD symbolIndex = 0; symbolIndex < numSymbols; symbolIndex++)
+      {
+         DWORD offsetBigEndian = firstLinkerMember[symbolIndex];
+         DWORD offset = SwapEndianness(offsetBigEndian);
+
+         linkerMemberDetails.AppendFormat(
+            _T("[%u] at archive member 0x%08x: %hs\n"),
+            symbolIndex,
+            offset,
+            symbolTableText);
+
+         symbolTableText += strlen(symbolTableText) + 1;
+      }
+   }
+   else if (archiveMemberIndex == 1)
+   {
+      linkerMemberDetails += _T("Second linker member\n\n");
+
+      const DWORD* secondLinkerMember =
+         reinterpret_cast<const DWORD*>(
+            (const BYTE*)m_file.Data() + fileOffset);
+
+      if (!m_file.IsValidRange(secondLinkerMember, linkerMemberSize))
+      {
+         linkerMemberSummary.AppendFormat(
+            _T("Error: Linker member size #%u is outside of the file size!"),
+            linkerMemberSize);
+         return;
+      }
+
+      DWORD numMembers = *(secondLinkerMember++);
+      const DWORD* memberIndexStart = secondLinkerMember;
+
+      linkerMemberDetails.AppendFormat(
+         _T("Member offset list, number of members: %u\n"), numMembers);
+
+      for (DWORD memberIndex = 0; memberIndex < numMembers; memberIndex++)
+      {
+         linkerMemberDetails.AppendFormat(
+            _T("[%u] at archive member offset 0x%04x\n"),
+            memberIndex,
+            memberIndexStart[memberIndex]);
+      }
+
+      secondLinkerMember += numMembers;
+
+      DWORD numSymbols = *(secondLinkerMember++);
+
+      const WORD* mapIndexStart =
+         reinterpret_cast<const WORD*>(secondLinkerMember);
+
+      const CHAR* symbolTableText =
+         reinterpret_cast<const CHAR*>(
+            mapIndexStart + numSymbols);
+
+      linkerMemberDetails.AppendFormat(
+         _T("\nSymbols list, number of symbols: %u\n"), numSymbols);
+
+      for (DWORD symbolIndex = 0; symbolIndex < numSymbols; symbolIndex++)
+      {
+         WORD mapIndex = mapIndexStart[symbolIndex];
+
+         linkerMemberDetails.AppendFormat(
+            _T("[%u] index 0x%04x, symbol: %hs\n"),
+            symbolIndex,
+            mapIndex,
+            symbolTableText);
+
+         symbolTableText += strlen(symbolTableText) + 1;
+      }
+
+      linkerMemberSummary.AppendFormat(
+         _T("Second linker member, containing %u members and %u symbols"),
+         numMembers,
+         numSymbols);
+   }
+
+   linkerMemberSummaryNode.SetText(linkerMemberDetails);
+}
+
 void CoffReader::LoadArchiveLibraryFile()
 {
    auto rootNode = new CodeTextViewNode(_T("Library Summary"), NodeTreeIconID::nodeTreeIconLibrary);
@@ -557,12 +671,36 @@ void CoffReader::LoadArchiveLibraryFile()
       librarySummaryText.AppendFormat(_T("%s: "),
          archiveMemberName.GetString());
 
-      // add COFF object / anonymous object
+      // add archive member
       size_t archiveMemberStart = archiveMemberOffset + sizeof(ArchiveMemberHeader);
+      size_t archiveMemberSize = _ttol(sizeText);
 
       // note: the first two are the linker members
-      if (archiveMemberIndex >= 2)
+      if (archiveMemberIndex < 2 && archiveMemberName == _T("/"))
       {
+         auto linkerMemberSummaryNode = std::make_shared<CodeTextViewNode>(
+            _T("Linker Member Summary"),
+            NodeTreeIconID::nodeTreeIconDocument);
+
+         CString linkerMemberSummary;
+         AddArchiveLinkerMember(
+            *linkerMemberSummaryNode,
+            archiveMemberIndex,
+            archiveMemberStart,
+            archiveMemberSize,
+            linkerMemberSummary);
+
+         archiveMemberSummaryText += linkerMemberSummary;
+
+         IndentText(linkerMemberSummary, 3);
+         linkerMemberSummary.TrimLeft();
+         librarySummaryText += linkerMemberSummary + _T("\n");
+
+         archiveMemberNode->ChildNodes().push_back(linkerMemberSummaryNode);
+      }
+      else if (archiveMemberIndex >= 2)
+      {
+         // add COFF object / anonymous object
          if (IsNonCoffOrAnonymousObjectFile(m_file, archiveMemberStart))
          {
             auto nonCoffSummaryNode = std::make_shared<CodeTextViewNode>(
@@ -608,7 +746,6 @@ void CoffReader::LoadArchiveLibraryFile()
       archiveMemberNode->SetText(archiveMemberSummaryText);
 
       // advance to next header
-      size_t archiveMemberSize = _ttol(sizeText);
       archiveMemberOffset += sizeof(ArchiveMemberHeader) + archiveMemberSize;
 
       // ensure 2-byte alignment

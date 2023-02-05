@@ -78,6 +78,11 @@ private:
    void AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
       size_t fileOffset, CString& objectFileSummary) const;
 
+   /// adds archive linker member to node
+   void AddArchiveLinkerMember(CodeTextViewNode& linkerMemberSummaryNode,
+      size_t archiveMemberIndex, size_t fileOffset, size_t linkerMemberSize,
+      CString& linkerMemberSummary) const;
+
    /// loads archive library files
    void LoadArchiveLibraryFile();
 
