@@ -102,6 +102,7 @@
     <ClCompile Include="modules\DisplayFormatHelper.cpp" />
     <ClCompile Include="modules\dev\elf\ElfModule.cpp" />
     <ClCompile Include="modules\File.cpp" />
+    <ClCompile Include="modules\FilterSortListViewNode.cpp" />
     <ClCompile Include="modules\images\png\PngHeader.cpp" />
     <ClCompile Include="modules\images\png\PngImageModule.cpp" />
     <ClCompile Include="modules\images\png\PngImageReader.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="SymbolsHelper.cpp" />
     <ClCompile Include="userinterface\AboutDlg.cpp" />
     <ClCompile Include="userinterface\CodeTextView.cpp" />
+    <ClCompile Include="userinterface\FilterSortListView.cpp" />
     <ClCompile Include="userinterface\StructListView.cpp" />
     <ClCompile Include="userinterface\MainFrame.cpp" />
     <ClCompile Include="userinterface\NodeAndContentView.cpp" />
@@ -140,6 +142,7 @@
     <ClInclude Include="modules\dev\elf\ElfModule.hpp" />
     <ClInclude Include="modules\File.hpp" />
     <ClInclude Include="Helper.hpp" />
+    <ClInclude Include="modules\FilterSortListViewNode.hpp" />
     <ClInclude Include="modules\IContentView.hpp" />
     <ClInclude Include="modules\images\png\PngHeader.hpp" />
     <ClInclude Include="modules\images\png\PngImageModule.hpp" />
@@ -158,6 +161,7 @@
     <ClInclude Include="SymbolsHelper.hpp" />
     <ClInclude Include="userinterface\AboutDlg.hpp" />
     <ClInclude Include="userinterface\CodeTextView.hpp" />
+    <ClInclude Include="userinterface\FilterSortListView.hpp" />
     <ClInclude Include="userinterface\StructListView.hpp" />
     <ClInclude Include="userinterface\MainFrame.hpp" />
     <ClInclude Include="userinterface\resource.h" />

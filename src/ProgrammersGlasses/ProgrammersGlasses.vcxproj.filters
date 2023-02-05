@@ -128,6 +128,12 @@
       <Filter>modules\dev\coff</Filter>
     </ClCompile>
     <ClCompile Include="SymbolsHelper.cpp" />
+    <ClCompile Include="userinterface\FilterSortListView.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\FilterSortListViewNode.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -243,6 +249,12 @@
       <Filter>modules\dev\coff</Filter>
     </ClInclude>
     <ClInclude Include="SymbolsHelper.hpp" />
+    <ClInclude Include="userinterface\FilterSortListView.hpp">
+      <Filter>userinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\FilterSortListViewNode.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="userinterface\res\Ribbon.bml">
