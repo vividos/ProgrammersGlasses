@@ -495,11 +495,16 @@ void CoffReader::LoadArchiveLibraryFile()
             (const BYTE*)m_file.Data() + archiveMemberOffset);
 
       CString archiveMemberName{ archiveMemberHeader.name, sizeof(archiveMemberHeader.name) };
+
+      CString archiveMemberSummaryText;
+      archiveMemberSummaryText.AppendFormat(_T("Archive member [%u]: \"%s\"\n\n"),
+         archiveMemberIndex,
+         archiveMemberName.GetString());
+
       auto archiveMemberNode = std::make_shared<CodeTextViewNode>(
          _T("Archive member: ") + archiveMemberName,
          NodeTreeIconID::nodeTreeIconDocument);
 
-      // TODO add code text
       rootNode->ChildNodes().push_back(archiveMemberNode);
 
       auto archiveMemberHeaderNode = std::make_shared<StructListViewNode>(
@@ -536,6 +541,8 @@ void CoffReader::LoadArchiveLibraryFile()
                archiveMemberStart,
                objectFileSummary);
 
+            archiveMemberSummaryText += objectFileSummary;
+
             IndentText(objectFileSummary, 3);
             objectFileSummary.TrimLeft();
             librarySummaryText += objectFileSummary + _T("\n");
@@ -554,6 +561,8 @@ void CoffReader::LoadArchiveLibraryFile()
                archiveMemberStart,
                objectFileSummary);
 
+            archiveMemberSummaryText += objectFileSummary;
+
             IndentText(objectFileSummary, 3);
             objectFileSummary.TrimLeft();
             librarySummaryText += objectFileSummary + _T("\n");
@@ -561,6 +570,8 @@ void CoffReader::LoadArchiveLibraryFile()
             archiveMemberNode->ChildNodes().push_back(coffSummaryNode);
          }
       }
+
+      archiveMemberNode->SetText(archiveMemberSummaryText);
 
       // advance to next header
       CString sizeText{ archiveMemberHeader.sizeText, sizeof(archiveMemberHeader.sizeText) };
