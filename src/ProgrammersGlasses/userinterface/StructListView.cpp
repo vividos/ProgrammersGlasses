@@ -50,10 +50,14 @@ void StructListView::InitList()
 
       int itemIndex = InsertItem(GetItemCount(), addressText);
 
-      CString rawDataText = FormatRawData(structField, address);
+      CString rawDataText = DisplayFormatHelper::FormatRawData(
+         address,
+         structField.m_length,
+         structField.m_valueSize,
+         structField.m_littleEndian);
       SetItemText(itemIndex, 1, rawDataText);
 
-      CString formattedValue = FormatValue(structField, address);
+      CString formattedValue = DisplayFormatHelper::FormatValue(structField, address);
       SetItemText(itemIndex, 2, formattedValue);
 
       if (structField.m_description != nullptr)
@@ -63,18 +67,4 @@ void StructListView::InitList()
    SetColumnWidth(1, LVSCW_AUTOSIZE);
    SetColumnWidth(2, LVSCW_AUTOSIZE);
    SetColumnWidth(3, LVSCW_AUTOSIZE_USEHEADER);
-}
-
-CString StructListView::FormatRawData(const StructField& field, const BYTE* rawData)
-{
-   return DisplayFormatHelper::FormatRawData(
-      rawData,
-      field.m_length,
-      field.m_valueSize,
-      field.m_littleEndian);
-}
-
-CString StructListView::FormatValue(const StructField& field, const BYTE* rawData)
-{
-   return DisplayFormatHelper::FormatValue(field, rawData);
 }

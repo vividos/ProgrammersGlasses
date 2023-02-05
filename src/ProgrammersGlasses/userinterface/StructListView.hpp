@@ -70,14 +70,6 @@ private:
    /// initializes list with struct definition and content
    void InitList();
 
-   /// formats raw data
-   static CString FormatRawData(const StructField& field, const BYTE* rawData);
-
-   /// formats struct field value
-   static CString FormatValue(const StructField& field, const BYTE* rawData);
-
-   /// formats a bitfield struct field
-   static CString FormatBitfieldValue(const StructField& field, const BYTE* rawData);
 private:
    /// structure definition
    const StructDefinition& m_structDefinition;
