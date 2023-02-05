@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "CoffReader.hpp"
 #include "CodeTextViewNode.hpp"
+#include "FilterSortListViewNode.hpp"
 #include "CoffHeader.hpp"
 #include "ImportObjectHeader.hpp"
 #include "AnonymousObjectHeader.hpp"
@@ -470,6 +471,8 @@ void CoffReader::LoadArchiveLibraryFile()
 {
    auto rootNode = new CodeTextViewNode(_T("Library Summary"), NodeTreeIconID::nodeTreeIconLibrary);
 
+   std::vector<std::vector<CString>> libraryArchiveMemberListData;
+
    const ArchiveHeader& archiveHeader =
       *reinterpret_cast<const ArchiveHeader*>(m_file.Data());
 
@@ -501,6 +504,37 @@ void CoffReader::LoadArchiveLibraryFile()
          archiveMemberIndex,
          archiveMemberName.GetString());
 
+      // add to list view data
+      CString dateText{ archiveMemberHeader.dateText, sizeof(archiveMemberHeader.dateText) };
+      CString userIDText{ archiveMemberHeader.userID, sizeof(archiveMemberHeader.userID) };
+      CString groupIDText{ archiveMemberHeader.groupID, sizeof(archiveMemberHeader.groupID) };
+      CString fileModeText{ archiveMemberHeader.mode, sizeof(archiveMemberHeader.mode) };
+      CString sizeText{ archiveMemberHeader.sizeText, sizeof(archiveMemberHeader.sizeText) };
+
+      archiveMemberName.Trim();
+      userIDText.Trim();
+      groupIDText.Trim();
+      fileModeText.Trim();
+      sizeText.Trim();
+
+      time_t dateTime = _tcstoul(dateText, nullptr, 10);
+      CString formattedDateTime = DisplayFormatHelper::FormatDateTime(dateTime);
+
+      CString archiveMemberIndexText;
+      archiveMemberIndexText.Format(_T("%zu"), archiveMemberIndex);
+
+      libraryArchiveMemberListData.push_back(
+         std::vector<CString> {
+         archiveMemberIndexText,
+            archiveMemberName,
+            formattedDateTime,
+            userIDText,
+            groupIDText,
+            fileModeText,
+            sizeText,
+      });
+
+      // add a node for each archive member
       auto archiveMemberNode = std::make_shared<CodeTextViewNode>(
          _T("Archive member: ") + archiveMemberName,
          NodeTreeIconID::nodeTreeIconDocument);
@@ -574,9 +608,7 @@ void CoffReader::LoadArchiveLibraryFile()
       archiveMemberNode->SetText(archiveMemberSummaryText);
 
       // advance to next header
-      CString sizeText{ archiveMemberHeader.sizeText, sizeof(archiveMemberHeader.sizeText) };
       size_t archiveMemberSize = _ttol(sizeText);
-
       archiveMemberOffset += sizeof(ArchiveMemberHeader) + archiveMemberSize;
 
       // ensure 2-byte alignment
@@ -585,6 +617,27 @@ void CoffReader::LoadArchiveLibraryFile()
 
       librarySummaryText += _T("\n");
    }
+
+   static std::vector<CString> libraryArchiveMemberListColumnNames
+   {
+      _T("Index"),
+      _T("Archive member"),
+      _T("Date"),
+      _T("User ID"),
+      _T("Group ID"),
+      _T("Mode"),
+      _T("Size"),
+   };
+
+   auto libraryArchiveMemberListNode = std::make_shared<FilterSortListViewNode>(
+      _T("Library Archive Members"), NodeTreeIconID::nodeTreeIconTable,
+      libraryArchiveMemberListColumnNames,
+      libraryArchiveMemberListData,
+      false);
+
+   rootNode->ChildNodes().insert(
+      rootNode->ChildNodes().begin() + 1,
+      libraryArchiveMemberListNode);
 
    rootNode->SetText(librarySummaryText);
 
