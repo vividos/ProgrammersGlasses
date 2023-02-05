@@ -18,6 +18,7 @@
 #include "File.hpp"
 #include "Helper.hpp"
 #include "DisplayFormatHelper.hpp"
+#include "SymbolsHelper.hpp"
 #include "StructListViewNode.hpp"
 #include <map>
 
@@ -288,7 +289,9 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
       else
          symbolName = CString{ symbolTable.name, sizeof(symbolTable.name) };
 
-      summaryText.AppendFormat(_T("Symbol: %s\n"), symbolName.GetString());
+      summaryText.AppendFormat(_T("Symbol: %s (%s)\n"),
+         symbolName.GetString(),
+         SymbolsHelper::UndecorateSymbol(symbolName).GetString());
 
       auto symbolTableEntryNode = std::make_shared<StructListViewNode>(
          _T("Symbol table entry ") + symbolName,
@@ -370,9 +373,10 @@ void CoffReader::AddStringTable(CodeTextViewNode& symbolTableSummaryNode,
       }
 
       summaryText.AppendFormat(
-         _T("0x%08zx: %hs\n"),
+         _T("0x%08zx: %hs (%s)\n"),
          stringTableText - stringTableStart,
-         stringTableText);
+         stringTableText,
+         SymbolsHelper::UndecorateSymbol(stringTableText).GetString());
 
       stringTableText += strlen(
          reinterpret_cast<const CHAR*>(stringTableText)) + 1;
@@ -507,10 +511,11 @@ void CoffReader::AddArchiveLinkerMember(CodeTextViewNode& linkerMemberSummaryNod
          DWORD offset = SwapEndianness(offsetBigEndian);
 
          linkerMemberDetails.AppendFormat(
-            _T("[%u] at archive member 0x%08x: %hs\n"),
+            _T("[%u] at archive member 0x%08x: %hs (%s)\n"),
             symbolIndex,
             offset,
-            symbolTableText);
+            symbolTableText,
+            SymbolsHelper::UndecorateSymbol(symbolTableText).GetString());
 
          symbolTableText += strlen(symbolTableText) + 1;
       }
@@ -564,10 +569,11 @@ void CoffReader::AddArchiveLinkerMember(CodeTextViewNode& linkerMemberSummaryNod
          WORD mapIndex = mapIndexStart[symbolIndex];
 
          linkerMemberDetails.AppendFormat(
-            _T("[%u] index 0x%04x, symbol: %hs\n"),
+            _T("[%u] index 0x%04x, symbol: %hs (%s)\n"),
             symbolIndex,
             mapIndex,
-            symbolTableText);
+            symbolTableText,
+            SymbolsHelper::UndecorateSymbol(symbolTableText).GetString());
 
          symbolTableText += strlen(symbolTableText) + 1;
       }
