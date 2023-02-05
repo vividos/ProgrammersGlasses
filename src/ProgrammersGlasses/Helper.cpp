@@ -35,6 +35,12 @@ void IndentText(CString& text, int numberOfSpaces)
    text.TrimRight();
 }
 
+bool ContainsIgnoreCase(const CString& textToSearch, const CString& textToFind)
+{
+   return CString(textToSearch).MakeLower()
+      .Find(CString(textToFind).MakeLower()) != -1;
+}
+
 DWORD GetBufferValueWithEndianness(const BYTE* buffer, size_t valueSize, bool littleEndian)
 {
    switch (valueSize)

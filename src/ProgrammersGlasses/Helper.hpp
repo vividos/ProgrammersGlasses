@@ -16,6 +16,10 @@ std::vector<CString> StringSplit(const CString& text, LPCTSTR splitChars, bool a
 /// indents a multiline string with space characters
 void IndentText(CString& text, int numberOfSpaces);
 
+/// checks if the text to search contains the text to find somewhere, using
+/// case independent comparison
+bool ContainsIgnoreCase(const CString& textToSearch, const CString& textToFind);
+
 /// Returns value from a std::map with given key, or a default value when the key is not found in the map
 template <typename T>
 inline LPCTSTR GetValueFromMapOrDefault(const std::map<T, LPCTSTR>& map, const T key, LPCTSTR defaultValue)
