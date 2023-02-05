@@ -35,7 +35,7 @@ void PngImageReader::Load()
 
    auto pngHeaderNode = std::make_shared<StructListViewNode>(
       _T("PNG header"),
-      NodeTreeIconID::nodeTreeIconTable,
+      NodeTreeIconID::nodeTreeIconBinary,
       g_definitionPngFileHeader,
       &fileHeader,
       m_file.Data());
@@ -52,7 +52,7 @@ void PngImageReader::Load()
 
       auto pngChunkNode = std::make_shared<StructListViewNode>(
          _T("PNG chunk: ") + chunkType,
-         NodeTreeIconID::nodeTreeIconTable,
+         NodeTreeIconID::nodeTreeIconBinary,
          g_definitionPngChunkHeader,
          &chunkHeader,
          m_file.Data());
@@ -80,7 +80,7 @@ void PngImageReader::Load()
 
          auto pngImageHeaderNode = std::make_shared<StructListViewNode>(
             _T("PNG image header"),
-            NodeTreeIconID::nodeTreeIconItem,
+            NodeTreeIconID::nodeTreeIconBinary,
             g_definitionPngImageHeader,
             &imageHeader,
             m_file.Data());

@@ -36,7 +36,7 @@ void PortableExecutableReader::Load()
 
    auto pngHeaderNode = std::make_shared<StructListViewNode>(
       _T("MZ header"),
-      NodeTreeIconID::nodeTreeIconTable,
+      NodeTreeIconID::nodeTreeIconBinary,
       g_definitionDosMzHeader,
       &dosMzHeader,
       m_file.Data());

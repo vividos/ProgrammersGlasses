@@ -39,7 +39,7 @@ void SidFileReader::Load()
 
    auto sidFileHeaderNode = std::make_shared<StructListViewNode>(
       _T("SID file header"),
-      NodeTreeIconID::nodeTreeIconDocument,
+      NodeTreeIconID::nodeTreeIconBinary,
       structDefinition,
       &header,
       m_file.Data());

@@ -111,7 +111,7 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
 
    auto coffHeaderNode = std::make_shared<StructListViewNode>(
       _T("COFF header"),
-      NodeTreeIconID::nodeTreeIconDocument,
+      NodeTreeIconID::nodeTreeIconBinary,
       g_definitionCoffHeader,
       &header,
       m_file.Data());
@@ -228,7 +228,7 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
 
       auto sectionHeaderNode = std::make_shared<StructListViewNode>(
          _T("Section header ") + sectionName,
-         NodeTreeIconID::nodeTreeIconDocument,
+         NodeTreeIconID::nodeTreeIconBinary,
          g_definitionSectionHeader,
          sectionStart,
          m_file.Data());
@@ -292,7 +292,7 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
 
       auto symbolTableEntryNode = std::make_shared<StructListViewNode>(
          _T("Symbol table entry ") + symbolName,
-         NodeTreeIconID::nodeTreeIconDocument,
+         NodeTreeIconID::nodeTreeIconBinary,
          g_definitionCoffSymbolTable,
          symbolTableCurrent,
          m_file.Data());
