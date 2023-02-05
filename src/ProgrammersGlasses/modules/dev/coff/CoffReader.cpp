@@ -15,6 +15,7 @@
 #include "SectionHeader.hpp"
 #include "CoffSymbolTable.hpp"
 #include "File.hpp"
+#include "Helper.hpp"
 #include "DisplayFormatHelper.hpp"
 #include "StructListViewNode.hpp"
 #include <map>
@@ -481,6 +482,10 @@ void CoffReader::LoadArchiveLibraryFile()
 
    rootNode->ChildNodes().push_back(archiveHeaderNode);
 
+   CString librarySummaryText;
+   librarySummaryText.Append(_T("COFF library file: ") + m_file.Filename());
+   librarySummaryText += _T("\n\n");
+
    size_t archiveMemberOffset = sizeof(ArchiveHeader);
 
    for (size_t archiveMemberIndex = 0; archiveMemberOffset < m_file.Size(); archiveMemberIndex++)
@@ -510,6 +515,9 @@ void CoffReader::LoadArchiveLibraryFile()
          archiveMemberHeader.endOfHeader[1] != 0x0a)
          break;
 
+      librarySummaryText.AppendFormat(_T("%s: "),
+         archiveMemberName.GetString());
+
       // add COFF object / anonymous object
       size_t archiveMemberStart = archiveMemberOffset + sizeof(ArchiveMemberHeader);
 
@@ -528,6 +536,10 @@ void CoffReader::LoadArchiveLibraryFile()
                archiveMemberStart,
                objectFileSummary);
 
+            IndentText(objectFileSummary, 3);
+            objectFileSummary.TrimLeft();
+            librarySummaryText += objectFileSummary + _T("\n");
+
             archiveMemberNode->ChildNodes().push_back(nonCoffSummaryNode);
          }
          else
@@ -542,6 +554,10 @@ void CoffReader::LoadArchiveLibraryFile()
                archiveMemberStart,
                objectFileSummary);
 
+            IndentText(objectFileSummary, 3);
+            objectFileSummary.TrimLeft();
+            librarySummaryText += objectFileSummary + _T("\n");
+
             archiveMemberNode->ChildNodes().push_back(coffSummaryNode);
          }
       }
@@ -555,7 +571,11 @@ void CoffReader::LoadArchiveLibraryFile()
       // ensure 2-byte alignment
       if ((archiveMemberOffset & 1) != 0)
          archiveMemberOffset++;
+
+      librarySummaryText += _T("\n");
    }
+
+   rootNode->SetText(librarySummaryText);
 
    m_rootNode.reset(rootNode);
 }
