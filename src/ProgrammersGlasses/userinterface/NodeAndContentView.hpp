@@ -19,7 +19,7 @@ class NodeAndContentView :
 
 public:
    /// ctor
-   NodeAndContentView(std::shared_ptr<IReader> reader)
+   explicit NodeAndContentView(std::shared_ptr<IReader> reader)
       :m_reader(reader)
    {
    }

@@ -33,7 +33,7 @@ class MainFrame :
 
 public:
    /// ctor
-   MainFrame(const std::vector<CString>& filenamesList)
+   explicit MainFrame(const std::vector<CString>& filenamesList)
       :m_filenamesList(filenamesList)
    {
    }

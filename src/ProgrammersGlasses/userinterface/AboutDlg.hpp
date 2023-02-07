@@ -19,7 +19,7 @@ class AboutDlg :
 {
 public:
    /// ctor
-   AboutDlg(const ModuleManager& moduleManager)
+   explicit AboutDlg(const ModuleManager& moduleManager)
       :m_moduleManager(moduleManager)
    {
    }

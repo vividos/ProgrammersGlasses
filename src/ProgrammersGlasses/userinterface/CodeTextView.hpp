@@ -24,7 +24,7 @@ class CodeTextView :
 
 public:
    /// ctor; takes text to display
-   CodeTextView(const CString& text);
+   explicit CodeTextView(const CString& text);
 
    DECLARE_WND_SUPERCLASS(nullptr, CEdit::GetWndClassName())
 
