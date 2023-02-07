@@ -17,7 +17,7 @@ class SidAudioModule : public IModule
 {
 public:
    /// ctor
-   SidAudioModule() {}
+   SidAudioModule() = default;
 
    // Inherited via IModule
    virtual CString DisplayName() const override

@@ -15,7 +15,7 @@ class CoffModule : public IModule
 {
 public:
    /// ctor
-   CoffModule() {}
+   CoffModule() = default;
 
    // Inherited via IModule
    virtual CString DisplayName() const override;

@@ -15,7 +15,7 @@ class PortableExecutableModule : public IModule
 {
 public:
    /// ctor
-   PortableExecutableModule() {}
+   PortableExecutableModule() = default;
 
    // Inherited via IModule
    virtual CString DisplayName() const override

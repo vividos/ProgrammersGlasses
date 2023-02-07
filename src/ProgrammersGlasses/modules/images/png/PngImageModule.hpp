@@ -15,7 +15,7 @@ class PngImageModule : public IModule
 {
 public:
    /// ctor
-   PngImageModule() {}
+   PngImageModule() = default;
 
    // Inherited via IModule
    virtual CString DisplayName() const override

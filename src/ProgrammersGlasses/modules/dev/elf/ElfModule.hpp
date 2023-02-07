@@ -15,7 +15,7 @@ class ElfModule : public IModule
 {
 public:
    /// ctor
-   ElfModule() {}
+   ElfModule() = default;
 
    // Inherited via IModule
    virtual CString DisplayName() const override;
