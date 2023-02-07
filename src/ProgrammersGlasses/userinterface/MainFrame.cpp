@@ -201,6 +201,7 @@ void MainFrame::OpenFile(const CString& filename)
       return;
    }
 
+   // NodeAndContentView deletes itself in OnFinalMessage()
    NodeAndContentView* view = new NodeAndContentView(reader);
    view->CreateEx(m_hWndClient, rcDefault, Path::FilenameAndExt(filename));
 

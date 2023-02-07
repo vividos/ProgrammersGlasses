@@ -27,7 +27,9 @@ void PngImageReader::Load()
 {
    const PngFileHeader& fileHeader = *reinterpret_cast<const PngFileHeader*>(m_file.Data());
 
-   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconDocument);
+   auto rootNode = std::make_shared<CodeTextViewNode>(
+      _T("Summary"),
+      NodeTreeIconID::nodeTreeIconDocument);
 
    CString summaryText;
    summaryText.Append(_T("PNG file: ") + m_file.Filename() + _T("\n\n"));
@@ -107,7 +109,7 @@ void PngImageReader::Load()
 
    rootNode->SetText(summaryText);
 
-   m_rootNode.reset(rootNode);
+   m_rootNode = rootNode;
 }
 
 void PngImageReader::Cleanup()

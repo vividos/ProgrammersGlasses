@@ -26,7 +26,9 @@ PortableExecutableReader::PortableExecutableReader(const File& file)
 
 void PortableExecutableReader::Load()
 {
-   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconDocument);
+   auto rootNode = std::make_shared<CodeTextViewNode>(
+      _T("Summary"),
+      NodeTreeIconID::nodeTreeIconDocument);
 
    CString summaryText;
    summaryText.Append(_T("PE file: ") + m_file.Filename() + _T("\n\n"));
@@ -49,7 +51,7 @@ void PortableExecutableReader::Load()
 
    rootNode->SetText(summaryText);
 
-   m_rootNode.reset(rootNode);
+   m_rootNode = rootNode;
 }
 
 void PortableExecutableReader::Cleanup()

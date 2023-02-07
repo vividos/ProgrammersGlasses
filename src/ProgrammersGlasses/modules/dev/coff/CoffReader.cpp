@@ -90,14 +90,16 @@ void CoffReader::Cleanup()
 
 void CoffReader::LoadCoffObjectFile()
 {
-   auto rootNode = new CodeTextViewNode(_T("Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+   auto rootNode = std::make_shared<CodeTextViewNode>(
+      _T("Summary"),
+      NodeTreeIconID::nodeTreeIconLibrary);
 
    CString objectFileSummary;
    AddCoffObjectFile(*rootNode, 0, objectFileSummary);
 
    rootNode->SetText(objectFileSummary);
 
-   m_rootNode.reset(rootNode);
+   m_rootNode = rootNode;
 }
 
 void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
@@ -119,7 +121,10 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
 
    coffSummaryNode.ChildNodes().push_back(coffHeaderNode);
 
-   auto sectionSummaryNode = std::make_shared<CodeTextViewNode>(_T("Section Table"), NodeTreeIconID::nodeTreeIconDocument);
+   auto sectionSummaryNode = std::make_shared<CodeTextViewNode>(
+      _T("Section Table"),
+      NodeTreeIconID::nodeTreeIconDocument);
+
    AddSectionTable(*sectionSummaryNode, header, fileOffset);
    coffSummaryNode.ChildNodes().push_back(sectionSummaryNode);
 
@@ -393,7 +398,7 @@ void CoffReader::AddStringTable(CodeTextViewNode& symbolTableSummaryNode,
 
 void CoffReader::LoadNonCoffObjectFile()
 {
-   auto rootNode = new CodeTextViewNode(
+   auto rootNode = std::make_shared<CodeTextViewNode>(
       _T("Summary"),
       NodeTreeIconID::nodeTreeIconObject);
 
@@ -402,7 +407,7 @@ void CoffReader::LoadNonCoffObjectFile()
 
    rootNode->SetText(objectFileSummary);
 
-   m_rootNode.reset(rootNode);
+   m_rootNode = rootNode;
 }
 
 void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
@@ -589,7 +594,9 @@ void CoffReader::AddArchiveLinkerMember(CodeTextViewNode& linkerMemberSummaryNod
 
 void CoffReader::LoadArchiveLibraryFile()
 {
-   auto rootNode = new CodeTextViewNode(_T("Library Summary"), NodeTreeIconID::nodeTreeIconLibrary);
+   auto rootNode = std::make_shared<CodeTextViewNode>(
+      _T("Library Summary"),
+      NodeTreeIconID::nodeTreeIconLibrary);
 
    std::vector<std::vector<CString>> libraryArchiveMemberListData;
 
@@ -773,7 +780,8 @@ void CoffReader::LoadArchiveLibraryFile()
    };
 
    auto libraryArchiveMemberListNode = std::make_shared<FilterSortListViewNode>(
-      _T("Library Archive Members"), NodeTreeIconID::nodeTreeIconTable,
+      _T("Library Archive Members"),
+      NodeTreeIconID::nodeTreeIconTable,
       libraryArchiveMemberListColumnNames,
       libraryArchiveMemberListData,
       false);
@@ -784,5 +792,5 @@ void CoffReader::LoadArchiveLibraryFile()
 
    rootNode->SetText(librarySummaryText);
 
-   m_rootNode.reset(rootNode);
+   m_rootNode = rootNode;
 }
