@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "DosMzHeader.hpp"
 
-StructDefinition g_definitionDosMzHeader = StructDefinition({
+const StructDefinition g_definitionDosMzHeader = StructDefinition({
    StructField(
       offsetof(DosMzHeader, DosMzHeader::magicNumber),
       sizeof(DosMzHeader::magicNumber),

@@ -67,4 +67,4 @@ static_assert(sizeof(DosMzHeader) == 0x1C, "DOS MZ header must be 28 bytes long"
 #pragma pack(pop)
 
 /// structure definition for DOS MZ header
-extern StructDefinition g_definitionDosMzHeader;
+extern const StructDefinition g_definitionDosMzHeader;

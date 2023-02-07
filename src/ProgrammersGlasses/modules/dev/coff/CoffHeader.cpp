@@ -9,7 +9,7 @@
 #include "CoffHeader.hpp"
 #include "DisplayFormatHelper.hpp"
 
-std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText =
 {
    { 0x0, _T("IMAGE_FILE_MACHINE_UNKNOWN")},
    { 0x1d3, _T("IMAGE_FILE_MACHINE_AM33 (Matsushita AM33)") },
@@ -34,7 +34,7 @@ std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText =
    { 0x169, _T("IMAGE_FILE_MACHINE_WCEMIPSV2 (MIPS little - endian WCE v2)") },
 };
 
-std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText =
 {
    { 0x00001, _T("IMAGE_FILE_RELOCS_STRIPPED") },
    { 0x00002, _T("IMAGE_FILE_EXECUTABLE_IMAGE") },
@@ -53,7 +53,7 @@ std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText =
    { 0x08000, _T("IMAGE_FILE_BYTES_REVERSED_HI") },
 };
 
-StructDefinition g_definitionCoffHeader = StructDefinition({
+const StructDefinition g_definitionCoffHeader = StructDefinition({
    StructField(
       offsetof(CoffHeader, CoffHeader::targetMachine),
       sizeof(CoffHeader::targetMachine),

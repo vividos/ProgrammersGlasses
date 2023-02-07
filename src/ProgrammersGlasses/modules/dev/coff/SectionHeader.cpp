@@ -44,7 +44,7 @@ std::map<DWORD, LPCTSTR> g_mapSectionFlagsBitsToDisplayText =
    { 0x80000000, _T("IMAGE_SCN_MEM_WRITE") },
 };
 
-StructDefinition g_definitionSectionHeader = StructDefinition({
+const StructDefinition g_definitionSectionHeader = StructDefinition({
    StructField(
       offsetof(SectionHeader, SectionHeader::name),
       sizeof(SectionHeader::name),

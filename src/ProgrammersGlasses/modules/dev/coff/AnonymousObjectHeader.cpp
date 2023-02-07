@@ -11,7 +11,7 @@
 #include "ImportObjectHeader.hpp"
 #include "DisplayFormatHelper.hpp"
 
-StructDefinition g_definitionAnonymousObjectHeader = StructDefinition({
+const StructDefinition g_definitionAnonymousObjectHeader = StructDefinition({
    StructField(
       offsetof(AnonymousObjectHeader, AnonymousObjectHeader::signature1),
       sizeof(AnonymousObjectHeader::signature1),

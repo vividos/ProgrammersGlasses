@@ -54,13 +54,13 @@ static_assert(sizeof(PngChunkHeader) == 8, "PNG image header (IHDR) must be 13 b
 extern const BYTE c_pngFileHeaderSignatureBytes[8];
 
 /// structure definition for PNG file header
-extern StructDefinition g_definitionPngFileHeader;
+extern const StructDefinition g_definitionPngFileHeader;
 
 /// structure definition for PNG chunk header
-extern StructDefinition g_definitionPngChunkHeader;
+extern const StructDefinition g_definitionPngChunkHeader;
 
 /// structure definition for PNG image header
-extern StructDefinition g_definitionPngImageHeader;
+extern const StructDefinition g_definitionPngImageHeader;
 
 /// @brief mapping of PNG colour type to display text
-extern std::map<DWORD, LPCTSTR> g_mapPngColourTypeToDisplayText;
+extern const std::map<DWORD, LPCTSTR> g_mapPngColourTypeToDisplayText;

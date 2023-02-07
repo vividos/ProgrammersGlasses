@@ -10,7 +10,7 @@
 
 LPCSTR c_archiveHeaderSignatureText = "!<arch>\n";
 
-StructDefinition g_definitionArchiveHeader = StructDefinition({
+const StructDefinition g_definitionArchiveHeader = StructDefinition({
    StructField(
       offsetof(ArchiveHeader, ArchiveHeader::signature),
       sizeof(ArchiveHeader::signature),
@@ -20,7 +20,7 @@ StructDefinition g_definitionArchiveHeader = StructDefinition({
       _T("Archive signature")),
    });
 
-StructDefinition g_definitionArchiveMemberHeader = StructDefinition({
+const StructDefinition g_definitionArchiveMemberHeader = StructDefinition({
    StructField(
       offsetof(ArchiveMemberHeader, ArchiveMemberHeader::name),
       sizeof(ArchiveMemberHeader::name),

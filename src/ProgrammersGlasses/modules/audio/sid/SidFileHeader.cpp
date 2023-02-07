@@ -8,13 +8,13 @@
 #include "stdafx.h"
 #include "SidFileHeader.hpp"
 
-std::map<DWORD, LPCTSTR> g_mapSidMagicIdsToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapSidMagicIdsToDisplayText =
 {
    { 0x50534944, _T("PSID")},
    { 0x52534944, _T("RSID")},
 };
 
-StructDefinition g_definitionSidFileHeader = StructDefinition({
+const StructDefinition g_definitionSidFileHeader = StructDefinition({
    StructField(
       offsetof(SidFileHeader, SidFileHeader::magicId),
       sizeof(SidFileHeader::magicId),
@@ -127,7 +127,7 @@ static CString FormatSidAddress(LPCVOID data, size_t size)
    return addressText;
 }
 
-StructDefinition g_definitionSidV2FileHeader = StructDefinition(
+const StructDefinition g_definitionSidV2FileHeader = StructDefinition(
    g_definitionSidFileHeader, {
    StructField(
       offsetof(SidFileHeader, SidFileHeader::flags),

@@ -10,17 +10,17 @@
 #include "CoffHeader.hpp"
 #include "DisplayFormatHelper.hpp"
 
-std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature1ToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature1ToDisplayText =
 {
    { 0x0, _T("non COFF header sig1") },
 };
 
-std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature2ToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature2ToDisplayText =
 {
    { 0xFFFF, _T("non COFF header sig2") },
 };
 
-std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderVersionToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderVersionToDisplayText =
 {
    { 0, _T("Import object") },
    { 1, _T("Anonymous object") },
@@ -28,7 +28,7 @@ std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderVersionToDisplayText =
 };
 
 /// mapping from import object type bits to display text
-std::map<DWORD, LPCTSTR> g_mapImportObjectTypeToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapImportObjectTypeToDisplayText =
 {
    { 0, _T("IMPORT_OBJECT_CODE") },
    { 1, _T("IMPORT_OBJECT_DATA") },
@@ -36,7 +36,7 @@ std::map<DWORD, LPCTSTR> g_mapImportObjectTypeToDisplayText =
 };
 
 /// mapping from import object name type bits to display text
-std::map<DWORD, LPCTSTR> g_mapImportObjectNameTypeToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapImportObjectNameTypeToDisplayText =
 {
    { 0, _T("IMPORT_OBJECT_ORDINAL") },
    { 1, _T("IMPORT_OBJECT_NAME") },
@@ -46,14 +46,14 @@ std::map<DWORD, LPCTSTR> g_mapImportObjectNameTypeToDisplayText =
 };
 
 /// flags bitfield
-std::vector<BitfieldDescriptor> g_listImportObjectHeaderFlagBits =
+const std::vector<BitfieldDescriptor> g_listImportObjectHeaderFlagBits =
 {
    BitfieldDescriptor{ 0, 2, StructFieldType::valueMapping, g_mapImportObjectTypeToDisplayText },
    BitfieldDescriptor{ 2, 3, StructFieldType::valueMapping, g_mapImportObjectNameTypeToDisplayText },
    BitfieldDescriptor{ 5, 11, StructFieldType::unsignedInteger },
 };
 
-StructDefinition g_definitionImportObjectHeader = StructDefinition({
+const StructDefinition g_definitionImportObjectHeader = StructDefinition({
    StructField(
       offsetof(ImportObjectHeader, ImportObjectHeader::signature1),
       sizeof(ImportObjectHeader::signature1),

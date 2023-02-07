@@ -13,7 +13,7 @@ extern const BYTE c_pngFileHeaderSignatureBytes[8] =
    137, 80, 78, 71, 13, 10, 26, 10
 };
 
-StructDefinition g_definitionPngFileHeader = StructDefinition({
+const StructDefinition g_definitionPngFileHeader = StructDefinition({
    StructField(
       offsetof(PngFileHeader, PngFileHeader::signature),
       sizeof(PngFileHeader::signature),
@@ -23,7 +23,7 @@ StructDefinition g_definitionPngFileHeader = StructDefinition({
       _T("PNG signature")),
    });
 
-StructDefinition g_definitionPngChunkHeader = StructDefinition({
+const StructDefinition g_definitionPngChunkHeader = StructDefinition({
    StructField(
       offsetof(PngChunkHeader, PngChunkHeader::length),
       sizeof(PngChunkHeader::length),
@@ -41,7 +41,7 @@ StructDefinition g_definitionPngChunkHeader = StructDefinition({
       _T("Chunk type")),
    });
 
-std::map<DWORD, LPCTSTR> g_mapPngColourTypeToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapPngColourTypeToDisplayText =
 {
    { 0, _T("Greyscale")},
    { 2, _T("True colour")},
@@ -50,23 +50,23 @@ std::map<DWORD, LPCTSTR> g_mapPngColourTypeToDisplayText =
    { 6, _T("True color with alpha")},
 };
 
-std::map<DWORD, LPCTSTR> g_mapPngCompressionMethodToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapPngCompressionMethodToDisplayText =
 {
    { 0, _T("deflate")},
 };
 
-std::map<DWORD, LPCTSTR> g_mapPngFilterMethodToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapPngFilterMethodToDisplayText =
 {
    { 0, _T("adaptive filtering")},
 };
 
-std::map<DWORD, LPCTSTR> g_mapPngInterlaceMethodToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapPngInterlaceMethodToDisplayText =
 {
    { 0, _T("no interlace")},
    { 1, _T("Adam7 interlace")},
 };
 
-StructDefinition g_definitionPngImageHeader = StructDefinition({
+const StructDefinition g_definitionPngImageHeader = StructDefinition({
    StructField(
       offsetof(PngImageHeader, PngImageHeader::width),
       sizeof(PngImageHeader::width),

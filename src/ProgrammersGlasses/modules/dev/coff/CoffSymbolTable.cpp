@@ -62,7 +62,7 @@ std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableStorageClassToDisplayText =
    { 103, _T("IMAGE_SYM_CLASS_FILE") },
 };
 
-StructDefinition g_definitionCoffSymbolTable = StructDefinition({
+const StructDefinition g_definitionCoffSymbolTable = StructDefinition({
    StructField(
       offsetof(CoffSymbolTable, CoffSymbolTable::name),
       sizeof(CoffSymbolTable::name),

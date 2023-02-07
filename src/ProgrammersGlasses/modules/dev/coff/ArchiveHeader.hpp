@@ -57,7 +57,7 @@ static_assert(sizeof(ArchiveMemberHeader) == 60, "Archive member header must be 
 extern LPCSTR c_archiveHeaderSignatureText;
 
 /// struct definition for above archive header
-extern StructDefinition g_definitionArchiveHeader;
+extern const StructDefinition g_definitionArchiveHeader;
 
 /// struct definition for above archive member header
-extern StructDefinition g_definitionArchiveMemberHeader;
+extern const StructDefinition g_definitionArchiveMemberHeader;

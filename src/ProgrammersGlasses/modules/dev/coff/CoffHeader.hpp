@@ -38,10 +38,10 @@ static_assert(sizeof(CoffHeader) == sizeof(IMAGE_FILE_HEADER),
    "COFF header must have same size as IMAGE_FILE_HEADER");
 
 /// mapping of COFF target machine to display text
-extern std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText;
+extern const std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText;
 
 /// mapping of COFF characteristics bits to display text
-extern std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText;
+extern const std::map<DWORD, LPCTSTR> g_mapCoffCharacteristicsBitsToDisplayText;
 
 /// struct definition for above COFF header
-extern StructDefinition g_definitionCoffHeader;
+extern const StructDefinition g_definitionCoffHeader;

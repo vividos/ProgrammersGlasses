@@ -39,13 +39,13 @@ static_assert(sizeof(ImportObjectHeader) == sizeof(IMPORT_OBJECT_HEADER),
    "Import object header must have same size as IMPORT_OBJECT_HEADER");
 
 /// signature 1 values to display text mapping
-extern std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature1ToDisplayText;
+extern const std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature1ToDisplayText;
 
 /// signature 2 values to display text mapping
-extern std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature2ToDisplayText;
+extern const std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderSignature2ToDisplayText;
 
 /// version values to display text mapping
-extern std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderVersionToDisplayText;
+extern const std::map<DWORD, LPCTSTR> g_mapNonCoffHeaderVersionToDisplayText;
 
 /// struct definition for above Import object header
-extern StructDefinition g_definitionImportObjectHeader;
+extern const StructDefinition g_definitionImportObjectHeader;

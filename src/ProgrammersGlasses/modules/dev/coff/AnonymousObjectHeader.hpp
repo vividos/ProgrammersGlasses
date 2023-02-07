@@ -36,4 +36,4 @@ static_assert(sizeof(AnonymousObjectHeader) == sizeof(ANON_OBJECT_HEADER),
    "Anonymous object header must have same size as ANON_OBJECT_HEADER");
 
 /// struct definition for above Anonymous object header
-extern StructDefinition g_definitionAnonymousObjectHeader;
+extern const StructDefinition g_definitionAnonymousObjectHeader;

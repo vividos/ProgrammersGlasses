@@ -38,4 +38,4 @@ struct CoffSymbolTable
 static_assert(sizeof(CoffSymbolTable) == 18, "COFF symbol table must be 18 bytes long");
 
 /// struct definition for above COFF symbol table
-extern StructDefinition g_definitionCoffSymbolTable;
+extern const StructDefinition g_definitionCoffSymbolTable;

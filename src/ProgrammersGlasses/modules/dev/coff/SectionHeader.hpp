@@ -53,4 +53,4 @@ struct SectionHeader
 static_assert(sizeof(SectionHeader) == 40, "Section header must be 40 bytes long");
 
 /// struct definition for above COFF section header
-extern StructDefinition g_definitionSectionHeader;
+extern const StructDefinition g_definitionSectionHeader;
