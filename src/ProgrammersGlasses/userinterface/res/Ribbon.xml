@@ -10,7 +10,21 @@
   <Application.Commands>
 
     <!-- ProgrammersGlasses.rc Commands -->
-    <Command Name="wtl_FILE_OPEN" Symbol="ID_FILE_OPEN" Id="0xE101" LabelTitle="Open" Keytip="O" />
+    <Command Name="wtl_FILE_OPEN" Symbol="ID_FILE_OPEN" Id="0xE101" LabelTitle="Open" Keytip="O">
+      <Command.LargeImages>
+        <Image Source="ribbon/file_open_32.png" MinDPI="96" />
+        <Image Source="ribbon/file_open_40.png" MinDPI="120" />
+        <Image Source="ribbon/file_open_48.png" MinDPI="144" />
+        <Image Source="ribbon/file_open_64.png" MinDPI="192" />
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="ribbon/file_open_16.png" MinDPI="96" />
+        <Image Source="ribbon/file_open_20.png" MinDPI="120" />
+        <Image Source="ribbon/file_open_24.png" MinDPI="144" />
+        <Image Source="ribbon/file_open_32.png" MinDPI="192" />
+      </Command.SmallImages>
+    </Command>
+
     <Command Name="wtl_FILE_CLOSE" Symbol="ID_FILE_CLOSE" Id="0xE102" LabelTitle="Close" Keytip="L">
       <Command.LargeImages>
         <Image Source="ribbon/file_close_32.png" MinDPI="96" />
@@ -41,12 +55,66 @@
       </Command.SmallImages>
     </Command>
 
-    <Command Name="wtl_WINDOW_CASCADE" Symbol="ID_WINDOW_CASCADE" Id="0xE132" LabelTitle="Cascade" Keytip="S" />
-    <Command Name="wtl_WINDOW_TILE_HORZ" Symbol="ID_WINDOW_TILE_HORZ" Id="0xE133" LabelTitle="Tile Horizontally" Keytip="H" />
-    <Command Name="wtl_WINDOW_TILE_VERT" Symbol="ID_WINDOW_TILE_VERT" Id="0xE134" LabelTitle="Tile Vertically" Keytip="V" />
+    <Command Name="wtl_WINDOW_CASCADE" Symbol="ID_WINDOW_CASCADE" Id="0xE132" LabelTitle="Cascade" Keytip="S">
+      <Command.LargeImages>
+        <Image Source="ribbon/window_cascade_32.png" MinDPI="96" />
+        <Image Source="ribbon/window_cascade_40.png" MinDPI="120" />
+        <Image Source="ribbon/window_cascade_48.png" MinDPI="144" />
+        <Image Source="ribbon/window_cascade_64.png" MinDPI="192" />
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="ribbon/window_cascade_16.png" MinDPI="96" />
+        <Image Source="ribbon/window_cascade_20.png" MinDPI="120" />
+        <Image Source="ribbon/window_cascade_24.png" MinDPI="144" />
+        <Image Source="ribbon/window_cascade_32.png" MinDPI="192" />
+      </Command.SmallImages>
+    </Command>
+
+    <Command Name="wtl_WINDOW_TILE_HORZ" Symbol="ID_WINDOW_TILE_HORZ" Id="0xE133" LabelTitle="Tile Horizontally" Keytip="H">
+      <Command.LargeImages>
+        <Image Source="ribbon/window_horizontal_32.png" MinDPI="96" />
+        <Image Source="ribbon/window_horizontal_40.png" MinDPI="120" />
+        <Image Source="ribbon/window_horizontal_48.png" MinDPI="144" />
+        <Image Source="ribbon/window_horizontal_64.png" MinDPI="192" />
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="ribbon/window_horizontal_16.png" MinDPI="96" />
+        <Image Source="ribbon/window_horizontal_20.png" MinDPI="120" />
+        <Image Source="ribbon/window_horizontal_24.png" MinDPI="144" />
+        <Image Source="ribbon/window_horizontal_32.png" MinDPI="192" />
+      </Command.SmallImages>
+    </Command>
+
+    <Command Name="wtl_WINDOW_TILE_VERT" Symbol="ID_WINDOW_TILE_VERT" Id="0xE134" LabelTitle="Tile Vertically" Keytip="V">
+      <Command.LargeImages>
+        <Image Source="ribbon/window_vertical_32.png" MinDPI="96" />
+        <Image Source="ribbon/window_vertical_40.png" MinDPI="120" />
+        <Image Source="ribbon/window_vertical_48.png" MinDPI="144" />
+        <Image Source="ribbon/window_vertical_64.png" MinDPI="192" />
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="ribbon/window_vertical_16.png" MinDPI="96" />
+        <Image Source="ribbon/window_vertical_20.png" MinDPI="120" />
+        <Image Source="ribbon/window_vertical_24.png" MinDPI="144" />
+        <Image Source="ribbon/window_vertical_32.png" MinDPI="192" />
+      </Command.SmallImages>
+    </Command>
 
     <Command Name="wtl_APP_ABOUT" Symbol="ID_APP_ABOUT" Id="0xE140" LabelTitle="About" Keytip="B" />
-    <Command Name="wtl_APP_EXIT" Symbol="ID_APP_EXIT" Id="0xE141" LabelTitle="Exit" Keytip="X" />
+    <Command Name="wtl_APP_EXIT" Symbol="ID_APP_EXIT" Id="0xE141" LabelTitle="Exit" Keytip="X">
+      <Command.LargeImages>
+        <Image Source="ribbon/app_exit_32.png" MinDPI="96" />
+        <Image Source="ribbon/app_exit_40.png" MinDPI="120" />
+        <Image Source="ribbon/app_exit_48.png" MinDPI="144" />
+        <Image Source="ribbon/app_exit_64.png" MinDPI="192" />
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="ribbon/app_exit_16.png" MinDPI="96" />
+        <Image Source="ribbon/app_exit_20.png" MinDPI="120" />
+        <Image Source="ribbon/app_exit_24.png" MinDPI="144" />
+        <Image Source="ribbon/app_exit_32.png" MinDPI="192" />
+      </Command.SmallImages>
+    </Command>
 
     <!-- Tabs -->
     <Command Name="TabHome" Symbol="ID_TAB_HOME" LabelTitle="Home" />

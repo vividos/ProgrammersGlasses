@@ -14,7 +14,12 @@ set SIZES=16 20 24 32 40 48 64
 
 echo Generating bitmap images for sizes: %SIZES%
 
-for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none Copy_16x.svg ..\ribbon\edit_copy_%%X.png
+for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none FolderOpened_16x.svg ..\ribbon\file_open_%%X.png
 for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none CloseDocument_16x.svg ..\ribbon\file_close_%%X.png
+for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none Copy_16x.svg ..\ribbon\edit_copy_%%X.png
+for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none CloseSolution_16x.svg ..\ribbon\app_exit_%%X.png
+for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none DialogGroup_16x.svg ..\ribbon\window_cascade_%%X.png
+for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none SplitScreenHorizontally_16x.svg ..\ribbon\window_horizontal_%%X.png
+for %%X in (%SIZES%) do %IMAGEMAGICK% -size %%Xx%%X -background none SplitScreenVertically_16x.svg ..\ribbon\window_vertical_%%X.png
 
 echo Finished generating bitmap images.
