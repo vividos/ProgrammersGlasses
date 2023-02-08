@@ -75,7 +75,7 @@ static_assert(sizeof(SidFileHeader) == 0x7C, "SID file header must be 0x76 bytes
 extern const std::map<DWORD, LPCTSTR> g_mapSidMagicIdsToDisplayText;
 
 /// structure definition for SID file header
-extern const const StructDefinition g_definitionSidFileHeader;
+extern const StructDefinition g_definitionSidFileHeader;
 
 /// structure definition for the extra fields in a SID v2, v3 or v4 file header
 extern const StructDefinition g_definitionSidV2FileHeader;
