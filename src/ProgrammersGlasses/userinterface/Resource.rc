@@ -110,7 +110,7 @@ BEGIN
     LTEXT           "Programmer's Glasses",IDC_STATIC,30,7,147,8
     ICON            IDR_MAINFRAME,IDC_STATIC,7,7,20,20
     LTEXT           "Version 1.2.3 Build 123",IDC_STATIC_ABOUT_VERSION,30,15,147,8
-    LTEXT           "Copyright (c) 2020 Michael Fink",IDC_STATIC,30,23,147,8
+    LTEXT           "Copyright (c) 2020-2023 Michael Fink",IDC_STATIC,30,23,147,8
     LTEXT           "Available modules",IDC_STATIC,7,38,170,8
     CONTROL         "",IDC_LIST_ABOUT_MODULES,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,7,48,341,77
     LTEXT           "GitHub project web page",IDC_STATIC_ABOUT_WEBPAGE,183,7,165,8
