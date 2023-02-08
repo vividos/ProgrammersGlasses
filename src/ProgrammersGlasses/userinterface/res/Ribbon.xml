@@ -1,6 +1,6 @@
 <!--
   Programmer's Glasses - a developer's file content viewer
-  Copyright (c) 2020 Michael Fink
+  Copyright (c) 2020-2022 Michael Fink
 
   Ribbon.xml - ribbon definition
 
@@ -11,9 +11,35 @@
 
     <!-- ProgrammersGlasses.rc Commands -->
     <Command Name="wtl_FILE_OPEN" Symbol="ID_FILE_OPEN" Id="0xE101" LabelTitle="Open" Keytip="O" />
-    <Command Name="wtl_FILE_CLOSE" Symbol="ID_FILE_CLOSE" Id="0xE102" LabelTitle="Close" Keytip="L" />
+    <Command Name="wtl_FILE_CLOSE" Symbol="ID_FILE_CLOSE" Id="0xE102" LabelTitle="Close" Keytip="L">
+      <Command.LargeImages>
+        <Image Source="ribbon/file_close_32.png" MinDPI="96" />
+        <Image Source="ribbon/file_close_40.png" MinDPI="120" />
+        <Image Source="ribbon/file_close_48.png" MinDPI="144" />
+        <Image Source="ribbon/file_close_64.png" MinDPI="192" />
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="ribbon/file_close_16.png" MinDPI="96" />
+        <Image Source="ribbon/file_close_20.png" MinDPI="120" />
+        <Image Source="ribbon/file_close_24.png" MinDPI="144" />
+        <Image Source="ribbon/file_close_32.png" MinDPI="192" />
+      </Command.SmallImages>
+    </Command>
 
-    <Command Name="wtl_EDIT_COPY" Symbol="ID_EDIT_COPY" Id="0xE122" LabelTitle="Copy" Keytip="C" />
+    <Command Name="wtl_EDIT_COPY" Symbol="ID_EDIT_COPY" Id="0xE122" LabelTitle="Copy" Keytip="C">
+      <Command.LargeImages>
+        <Image Source="ribbon/edit_copy_32.png" MinDPI="96" />
+        <Image Source="ribbon/edit_copy_40.png" MinDPI="120" />
+        <Image Source="ribbon/edit_copy_48.png" MinDPI="144" />
+        <Image Source="ribbon/edit_copy_64.png" MinDPI="192" />
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image Source="ribbon/edit_copy_16.png" MinDPI="96" />
+        <Image Source="ribbon/edit_copy_20.png" MinDPI="120" />
+        <Image Source="ribbon/edit_copy_24.png" MinDPI="144" />
+        <Image Source="ribbon/edit_copy_32.png" MinDPI="192" />
+      </Command.SmallImages>
+    </Command>
 
     <Command Name="wtl_WINDOW_CASCADE" Symbol="ID_WINDOW_CASCADE" Id="0xE132" LabelTitle="Cascade" Keytip="S" />
     <Command Name="wtl_WINDOW_TILE_HORZ" Symbol="ID_WINDOW_TILE_HORZ" Id="0xE133" LabelTitle="Tile Horizontally" Keytip="H" />
