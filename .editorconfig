@@ -11,6 +11,11 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 tab_width = 3
 
+# Ribbon.xml file
+[Ribbon.xml]
+indent_style = space
+indent_size = 2
+
 # code files
 [*.{cpp,hpp,c,h}]
 indent_style = space
