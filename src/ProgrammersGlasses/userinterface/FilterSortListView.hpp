@@ -39,6 +39,9 @@ public:
 
    DECLARE_WND_SUPERCLASS(nullptr, CListViewCtrl::GetWndClassName())
 
+   /// called when the view is subclassed instead of created
+   BOOL SubclassWindow(HWND hWnd);
+
    // Inherited via IContentView
    virtual HWND CreateView(HWND parent) override
    {
@@ -64,6 +67,9 @@ private:
       NOTIFY_CODE_HANDLER(LVN_GETDISPINFO, OnGetDispInfo)
       NOTIFY_CODE_HANDLER(LVN_ODFINDITEM, OnOwnerDataFindItem)
       NOTIFY_CODE_HANDLER(HDN_ITEMCLICK, OnHeaderItemClick)
+      REFLECTED_NOTIFY_CODE_HANDLER(LVN_GETDISPINFO, OnGetDispInfo)
+      REFLECTED_NOTIFY_CODE_HANDLER(LVN_ODFINDITEM, OnOwnerDataFindItem)
+      REFLECTED_NOTIFY_CODE_HANDLER(HDN_ITEMCLICK, OnHeaderItemClick)
       DEFAULT_REFLECTION_HANDLER()
    END_MSG_MAP()
 

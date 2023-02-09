@@ -10,6 +10,15 @@
 #include "Helper.hpp"
 #include <algorithm>
 
+BOOL FilterSortListView::SubclassWindow(HWND hWnd)
+{
+   BOOL ret = baseClass::SubclassWindow(hWnd);
+
+   InitList();
+
+   return ret;
+}
+
 void FilterSortListView::SetFilterText(const CString& filterText)
 {
    m_filterText = filterText;

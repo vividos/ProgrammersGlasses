@@ -34,6 +34,7 @@ private:
       NOTIFY_CODE_HANDLER(TVN_SELCHANGED, OnTreeViewSelChanged)
       if (ForwardToContentView(hWnd, uMsg, wParam, lParam, lResult)) return TRUE;
       CHAIN_MSG_MAP(baseClass)
+      REFLECT_NOTIFICATIONS()
    END_MSG_MAP()
 
    // Handler prototypes (uncomment arguments if needed):
