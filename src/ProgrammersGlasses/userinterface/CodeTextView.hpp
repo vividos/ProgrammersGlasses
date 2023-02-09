@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2021 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file CodeTextView.hpp
 /// \brief code text view
@@ -10,7 +10,7 @@
 #include "modules/IContentView.hpp"
 
 /// window traits for the code text view
-typedef CWinTraitsOR<WS_VSCROLL | ES_READONLY | ES_MULTILINE | ES_NOHIDESEL | ES_AUTOHSCROLL | ES_AUTOVSCROLL> CodeTextViewWinTraits;
+typedef CWinTraitsOR<WS_VSCROLL | WS_HSCROLL | ES_READONLY | ES_MULTILINE | ES_NOHIDESEL> CodeTextViewWinTraits;
 
 /// \brief code text view
 /// \details a CEdit based view that shows a read-only text with a code font
