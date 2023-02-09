@@ -10,8 +10,8 @@
 #include "userinterface/FilterSortListView.hpp"
 
 FilterSortListViewNode::FilterSortListViewNode(const CString& displayName, NodeTreeIconID iconID,
-   std::vector<CString> columnsList,
-   std::vector<std::vector<CString>> data,
+   const std::vector<CString>& columnsList,
+   const std::vector<std::vector<CString>>& data,
    bool allowFiltering)
    :StaticNode(displayName, iconID),
    m_columnsList(columnsList),
