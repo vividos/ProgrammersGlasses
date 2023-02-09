@@ -4,10 +4,13 @@
 //
 #define IDR_MAINFRAME                   128
 #define IDD_ABOUTBOX                    129
+#define IDD_FILTER_SORT_LISTVIEW_FORM   130
 #define IDC_STATIC_ABOUT_VERSION        256
 #define IDC_STATIC_ABOUT_WEBPAGE        257
 #define IDC_STATIC_ABOUT_LICENSE        258
 #define IDC_LIST_ABOUT_MODULES          259
+#define IDC_EDIT_FILTERTEXT             260
+#define IDC_LISTVIEW_FILTER             261
 #define IDB_MODULE_STATIC_LIB           512
 #define IDB_MODULE_DYNAMIC_LIB          513
 #define IDB_MODULE_APP                  514
@@ -22,12 +25,12 @@
 #define IDB_NODE_TABLE                  1029
 
 // Next default values for new objects
-//
+// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        1030
 #define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         260
+#define _APS_NEXT_CONTROL_VALUE         262
 #define _APS_NEXT_SYMED_VALUE           102
 #endif
 #endif

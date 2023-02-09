@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "FilterSortListViewNode.hpp"
 #include "userinterface/FilterSortListView.hpp"
+#include "userinterface/FilterSortListViewForm.hpp"
 
 FilterSortListViewNode::FilterSortListViewNode(const CString& displayName, NodeTreeIconID iconID,
    const std::vector<CString>& columnsList,
@@ -22,5 +23,8 @@ FilterSortListViewNode::FilterSortListViewNode(const CString& displayName, NodeT
 
 std::shared_ptr<IContentView> FilterSortListViewNode::GetContentView()
 {
-   return std::make_shared<FilterSortListView>(m_columnsList, m_data);
+   if (m_allowFiltering)
+      return std::make_shared<FilterSortListViewForm>(m_columnsList, m_data);
+   else
+      return std::make_shared<FilterSortListView>(m_columnsList, m_data);
 }

@@ -125,6 +125,7 @@
     <ClCompile Include="userinterface\AboutDlg.cpp" />
     <ClCompile Include="userinterface\CodeTextView.cpp" />
     <ClCompile Include="userinterface\FilterSortListView.cpp" />
+    <ClCompile Include="userinterface\FilterSortListViewForm.cpp" />
     <ClCompile Include="userinterface\StructListView.cpp" />
     <ClCompile Include="userinterface\MainFrame.cpp" />
     <ClCompile Include="userinterface\NodeAndContentView.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="userinterface\AboutDlg.hpp" />
     <ClInclude Include="userinterface\CodeTextView.hpp" />
     <ClInclude Include="userinterface\FilterSortListView.hpp" />
+    <ClInclude Include="userinterface\FilterSortListViewForm.hpp" />
     <ClInclude Include="userinterface\StructListView.hpp" />
     <ClInclude Include="userinterface\MainFrame.hpp" />
     <ClInclude Include="userinterface\resource.h" />

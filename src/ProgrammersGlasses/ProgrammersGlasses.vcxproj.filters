@@ -134,6 +134,9 @@
     <ClCompile Include="modules\FilterSortListViewNode.cpp">
       <Filter>modules</Filter>
     </ClCompile>
+    <ClCompile Include="userinterface\FilterSortListViewForm.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -254,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="modules\FilterSortListViewNode.hpp">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="userinterface\FilterSortListViewForm.hpp">
+      <Filter>userinterface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
