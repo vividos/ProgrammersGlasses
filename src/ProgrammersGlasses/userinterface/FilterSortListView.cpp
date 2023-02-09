@@ -160,6 +160,8 @@ void FilterSortListView::InitList()
 
    for (int columnIndexForWidth = 0; columnIndexForWidth < columnIndex; columnIndexForWidth++)
       SetColumnWidth(columnIndexForWidth, LVSCW_AUTOSIZE_USEHEADER);
+
+   SetExtendedListViewStyle(GetWndExStyle(0));
 }
 
 void FilterSortListView::ApplyFilterAndSorting()

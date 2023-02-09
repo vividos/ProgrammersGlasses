@@ -67,4 +67,6 @@ void StructListView::InitList()
    SetColumnWidth(1, LVSCW_AUTOSIZE);
    SetColumnWidth(2, LVSCW_AUTOSIZE);
    SetColumnWidth(3, LVSCW_AUTOSIZE_USEHEADER);
+
+   SetExtendedListViewStyle(GetWndExStyle(0));
 }
