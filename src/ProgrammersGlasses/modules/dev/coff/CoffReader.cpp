@@ -496,13 +496,6 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
    size_t fileOffset, size_t linkerMemberSize,
    CString& linkerMemberSummary) const
 {
-   auto linkerMemberSummaryNode = std::make_shared<CodeTextViewNode>(
-      _T("Linker Member Summary"),
-      NodeTreeIconID::nodeTreeIconDocument);
-
-   CString linkerMemberDetails;
-   linkerMemberDetails += _T("First linker member\n\n");
-
    const DWORD* firstLinkerMember =
       reinterpret_cast<const DWORD*>(
          (const BYTE*)m_file.Data() + fileOffset);
@@ -515,14 +508,13 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
       return;
    }
 
+   std::vector<std::vector<CString>> firstArchiveMemberListData;
+
    DWORD numSymbolsBigEndian = *(firstLinkerMember++);
    DWORD numSymbols = SwapEndianness(numSymbolsBigEndian);
 
    linkerMemberSummary.AppendFormat(
       _T("First linker member, containing %u symbols"), numSymbols);
-
-   linkerMemberDetails.AppendFormat(
-      _T("Symbols list, number of symbols: %u\n"), numSymbols);
 
    const CHAR* symbolTableText =
       reinterpret_cast<const CHAR*>(firstLinkerMember + numSymbols);
@@ -532,19 +524,39 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
       DWORD offsetBigEndian = firstLinkerMember[symbolIndex];
       DWORD offset = SwapEndianness(offsetBigEndian);
 
-      linkerMemberDetails.AppendFormat(
-         _T("[%u] at archive member 0x%08x: %hs (%s)\n"),
-         symbolIndex,
-         offset,
-         symbolTableText,
-         SymbolsHelper::UndecorateSymbol(symbolTableText).GetString());
+      CString symbolIndexText;
+      symbolIndexText.Format(_T("%u"), symbolIndex);
+
+      CString symbolOffsetText;
+      symbolOffsetText.Format(_T("0x%08x"), offset);
+
+      firstArchiveMemberListData.push_back(
+         std::vector<CString> {
+         symbolIndexText,
+            symbolOffsetText,
+            symbolTableText,
+            SymbolsHelper::UndecorateSymbol(symbolTableText),
+      });
 
       symbolTableText += strlen(symbolTableText) + 1;
    }
 
-   linkerMemberSummaryNode->SetText(linkerMemberDetails);
+   static std::vector<CString> firstArchiveMemberListColumnNames
+   {
+      _T("Index"),
+      _T("Offset"),
+      _T("Symbol name"),
+      _T("Undecorated symbol name"),
+   };
 
-   archiveMemberNode.ChildNodes().push_back(linkerMemberSummaryNode);
+   auto firstLinkerMemberSymbolsNode = std::make_shared<FilterSortListViewNode>(
+      _T("First Linker Member Symbols"),
+      NodeTreeIconID::nodeTreeIconTable,
+      firstArchiveMemberListColumnNames,
+      firstArchiveMemberListData,
+      true);
+
+   archiveMemberNode.ChildNodes().push_back(firstLinkerMemberSymbolsNode);
 }
 
 void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
