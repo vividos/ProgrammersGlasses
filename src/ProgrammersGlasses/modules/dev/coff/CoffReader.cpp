@@ -855,7 +855,7 @@ void CoffReader::LoadArchiveLibraryFile()
       NodeTreeIconID::nodeTreeIconTable,
       libraryArchiveMemberListColumnNames,
       libraryArchiveMemberListData,
-      false);
+      true);
 
    rootNode->ChildNodes().insert(
       rootNode->ChildNodes().begin() + 1,
