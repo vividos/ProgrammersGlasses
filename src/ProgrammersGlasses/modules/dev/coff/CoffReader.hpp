@@ -10,6 +10,7 @@
 #include "IReader.hpp"
 
 class CodeTextViewNode;
+class StaticNode;
 struct CoffHeader;
 
 /// COFF file format reader
@@ -79,19 +80,19 @@ private:
       size_t fileOffset, CString& objectFileSummary) const;
 
    /// adds archive linker member to node
-   void AddArchiveLinkerMember(CodeTextViewNode& linkerMemberSummaryNode,
+   void AddArchiveLinkerMember(StaticNode& archiveMemberNode,
       size_t archiveMemberIndex, size_t fileOffset, size_t linkerMemberSize,
       CString& linkerMemberSummary) const;
 
    /// adds first linker member node
-   void AddFirstLinkerMemberNode(
+   void AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
       size_t fileOffset, size_t linkerMemberSize,
-      CString& linkerMemberSummary, CString& linkerMemberDetails) const;
+      CString& linkerMemberSummary) const;
 
    /// adds second linker member node
-   void AddSecondLinkerMemberNode(
+   void AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
       size_t fileOffset, size_t linkerMemberSize,
-      CString& linkerMemberSummary, CString& linkerMemberDetails) const;
+      CString& linkerMemberSummary) const;
 
    /// loads archive library files
    void LoadArchiveLibraryFile();

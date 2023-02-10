@@ -476,30 +476,31 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
    nonCoffSummaryNode.SetText(objectFileSummary);
 }
 
-void CoffReader::AddArchiveLinkerMember(CodeTextViewNode& linkerMemberSummaryNode,
+void CoffReader::AddArchiveLinkerMember(StaticNode& archiveMemberNode,
    size_t archiveMemberIndex, size_t fileOffset, size_t linkerMemberSize,
    CString& linkerMemberSummary) const
 {
-   CString linkerMemberDetails;
-
    if (archiveMemberIndex == 0)
    {
-      AddFirstLinkerMemberNode(fileOffset, linkerMemberSize,
-         linkerMemberSummary, linkerMemberDetails);
+      AddFirstLinkerMemberNode(archiveMemberNode, fileOffset, linkerMemberSize,
+         linkerMemberSummary);
    }
    else if (archiveMemberIndex == 1)
    {
-      AddSecondLinkerMemberNode(fileOffset, linkerMemberSize,
-         linkerMemberSummary, linkerMemberDetails);
+      AddSecondLinkerMemberNode(archiveMemberNode, fileOffset, linkerMemberSize,
+         linkerMemberSummary);
    }
-
-   linkerMemberSummaryNode.SetText(linkerMemberDetails);
 }
 
-void CoffReader::AddFirstLinkerMemberNode(
+void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
    size_t fileOffset, size_t linkerMemberSize,
-   CString& linkerMemberSummary, CString& linkerMemberDetails) const
+   CString& linkerMemberSummary) const
 {
+   auto linkerMemberSummaryNode = std::make_shared<CodeTextViewNode>(
+      _T("Linker Member Summary"),
+      NodeTreeIconID::nodeTreeIconDocument);
+
+   CString linkerMemberDetails;
    linkerMemberDetails += _T("First linker member\n\n");
 
    const DWORD* firstLinkerMember =
@@ -540,12 +541,21 @@ void CoffReader::AddFirstLinkerMemberNode(
 
       symbolTableText += strlen(symbolTableText) + 1;
    }
+
+   linkerMemberSummaryNode->SetText(linkerMemberDetails);
+
+   archiveMemberNode.ChildNodes().push_back(linkerMemberSummaryNode);
 }
 
-void CoffReader::AddSecondLinkerMemberNode(
+void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
    size_t fileOffset, size_t linkerMemberSize,
-   CString& linkerMemberSummary, CString& linkerMemberDetails) const
+   CString& linkerMemberSummary) const
 {
+   auto linkerMemberSummaryNode = std::make_shared<CodeTextViewNode>(
+      _T("Linker Member Summary"),
+      NodeTreeIconID::nodeTreeIconDocument);
+
+   CString linkerMemberDetails;
    linkerMemberDetails += _T("Second linker member\n\n");
 
    const DWORD* secondLinkerMember =
@@ -606,6 +616,11 @@ void CoffReader::AddSecondLinkerMemberNode(
       _T("Second linker member, containing %u members and %u symbols"),
       numMembers,
       numSymbols);
+
+
+   linkerMemberSummaryNode->SetText(linkerMemberDetails);
+
+   archiveMemberNode.ChildNodes().push_back(linkerMemberSummaryNode);
 }
 
 void CoffReader::LoadArchiveLibraryFile()
@@ -707,13 +722,9 @@ void CoffReader::LoadArchiveLibraryFile()
       // note: the first two are the linker members
       if (archiveMemberIndex < 2 && archiveMemberName == _T("/"))
       {
-         auto linkerMemberSummaryNode = std::make_shared<CodeTextViewNode>(
-            _T("Linker Member Summary"),
-            NodeTreeIconID::nodeTreeIconDocument);
-
          CString linkerMemberSummary;
          AddArchiveLinkerMember(
-            *linkerMemberSummaryNode,
+            *archiveMemberNode,
             archiveMemberIndex,
             archiveMemberStart,
             archiveMemberSize,
@@ -724,8 +735,6 @@ void CoffReader::LoadArchiveLibraryFile()
          IndentText(linkerMemberSummary, 3);
          linkerMemberSummary.TrimLeft();
          librarySummaryText += linkerMemberSummary + _T("\n");
-
-         archiveMemberNode->ChildNodes().push_back(linkerMemberSummaryNode);
       }
       else if (archiveMemberIndex >= 2)
       {
