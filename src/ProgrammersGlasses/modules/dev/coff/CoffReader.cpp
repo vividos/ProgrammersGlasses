@@ -563,13 +563,6 @@ void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
    size_t fileOffset, size_t linkerMemberSize,
    CString& linkerMemberSummary) const
 {
-   auto linkerMemberSummaryNode = std::make_shared<CodeTextViewNode>(
-      _T("Linker Member Summary"),
-      NodeTreeIconID::nodeTreeIconDocument);
-
-   CString linkerMemberDetails;
-   linkerMemberDetails += _T("Second linker member\n\n");
-
    const DWORD* secondLinkerMember =
       reinterpret_cast<const DWORD*>(
          (const BYTE*)m_file.Data() + fileOffset);
@@ -582,21 +575,46 @@ void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
       return;
    }
 
+   // member table
+   std::vector<std::vector<CString>> secondLinkerMemberTableListData;
+
    DWORD numMembers = *(secondLinkerMember++);
    const DWORD* memberIndexStart = secondLinkerMember;
 
-   linkerMemberDetails.AppendFormat(
-      _T("Member offset list, number of members: %u\n"), numMembers);
-
    for (DWORD memberIndex = 0; memberIndex < numMembers; memberIndex++)
    {
-      linkerMemberDetails.AppendFormat(
-         _T("[%u] at archive member offset 0x%04x\n"),
-         memberIndex,
-         memberIndexStart[memberIndex]);
+      CString memberIndexText;
+      memberIndexText.Format(_T("%u"), memberIndex);
+
+      CString memberOffsetText;
+      memberOffsetText.Format(_T("0x%08x"), memberIndexStart[memberIndex]);
+
+      secondLinkerMemberTableListData.push_back(
+         std::vector<CString> {
+         memberIndexText,
+            memberOffsetText,
+      });
    }
 
+   static std::vector<CString> secondLinkerMemberTableListColumnNames
+   {
+      _T("Index"),
+      _T("Member offset"),
+   };
+
+   auto secondLinkerMemberTableNode = std::make_shared<FilterSortListViewNode>(
+      _T("Second Linker Member List"),
+      NodeTreeIconID::nodeTreeIconTable,
+      secondLinkerMemberTableListColumnNames,
+      secondLinkerMemberTableListData,
+      false);
+
+   archiveMemberNode.ChildNodes().push_back(secondLinkerMemberTableNode);
+
    secondLinkerMember += numMembers;
+
+   // symbol table
+   std::vector<std::vector<CString>> secondLinkerMemberSymbolsListData;
 
    DWORD numSymbols = *(secondLinkerMember++);
 
@@ -607,32 +625,48 @@ void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
       reinterpret_cast<const CHAR*>(
          mapIndexStart + numSymbols);
 
-   linkerMemberDetails.AppendFormat(
-      _T("\nSymbols list, number of symbols: %u\n"), numSymbols);
-
    for (DWORD symbolIndex = 0; symbolIndex < numSymbols; symbolIndex++)
    {
       WORD mapIndex = mapIndexStart[symbolIndex];
 
-      linkerMemberDetails.AppendFormat(
-         _T("[%u] index 0x%04x, symbol: %hs (%s)\n"),
-         symbolIndex,
-         mapIndex,
-         symbolTableText,
-         SymbolsHelper::UndecorateSymbol(symbolTableText).GetString());
+      CString symbolIndexText;
+      symbolIndexText.Format(_T("%u"), symbolIndex);
+
+      CString mapIndexText;
+      mapIndexText.Format(_T("0x%04x"), mapIndex);
+
+      secondLinkerMemberSymbolsListData.push_back(
+         std::vector<CString> {
+         symbolIndexText,
+            mapIndexText,
+            symbolTableText,
+            SymbolsHelper::UndecorateSymbol(symbolTableText),
+      });
 
       symbolTableText += strlen(symbolTableText) + 1;
    }
+
+   static std::vector<CString> secondLinkerMemberSymbolsListColumnNames
+   {
+      _T("Index"),
+      _T("Map index"),
+      _T("Symbol name"),
+      _T("Undecorated symbol name"),
+   };
+
+   auto secondLinkerMemberSymbolsNode = std::make_shared<FilterSortListViewNode>(
+      _T("Second Linker Member Symbols"),
+      NodeTreeIconID::nodeTreeIconTable,
+      secondLinkerMemberSymbolsListColumnNames,
+      secondLinkerMemberSymbolsListData,
+      true);
+
+   archiveMemberNode.ChildNodes().push_back(secondLinkerMemberSymbolsNode);
 
    linkerMemberSummary.AppendFormat(
       _T("Second linker member, containing %u members and %u symbols"),
       numMembers,
       numSymbols);
-
-
-   linkerMemberSummaryNode->SetText(linkerMemberDetails);
-
-   archiveMemberNode.ChildNodes().push_back(linkerMemberSummaryNode);
 }
 
 void CoffReader::LoadArchiveLibraryFile()
