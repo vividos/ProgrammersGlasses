@@ -83,6 +83,16 @@ private:
       size_t archiveMemberIndex, size_t fileOffset, size_t linkerMemberSize,
       CString& linkerMemberSummary) const;
 
+   /// adds first linker member node
+   void AddFirstLinkerMemberNode(
+      size_t fileOffset, size_t linkerMemberSize,
+      CString& linkerMemberSummary, CString& linkerMemberDetails) const;
+
+   /// adds second linker member node
+   void AddSecondLinkerMemberNode(
+      size_t fileOffset, size_t linkerMemberSize,
+      CString& linkerMemberSummary, CString& linkerMemberDetails) const;
+
    /// loads archive library files
    void LoadArchiveLibraryFile();
 
