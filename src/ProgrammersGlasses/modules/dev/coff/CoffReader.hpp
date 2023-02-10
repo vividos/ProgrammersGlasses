@@ -69,8 +69,9 @@ private:
       std::map<size_t, CString>& offsetToStringMapping) const;
 
    /// adds string table to node
-   void AddStringTable(CodeTextViewNode& stringTableSummaryNode,
-      const CoffHeader& header, size_t fileOffset);
+   void AddStringTable(StaticNode& stringTableSummaryNode,
+      const CoffHeader& header, size_t fileOffset,
+      CString& objectFileSummary);
 
    /// loads non-COFF (import or anonymous) object files
    void LoadNonCoffObjectFile();

@@ -139,13 +139,7 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
 
       coffSummaryNode.ChildNodes().push_back(symbolTableNode);
 
-      auto stringTableNode = std::make_shared<CodeTextViewNode>(
-         _T("String Table"),
-         NodeTreeIconID::nodeTreeIconDocument);
-
-      AddStringTable(*stringTableNode, header, fileOffset);
-
-      coffSummaryNode.ChildNodes().push_back(stringTableNode);
+      AddStringTable(coffSummaryNode, header, fileOffset, objectFileSummary);
    }
 }
 
@@ -350,8 +344,8 @@ void CoffReader::LoadStringTable(
    }
 }
 
-void CoffReader::AddStringTable(CodeTextViewNode& symbolTableSummaryNode,
-   const CoffHeader& header, size_t fileOffset)
+void CoffReader::AddStringTable(StaticNode& coffSummaryNode,
+   const CoffHeader& header, size_t fileOffset, CString& objectFileSummary)
 {
    LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
 
@@ -365,35 +359,56 @@ void CoffReader::AddStringTable(CodeTextViewNode& symbolTableSummaryNode,
    DWORD stringTableLength = *reinterpret_cast<const DWORD*>(stringTableStart);
    const BYTE* stringTableEnd = stringTableStart + stringTableLength;
 
-   CString summaryText;
    const BYTE* stringTableText = stringTableStart + 4;
+
+   std::vector<std::vector<CString>> stringTableData;
 
    DWORD stringTableIndex = 0;
    for (; stringTableText < stringTableEnd; stringTableIndex++)
    {
       if (!m_file.IsValidRange(stringTableText, stringTableEnd - stringTableText))
       {
-         summaryText.AppendFormat(_T("Warning: File ended while scanning the string table"));
+         objectFileSummary.AppendFormat(_T("Warning: File ended while scanning the string table\n"));
          break;
       }
 
-      summaryText.AppendFormat(
-         _T("0x%08zx: %hs (%s)\n"),
-         stringTableText - stringTableStart,
-         stringTableText,
-         SymbolsHelper::UndecorateSymbol(stringTableText).GetString());
+      CString stringIndexText;
+      stringIndexText.Format(_T("%u"), stringTableIndex);
+
+      CString stringOffsetText;
+      stringOffsetText.Format(_T("0x%08zx"), stringTableText - stringTableStart);
+
+      stringTableData.push_back(
+         std::vector<CString> {
+         stringIndexText,
+            stringOffsetText,
+            stringTableText,
+            SymbolsHelper::UndecorateSymbol(stringTableText),
+      });
 
       stringTableText += strlen(
          reinterpret_cast<const CHAR*>(stringTableText)) + 1;
    }
 
-   CString headerText;
-   headerText.AppendFormat(_T("String table with %u entries, length 0x%08x bytes.\n\n"),
+   objectFileSummary.AppendFormat(_T("String table with %u entries, length 0x%08x bytes.\n"),
       stringTableIndex, stringTableLength);
 
-   summaryText.Insert(0, headerText);
+   static std::vector<CString> stringTableColumnNames
+   {
+      _T("Index"),
+      _T("Offset"),
+      _T("String"),
+      _T("Undecorated string"),
+   };
 
-   symbolTableSummaryNode.SetText(summaryText);
+   auto stringTableNode = std::make_shared<FilterSortListViewNode>(
+      _T("String Table"),
+      NodeTreeIconID::nodeTreeIconTable,
+      stringTableColumnNames,
+      stringTableData,
+      true);
+
+   coffSummaryNode.ChildNodes().push_back(stringTableNode);
 }
 
 void CoffReader::LoadNonCoffObjectFile()
