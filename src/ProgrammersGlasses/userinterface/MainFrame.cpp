@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <vector>
 
-LPCTSTR c_appSettingsRegKey = _T("Software\\ProgrammersView");
+static const LPCTSTR c_appSettingsRegKey = _T("Software\\ProgrammersView");
 
 BOOL MainFrame::PreTranslateMessage(MSG* msg)
 {
@@ -85,7 +85,7 @@ LRESULT MainFrame::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/
 
 LRESULT MainFrame::OnOpenFiles(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
-   for (auto filename : m_filenamesList)
+   for (const auto& filename : m_filenamesList)
       OpenFile(filename);
 
    m_filenamesList.clear();

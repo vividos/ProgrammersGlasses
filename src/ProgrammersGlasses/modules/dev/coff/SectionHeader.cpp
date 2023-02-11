@@ -10,7 +10,7 @@
 #include "DisplayFormatHelper.hpp"
 
 /// section flags bits to display text mapping
-std::map<DWORD, LPCTSTR> g_mapSectionFlagsBitsToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapSectionFlagsBitsToDisplayText =
 {
    { 0x00000000, _T("Reserved (IMAGE_SCN_TYPE_REG)") },
    { 0x00000001, _T("Reserved bit 0 (IMAGE_SCN_TYPE_DSECT)") },

@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "ArchiveHeader.hpp"
 
-LPCSTR c_archiveHeaderSignatureText = "!<arch>\n";
+const LPCSTR c_archiveHeaderSignatureText = "!<arch>\n";
 
 const StructDefinition g_definitionArchiveHeader = StructDefinition({
    StructField(

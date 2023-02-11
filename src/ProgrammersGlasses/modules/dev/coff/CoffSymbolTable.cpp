@@ -9,7 +9,7 @@
 #include "CoffSymbolTable.hpp"
 
 /// COFF symbol table base type to display text mapping
-std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableBaseTypeToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableBaseTypeToDisplayText =
 {
    { 0, _T("IMAGE_SYM_TYPE_NULL (unknown)") },
    { 1, _T("IMAGE_SYM_TYPE_VOID (void* and funcs)") },
@@ -34,7 +34,7 @@ std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableBaseTypeToDisplayText =
 };
 
 /// COFF symbol table complex type to display text mapping (for completeness)
-std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableComplexTypeToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableComplexTypeToDisplayText =
 {
    { 0, _T("IMAGE_SYM_DTYPE_NULL") },
    { 1, _T("IMAGE_SYM_DTYPE_POINTER") },
@@ -43,14 +43,14 @@ std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableComplexTypeToDisplayText =
 };
 
 /// COFF symbol table type bitfield
-std::vector<BitfieldDescriptor> g_listCoffSymbolTableTypeBits =
+const std::vector<BitfieldDescriptor> g_listCoffSymbolTableTypeBits =
 {
    BitfieldDescriptor{ 0, 8, StructFieldType::valueMapping, g_mapCoffSymbolTableBaseTypeToDisplayText },
    BitfieldDescriptor{ 8, 8, StructFieldType::valueMapping, g_mapCoffSymbolTableComplexTypeToDisplayText },
 };
 
 /// COFF symbol table storage class to display text mapping
-std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableStorageClassToDisplayText =
+const std::map<DWORD, LPCTSTR> g_mapCoffSymbolTableStorageClassToDisplayText =
 {
    { 0xFF, _T("IMAGE_SYM_CLASS_END_OF_FUNCTION ") }, // -1
    { 0, _T("IMAGE_SYM_CLASS_NULL") },

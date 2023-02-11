@@ -294,7 +294,7 @@ void CoffReader::AddSymbolTable(StaticNode& coffSummaryNode,
          symbolName = CString{ symbolTable.name, sizeof(symbolTable.name) };
 
       CString symbolIndexText;
-      symbolIndexText.Format(_T("%u"), symbolTableEntry);
+      symbolIndexText.Format(_T("%zu"), symbolTableEntry);
 
       symbolTableData.push_back(
          std::vector<CString> {
@@ -553,7 +553,7 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
    if (!m_file.IsValidRange(firstLinkerMember, linkerMemberSize))
    {
       linkerMemberSummary.AppendFormat(
-         _T("Error: Linker member size #%u is outside of the file size!"),
+         _T("Error: Linker member size #%zu is outside of the file size!"),
          linkerMemberSize);
       return;
    }
@@ -620,7 +620,7 @@ void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
    if (!m_file.IsValidRange(secondLinkerMember, linkerMemberSize))
    {
       linkerMemberSummary.AppendFormat(
-         _T("Error: Linker member size #%u is outside of the file size!"),
+         _T("Error: Linker member size #%zu is outside of the file size!"),
          linkerMemberSize);
       return;
    }
@@ -785,7 +785,7 @@ void CoffReader::LoadArchiveLibraryFile()
 
       CString archiveMemberSummaryText;
       archiveMemberSummaryText.AppendFormat(
-         _T("Archive member [%u]: \"%s\"\n")
+         _T("Archive member [%zu]: \"%s\"\n")
          _T("Date: %s\n")
          _T("User ID: %s\n")
          _T("Group ID: %s\n")

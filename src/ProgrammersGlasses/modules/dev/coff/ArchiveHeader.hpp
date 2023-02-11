@@ -54,7 +54,7 @@ static_assert(sizeof(ArchiveHeader) == 8, "Archive header must be 8 bytes long")
 static_assert(sizeof(ArchiveMemberHeader) == 60, "Archive member header must be 60 bytes long");
 
 /// signature text for archive header
-extern LPCSTR c_archiveHeaderSignatureText;
+extern const LPCSTR c_archiveHeaderSignatureText;
 
 /// struct definition for above archive header
 extern const StructDefinition g_definitionArchiveHeader;

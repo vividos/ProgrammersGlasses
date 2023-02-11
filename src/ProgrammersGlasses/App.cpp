@@ -17,12 +17,12 @@ CAppModule _Module;
 App::App(HINSTANCE instance)
 {
    HRESULT result = ::CoInitialize(nullptr);
-   ATLASSERT(SUCCEEDED(result));
+   ATLVERIFY(SUCCEEDED(result));
 
    AtlInitCommonControls(ICC_BAR_CLASSES); // add flags to support other controls
 
    result = _Module.Init(nullptr, instance);
-   ATLASSERT(SUCCEEDED(result));
+   ATLVERIFY(SUCCEEDED(result));
 }
 
 App::~App() noexcept
@@ -71,7 +71,9 @@ int App::Run(int commandShow) const
 }
 
 /// main function
-int WINAPI _tWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE /*previousInstance*/, _In_ LPTSTR commandLine, _In_ int commandShow)
+int WINAPI _tWinMain(_In_ HINSTANCE instance,
+   _In_opt_ HINSTANCE /*previousInstance*/,
+   _In_ LPTSTR commandLine, _In_ int commandShow)
 {
    App app{ instance };
    app.ParseCommandLine(commandLine);
