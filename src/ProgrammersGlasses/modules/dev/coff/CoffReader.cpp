@@ -131,14 +131,7 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
    if (header.offsetSymbolTable != 0 &&
       header.numberOfSymbols != 0)
    {
-      auto symbolTableNode = std::make_shared<CodeTextViewNode>(
-         _T("Symbol Table"),
-         NodeTreeIconID::nodeTreeIconDocument);
-
-      AddSymbolTable(*symbolTableNode, header, fileOffset);
-
-      coffSummaryNode.ChildNodes().push_back(symbolTableNode);
-
+      AddSymbolTable(coffSummaryNode, header, fileOffset, objectFileSummary);
       AddStringTable(coffSummaryNode, header, fileOffset, objectFileSummary);
    }
 }
@@ -239,24 +232,26 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
    sectionSummaryNode.SetText(summaryText);
 }
 
-void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
-   const CoffHeader& header, size_t fileOffset) const
+void CoffReader::AddSymbolTable(StaticNode& coffSummaryNode,
+   const CoffHeader& header, size_t fileOffset,
+   CString& objectFileSummary) const
 {
    LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    if (sizeof(header) + header.offsetSymbolTable + sizeof(CoffSymbolTable) >= m_file.Size())
    {
-      symbolTableSummaryNode.SetText(_T("Error: COFF symbol table offset is outside of the file size!"));
+      objectFileSummary += _T("Error: COFF symbol table offset is outside of the file size!\n");
       return;
    }
 
    std::map<size_t, CString> offsetToStringMapping;
    LoadStringTable(header, fileOffset, offsetToStringMapping);
 
+   std::vector<std::vector<CString>> symbolTableData;
+   std::vector<std::shared_ptr<INode>> symbolChildNodes;
+
    const BYTE* symbolTableStart =
       (const BYTE*)data +
       header.offsetSymbolTable;
-
-   CString summaryText;
 
    size_t maxSymbolTableEntries = header.numberOfSymbols;
 
@@ -265,7 +260,7 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
    {
       if (!m_file.IsValidRange(symbolTableCurrent, sizeof(CoffSymbolTable)))
       {
-         summaryText.AppendFormat(_T("Warning: File ended while scanning the symbol table"));
+         objectFileSummary.AppendFormat(_T("Warning: File ended while scanning the symbol table\n"));
          break;
       }
 
@@ -288,9 +283,15 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
       else
          symbolName = CString{ symbolTable.name, sizeof(symbolTable.name) };
 
-      summaryText.AppendFormat(_T("Symbol: %s (%s)\n"),
-         symbolName.GetString(),
-         SymbolsHelper::UndecorateSymbol(symbolName).GetString());
+      CString symbolIndexText;
+      symbolIndexText.Format(_T("%u"), symbolTableEntry);
+
+      symbolTableData.push_back(
+         std::vector<CString> {
+         symbolIndexText,
+            symbolName,
+            SymbolsHelper::UndecorateSymbol(symbolName),
+      });
 
       auto symbolTableEntryNode = std::make_shared<StructListViewNode>(
          _T("Symbol table entry ") + symbolName,
@@ -299,7 +300,7 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
          symbolTableCurrent,
          m_file.Data());
 
-      symbolTableSummaryNode.ChildNodes().push_back(symbolTableEntryNode);
+      symbolChildNodes.push_back(symbolTableEntryNode);
 
       // advance pointer
       symbolTableCurrent += sizeof(CoffSymbolTable) + (symbolTable.numberOfAuxSymbols * sizeof(CoffSymbolTable));
@@ -308,7 +309,29 @@ void CoffReader::AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
       symbolTableEntry += symbolTable.numberOfAuxSymbols;
    }
 
-   symbolTableSummaryNode.SetText(summaryText);
+   size_t symbolTableLength = symbolTableCurrent - symbolTableStart;
+
+   objectFileSummary.AppendFormat(
+      _T("Symbol table with %u entries, length 0x%08zx bytes.\n"),
+      header.numberOfSymbols, symbolTableLength);
+
+   static std::vector<CString> symbolTableColumnNames
+   {
+      _T("Index"),
+      _T("Symbol"),
+      _T("Undecorated symbol"),
+   };
+
+   auto symbolTableNode = std::make_shared<FilterSortListViewNode>(
+      _T("Symbol Table"),
+      NodeTreeIconID::nodeTreeIconTable,
+      symbolTableColumnNames,
+      symbolTableData,
+      true);
+
+   symbolTableNode->ChildNodes().swap(symbolChildNodes);
+
+   coffSummaryNode.ChildNodes().push_back(symbolTableNode);
 }
 
 void CoffReader::LoadStringTable(

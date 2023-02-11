@@ -60,8 +60,9 @@ private:
       const CoffHeader& header, size_t fileOffset) const;
 
    /// adds symbol table to node
-   void AddSymbolTable(CodeTextViewNode& symbolTableSummaryNode,
-      const CoffHeader& header, size_t fileOffset) const;
+   void AddSymbolTable(StaticNode& coffSummaryNode,
+      const CoffHeader& header, size_t fileOffset,
+      CString& objectFileSummary) const;
 
    /// loads string table into map
    void LoadStringTable(
