@@ -110,7 +110,12 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
    LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(data);
 
-   AddCoffHeaderSummaryText(coffSummaryNode, header, false);
+   objectFileSummary += CString{ _T("Architecture: ") } +
+      GetValueFromMapOrDefault<DWORD>(
+         g_mapCoffTargetMachineToDisplayText,
+         (DWORD)header.targetMachine,
+         _T("unknown"));
+   objectFileSummary += _T("\n");
 
    auto coffHeaderNode = std::make_shared<StructListViewNode>(
       _T("COFF header"),
@@ -134,10 +139,13 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
       AddSymbolTable(coffSummaryNode, header, fileOffset, objectFileSummary);
       AddStringTable(coffSummaryNode, header, fileOffset, objectFileSummary);
    }
+
+   AddCoffHeaderSummaryText(coffSummaryNode, header, false, objectFileSummary);
 }
 
 void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node,
-   const CoffHeader& header, bool isImage) const
+   const CoffHeader& header, bool isImage,
+   const CString& objectFileSummary) const
 {
    CString text;
 
@@ -176,6 +184,8 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node,
       DisplayFormatHelper::FormatBitFlagsFromMap(
          g_mapCoffCharacteristicsBitsToDisplayText,
          header.characteristicsFlags).GetString());
+
+   text += _T("\n") + objectFileSummary;
 
    node.SetText(text);
 }
@@ -467,6 +477,7 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
             g_mapCoffTargetMachineToDisplayText,
             (DWORD)importObjectHeader.targetMachine,
             _T("unknown"));
+      objectFileSummary += _T("\n");
 
       auto importObjectHeaderNode = std::make_shared<StructListViewNode>(
          _T("Import object header"),
@@ -490,6 +501,7 @@ void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
             g_mapCoffTargetMachineToDisplayText,
             (DWORD)anonymousObjectHeader.targetMachine,
             _T("unknown"));
+      objectFileSummary += _T("\n");
 
       auto anonymousObjectHeaderNode = std::make_shared<StructListViewNode>(
          _T("Anonymous object header"),
@@ -641,7 +653,7 @@ void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
    };
 
    auto secondLinkerMemberTableNode = std::make_shared<FilterSortListViewNode>(
-      _T("Second Linker Member List"),
+      _T("Second Linker Member Offsets"),
       NodeTreeIconID::nodeTreeIconTable,
       secondLinkerMemberTableListColumnNames,
       secondLinkerMemberTableListData,
@@ -739,21 +751,16 @@ void CoffReader::LoadArchiveLibraryFile()
          *reinterpret_cast<const ArchiveMemberHeader*>(
             (const BYTE*)m_file.Data() + archiveMemberOffset);
 
-      CString archiveMemberName{ archiveMemberHeader.name, sizeof(archiveMemberHeader.name) };
-
-      CString archiveMemberSummaryText;
-      archiveMemberSummaryText.AppendFormat(_T("Archive member [%u]: \"%s\"\n\n"),
-         archiveMemberIndex,
-         archiveMemberName.GetString());
-
       // add to list view data
+      CString archiveMemberName{ archiveMemberHeader.name, sizeof(archiveMemberHeader.name) };
       CString dateText{ archiveMemberHeader.dateText, sizeof(archiveMemberHeader.dateText) };
       CString userIDText{ archiveMemberHeader.userID, sizeof(archiveMemberHeader.userID) };
       CString groupIDText{ archiveMemberHeader.groupID, sizeof(archiveMemberHeader.groupID) };
       CString fileModeText{ archiveMemberHeader.mode, sizeof(archiveMemberHeader.mode) };
       CString sizeText{ archiveMemberHeader.sizeText, sizeof(archiveMemberHeader.sizeText) };
 
-      archiveMemberName.Trim();
+      CString trimmedArchiveMemberName = archiveMemberName;
+      trimmedArchiveMemberName.Trim();
       userIDText.Trim();
       groupIDText.Trim();
       fileModeText.Trim();
@@ -768,7 +775,7 @@ void CoffReader::LoadArchiveLibraryFile()
       libraryArchiveMemberListData.push_back(
          std::vector<CString> {
          archiveMemberIndexText,
-            archiveMemberName,
+            trimmedArchiveMemberName,
             formattedDateTime,
             userIDText,
             groupIDText,
@@ -776,9 +783,25 @@ void CoffReader::LoadArchiveLibraryFile()
             sizeText,
       });
 
+      CString archiveMemberSummaryText;
+      archiveMemberSummaryText.AppendFormat(
+         _T("Archive member [%u]: \"%s\"\n")
+         _T("Date: %s\n")
+         _T("User ID: %s\n")
+         _T("Group ID: %s\n")
+         _T("Mode: %s\n")
+         _T("Size: %s\n\n"),
+         archiveMemberIndex,
+         archiveMemberName.GetString(),
+         formattedDateTime.GetString(),
+         userIDText.GetString(),
+         groupIDText.GetString(),
+         fileModeText.GetString(),
+         sizeText.GetString());
+
       // add a node for each archive member
       auto archiveMemberNode = std::make_shared<CodeTextViewNode>(
-         _T("Archive member: ") + archiveMemberName,
+         _T("Archive member: ") + trimmedArchiveMemberName,
          NodeTreeIconID::nodeTreeIconDocument);
 
       rootNode->ChildNodes().push_back(archiveMemberNode);
@@ -797,14 +820,14 @@ void CoffReader::LoadArchiveLibraryFile()
          break;
 
       librarySummaryText.AppendFormat(_T("%s: "),
-         archiveMemberName.GetString());
+         trimmedArchiveMemberName.GetString());
 
       // add archive member
       size_t archiveMemberStart = archiveMemberOffset + sizeof(ArchiveMemberHeader);
       size_t archiveMemberSize = _ttol(sizeText);
 
       // note: the first two are the linker members
-      if (archiveMemberIndex < 2 && archiveMemberName == _T("/"))
+      if (archiveMemberIndex < 2 && trimmedArchiveMemberName == _T("/"))
       {
          CString linkerMemberSummary;
          AddArchiveLinkerMember(

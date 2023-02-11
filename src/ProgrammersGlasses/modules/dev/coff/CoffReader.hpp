@@ -53,7 +53,8 @@ private:
 
    /// adds summary text to node
    void AddCoffHeaderSummaryText(CodeTextViewNode& node,
-      const CoffHeader& header, bool isImage) const;
+      const CoffHeader& header, bool isImage,
+      const CString& objectFileSummary) const;
 
    /// adds section table to node
    void AddSectionTable(CodeTextViewNode& sectionSummaryNode,
