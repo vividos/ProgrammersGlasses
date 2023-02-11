@@ -26,10 +26,10 @@ CString DisplayFormatHelper::FormatDateTime(time_t time)
 CString DisplayFormatHelper::FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR>& bitflagsMap, DWORD flags)
 {
    CString text;
-   DWORD unmappedFlags = 0;
+   DWORD unmappedFlags = 0U;
    for (unsigned int bits = 1; bits < 32; bits++)
    {
-      DWORD testFlag = 1 << bits;
+      DWORD testFlag = 1U << bits;
       if ((flags & testFlag) == 0)
          continue;
 
@@ -45,7 +45,7 @@ CString DisplayFormatHelper::FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR
       text += iter->second;
    }
 
-   if (unmappedFlags != 0)
+   if (unmappedFlags != 0U)
    {
       if (!text.IsEmpty())
          text += _T(" | ");
