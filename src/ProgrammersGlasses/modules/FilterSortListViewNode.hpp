@@ -24,12 +24,6 @@ public:
       bool allowFiltering);
 
    // Inherited via INode
-   virtual const std::vector<std::shared_ptr<INode>>& ChildNodes() const override
-   {
-      static std::vector<std::shared_ptr<INode>> emptyNodeList;
-      return emptyNodeList;
-   }
-
    virtual std::shared_ptr<IContentView> GetContentView() override;
 
 private:
