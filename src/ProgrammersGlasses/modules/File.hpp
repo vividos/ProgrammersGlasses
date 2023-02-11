@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file File.hpp
 /// \brief memory mapped file
@@ -24,6 +24,14 @@ public:
 
    /// returns pointer to the memory mapped file
    const void* Data() const { return m_data.get(); }
+
+   /// returns const pointer to a array of given type, in the memory mapped file
+   template <typename T>
+   const T* Data(size_t fileOffset = 0) const
+   {
+      return reinterpret_cast<const T*>(
+         reinterpret_cast<const BYTE*>(m_data.get()) + fileOffset);
+   }
 
    /// returns size of memory mapped file
    size_t Size() const { return m_size; }
