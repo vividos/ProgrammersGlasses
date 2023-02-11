@@ -13,7 +13,7 @@
 
 bool PngImageReader::IsPngFile(const File& file)
 {
-   const PngFileHeader& header = *reinterpret_cast<const PngFileHeader*>(file.Data());
+   const PngFileHeader& header = *file.Data<PngFileHeader>();
 
    return memcmp(header.signature, c_pngFileHeaderSignatureBytes, sizeof(PngFileHeader::signature)) == 0;
 }
@@ -25,7 +25,7 @@ PngImageReader::PngImageReader(const File& file)
 
 void PngImageReader::Load()
 {
-   const PngFileHeader& fileHeader = *reinterpret_cast<const PngFileHeader*>(m_file.Data());
+   const PngFileHeader& fileHeader = *m_file.Data<PngFileHeader>();
 
    auto rootNode = std::make_shared<CodeTextViewNode>(
       _T("Summary"),
@@ -44,7 +44,7 @@ void PngImageReader::Load()
 
    rootNode->ChildNodes().push_back(pngHeaderNode);
 
-   const BYTE* chunkPtr = reinterpret_cast<const BYTE*>(m_file.Data()) + sizeof(PngFileHeader);
+   const BYTE* chunkPtr = m_file.Data<BYTE>(sizeof(PngFileHeader));
 
    while (m_file.IsValidRange(chunkPtr, sizeof(PngChunkHeader) + 4))
    {
@@ -96,7 +96,7 @@ void PngImageReader::Load()
       {
          if (m_file.IsValidPointer(chunkPtr))
          {
-            const BYTE* endPtr = reinterpret_cast<const BYTE*>(m_file.Data()) + m_file.Size();
+            const BYTE* endPtr = m_file.Data<BYTE>(m_file.Size());
 
             summaryText.AppendFormat(
                _T("Warning: Garbage bytes at the end of the file (size: %08zx bytes)"),

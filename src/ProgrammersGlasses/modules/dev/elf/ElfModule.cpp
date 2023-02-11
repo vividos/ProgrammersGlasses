@@ -28,7 +28,7 @@ bool ElfModule::IsModuleApplicableForFile(const File& file) const
    if (file.Size() < 4)
       return false;
 
-   const BYTE* data = reinterpret_cast<const BYTE*>(file.Data());
+   const BYTE* data = file.Data<BYTE>();
    return
       data[0] == 0x7F &&
       data[1] == 'E' &&

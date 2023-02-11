@@ -13,7 +13,7 @@
 
 bool PortableExecutableReader::IsPortableExecutableFile(const File& file)
 {
-   const DosMzHeader& header = *reinterpret_cast<const DosMzHeader*>(file.Data());
+   const DosMzHeader& header = *file.Data<DosMzHeader>();
 
    return header.magicNumber[0] == 'M' &&
       header.magicNumber[1] == 'Z';
@@ -34,7 +34,7 @@ void PortableExecutableReader::Load()
    summaryText.Append(_T("PE file: ") + m_file.Filename() + _T("\n\n"));
    summaryText.Append(_T("Summary:\n"));
 
-   const DosMzHeader& dosMzHeader = *reinterpret_cast<const DosMzHeader*>(m_file.Data());
+   const DosMzHeader& dosMzHeader = *m_file.Data<DosMzHeader>();
 
    auto pngHeaderNode = std::make_shared<StructListViewNode>(
       _T("MZ header"),

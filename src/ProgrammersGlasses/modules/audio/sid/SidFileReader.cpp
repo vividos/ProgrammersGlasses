@@ -16,7 +16,7 @@ bool SidFileReader::IsSidFile(const File& file)
    if (file.Size() < sizeof(SidFileHeader))
       return false;
 
-   const SidFileHeader& header = *reinterpret_cast<const SidFileHeader*>(file.Data());
+   const SidFileHeader& header = *file.Data<SidFileHeader>();
    return
       memcmp(header.magicId, "PSID", 4) == 0 ||
       memcmp(header.magicId, "RSID", 4) == 0;
@@ -29,7 +29,7 @@ void SidFileReader::Load()
 
    auto rootNode = std::make_shared<CodeTextViewNode>(_T("Summary"), NodeTreeIconID::nodeTreeIconDocument);
 
-   const SidFileHeader& header = *reinterpret_cast<const SidFileHeader*>(m_file.Data());
+   const SidFileHeader& header = *m_file.Data<SidFileHeader>();
    AddSummaryText(header, rootNode);
 
    WORD version = SwapEndianness(header.version);
@@ -69,7 +69,7 @@ void SidFileReader::AddSummaryText(const SidFileHeader& header,
    {
       WORD dataOffset = SwapEndianness(header.dataOffset);
 
-      const BYTE* data = reinterpret_cast<const BYTE*>(m_file.Data());
+      const BYTE* data = m_file.Data<BYTE>();
 
       // the load address at the data offset is stored in little-endian
       effectiveLoadAddress = (WORD(data[dataOffset + 1]) << 8) | data[dataOffset];
@@ -99,7 +99,7 @@ void SidFileReader::AddSummaryText(const SidFileHeader& header,
       clock == 2 ? _T("NTSC") :
       clock == 3 ? _T("PAL/NTSC") : _T("Unknown");
 
-   const DWORD* data32 = reinterpret_cast<const DWORD*>(m_file.Data());
+   const DWORD* data32 = m_file.Data<DWORD>();
 
    LPCTSTR fileFormat = GetValueFromMapOrDefault<DWORD>(
       g_mapSidMagicIdsToDisplayText, SwapEndianness(data32[0]), _T("invalid"));

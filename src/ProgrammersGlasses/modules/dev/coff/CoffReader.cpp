@@ -29,7 +29,7 @@ bool CoffReader::IsCoffObjectFile(const File& file)
    if (file.Size() < sizeof(CoffHeader))
       return false;
 
-   const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(file.Data());
+   const CoffHeader& header = *file.Data<CoffHeader>();
 
    if (header.offsetSymbolTable >= file.Size())
       return false;
@@ -44,8 +44,7 @@ bool CoffReader::IsNonCoffOrAnonymousObjectFile(const File& file, size_t fileOff
       return false;
 
    const IMPORT_OBJECT_HEADER& header =
-      *reinterpret_cast<const IMPORT_OBJECT_HEADER*>(
-         (const BYTE*)file.Data() + fileOffset);
+      *file.Data<IMPORT_OBJECT_HEADER>(fileOffset);
 
    return
       header.Sig1 == IMAGE_FILE_MACHINE_UNKNOWN &&
@@ -59,7 +58,7 @@ bool CoffReader::IsArLibraryFile(const File& file)
       return false;
 
    const ArchiveHeader& archiveHeader =
-      *reinterpret_cast<const ArchiveHeader*>(file.Data());
+      *file.Data<ArchiveHeader>();
 
    CString signatureText{ archiveHeader.signature, sizeof(archiveHeader.signature) };
 
@@ -107,8 +106,7 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
 {
    objectFileSummary = _T("COFF object file\n");
 
-   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
-   const CoffHeader& header = *reinterpret_cast<const CoffHeader*>(data);
+   const CoffHeader& header = *m_file.Data<CoffHeader>(fileOffset);
 
    objectFileSummary += CString{ _T("Architecture: ") } +
       GetValueFromMapOrDefault<DWORD>(
@@ -149,7 +147,7 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node,
 {
    CString text;
 
-   size_t fileOffset = (const BYTE*)&header - (const BYTE*)m_file.Data();
+   size_t fileOffset = (const BYTE*)&header - m_file.Data<BYTE>();
 
    text.Append(_T("COFF file: ") + m_file.Filename());
 
@@ -193,7 +191,6 @@ void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node,
 void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
    const CoffHeader& header, size_t fileOffset) const
 {
-   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    if (sizeof(header) + header.optionalHeaderSize + sizeof(SectionHeader) >= m_file.Size())
    {
       sectionSummaryNode.SetText(_T("Error: section header offset is outside of the file size!"));
@@ -205,10 +202,11 @@ void CoffReader::AddSectionTable(CodeTextViewNode& sectionSummaryNode,
    size_t maxSectionCount = static_cast<size_t>(header.numberOfSections);
    summaryText.Format(_T("Number of sections: %zu\n"), maxSectionCount);
 
+   const BYTE* data = m_file.Data<BYTE>(fileOffset);
    for (size_t sectionIndex = 0; sectionIndex < maxSectionCount; sectionIndex++)
    {
       const BYTE* sectionStart =
-         (const BYTE*)data +
+         data +
          sizeof(header) +
          header.optionalHeaderSize +
          sizeof(SectionHeader) * sectionIndex;
@@ -246,7 +244,6 @@ void CoffReader::AddSymbolTable(StaticNode& coffSummaryNode,
    const CoffHeader& header, size_t fileOffset,
    CString& objectFileSummary) const
 {
-   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
    if (sizeof(header) + header.offsetSymbolTable + sizeof(CoffSymbolTable) >= m_file.Size())
    {
       objectFileSummary += _T("Error: COFF symbol table offset is outside of the file size!\n");
@@ -259,8 +256,9 @@ void CoffReader::AddSymbolTable(StaticNode& coffSummaryNode,
    std::vector<std::vector<CString>> symbolTableData;
    std::vector<std::shared_ptr<INode>> symbolChildNodes;
 
+   const BYTE* data = m_file.Data<BYTE>(fileOffset);
    const BYTE* symbolTableStart =
-      (const BYTE*)data +
+      data +
       header.offsetSymbolTable;
 
    size_t maxSymbolTableEntries = header.numberOfSymbols;
@@ -348,10 +346,10 @@ void CoffReader::LoadStringTable(
    const CoffHeader& header, size_t fileOffset,
    std::map<size_t, CString>& offsetToStringMapping) const
 {
-   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
+   const BYTE* data = m_file.Data<BYTE>(fileOffset);
 
    const BYTE* symbolTableStart =
-      (const BYTE*)data +
+      data +
       header.offsetSymbolTable;
 
    const BYTE* stringTableStart =
@@ -380,10 +378,10 @@ void CoffReader::LoadStringTable(
 void CoffReader::AddStringTable(StaticNode& coffSummaryNode,
    const CoffHeader& header, size_t fileOffset, CString& objectFileSummary)
 {
-   LPCVOID data = (const BYTE*)m_file.Data() + fileOffset;
+   const BYTE* data = m_file.Data<BYTE>(fileOffset);
 
    const BYTE* symbolTableStart =
-      (const BYTE*)data +
+      data +
       header.offsetSymbolTable;
 
    const BYTE* stringTableStart =
@@ -461,7 +459,7 @@ void CoffReader::LoadNonCoffObjectFile()
 void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
    size_t fileOffset, CString& objectFileSummary) const
 {
-   LPCVOID header = (const BYTE*)m_file.Data() + fileOffset;
+   LPCVOID header = m_file.Data<BYTE>(fileOffset);
 
    // use the shorter IMPORT_OBJECT_HEADER to check the version field
    const ImportObjectHeader& importObjectHeader =
@@ -548,7 +546,7 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
 {
    const DWORD* firstLinkerMember =
       reinterpret_cast<const DWORD*>(
-         (const BYTE*)m_file.Data() + fileOffset);
+         m_file.Data<BYTE>(fileOffset));
 
    if (!m_file.IsValidRange(firstLinkerMember, linkerMemberSize))
    {
@@ -615,7 +613,7 @@ void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
 {
    const DWORD* secondLinkerMember =
       reinterpret_cast<const DWORD*>(
-         (const BYTE*)m_file.Data() + fileOffset);
+         m_file.Data<BYTE>(fileOffset));
 
    if (!m_file.IsValidRange(secondLinkerMember, linkerMemberSize))
    {
@@ -728,7 +726,7 @@ void CoffReader::LoadArchiveLibraryFile()
    std::vector<std::vector<CString>> libraryArchiveMemberListData;
 
    const ArchiveHeader& archiveHeader =
-      *reinterpret_cast<const ArchiveHeader*>(m_file.Data());
+      *m_file.Data<ArchiveHeader>();
 
    auto archiveHeaderNode = std::make_shared<StructListViewNode>(
       _T("Archive header"),
@@ -748,8 +746,7 @@ void CoffReader::LoadArchiveLibraryFile()
    for (size_t archiveMemberIndex = 0; archiveMemberOffset < m_file.Size(); archiveMemberIndex++)
    {
       const ArchiveMemberHeader& archiveMemberHeader =
-         *reinterpret_cast<const ArchiveMemberHeader*>(
-            (const BYTE*)m_file.Data() + archiveMemberOffset);
+         *m_file.Data<ArchiveMemberHeader>(archiveMemberOffset);
 
       // add to list view data
       CString archiveMemberName{ archiveMemberHeader.name, sizeof(archiveMemberHeader.name) };
