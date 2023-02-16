@@ -94,7 +94,7 @@ void CoffReader::LoadCoffObjectFile()
       NodeTreeIconID::nodeTreeIconLibrary);
 
    CString objectFileSummary;
-   AddCoffObjectFile(*rootNode, 0, objectFileSummary);
+   AddCoffObjectFile(*rootNode, 0, false, objectFileSummary);
 
    rootNode->SetText(objectFileSummary);
 
@@ -102,7 +102,7 @@ void CoffReader::LoadCoffObjectFile()
 }
 
 void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
-   size_t fileOffset, CString& objectFileSummary)
+   size_t fileOffset, bool isImage, CString& objectFileSummary)
 {
    objectFileSummary = _T("COFF object file\n");
 
@@ -138,7 +138,7 @@ void CoffReader::AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
       AddStringTable(coffSummaryNode, header, fileOffset, objectFileSummary);
    }
 
-   AddCoffHeaderSummaryText(coffSummaryNode, header, false, objectFileSummary);
+   AddCoffHeaderSummaryText(coffSummaryNode, header, isImage, objectFileSummary);
 }
 
 void CoffReader::AddCoffHeaderSummaryText(CodeTextViewNode& node,
@@ -873,6 +873,7 @@ void CoffReader::LoadArchiveLibraryFile()
             AddCoffObjectFile(
                *coffSummaryNode,
                archiveMemberStart,
+               false,
                objectFileSummary);
 
             archiveMemberSummaryText += objectFileSummary;

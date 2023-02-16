@@ -49,7 +49,7 @@ private:
 
    /// adds COFF header, section and symbol tables
    void AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
-      size_t fileOffset, CString& objectFileSummary);
+      size_t fileOffset, bool isImage, CString& objectFileSummary);
 
    /// adds summary text to node
    void AddCoffHeaderSummaryText(CodeTextViewNode& node,
