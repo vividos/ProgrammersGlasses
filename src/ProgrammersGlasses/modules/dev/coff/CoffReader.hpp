@@ -44,6 +44,8 @@ public:
    virtual void Cleanup() override;
 
 private:
+   friend class PortableExecutableReader;
+
    /// loads COFF based object files
    void LoadCoffObjectFile();
 
