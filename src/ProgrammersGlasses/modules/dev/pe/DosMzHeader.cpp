@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file DosMzHeader.cpp
 /// \brief MS-DOS MZ header struct
@@ -15,7 +15,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       1,
       true, // little-endian
       StructFieldType::text,
-      _T("MZ magic number")),
+      _T("e_magic: MZ magic number")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::bytesInLastBlock),
@@ -23,7 +23,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Bytes in last block")),
+      _T("e_cblp: Bytes in last page")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::blocksInFile),
@@ -31,7 +31,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Number of blocks in file")),
+      _T("e_cp: Number of pages in file")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::numRelocs),
@@ -39,7 +39,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Number of relocations")),
+      _T("e_crlc: Number of relocations")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::numHeaderParagraphs),
@@ -47,7 +47,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Number of header paragraphs")),
+      _T("e_cparhdr: Size of header in paragraphs")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::minExtraParagraphs),
@@ -55,7 +55,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Minimum number of extra paragraphs needed")),
+      _T("e_minalloc: Minimum number of extra paragraphs needed")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::maxExtraParagraphs),
@@ -63,7 +63,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Maximum number of extra paragraphs needed")),
+      _T("e_maxalloc: Maximum number of extra paragraphs needed")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::initialSS),
@@ -71,7 +71,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Initial SS register")),
+      _T("e_ss: Initial SS register")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::initialSP),
@@ -79,7 +79,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Initial SP register")),
+      _T("e_sp: Initial SP register")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::checksum),
@@ -87,7 +87,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Checksum")),
+      _T("e_csum: Checksum")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::initialIP),
@@ -95,7 +95,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Initial IP register")),
+      _T("e_ip: Initial IP register")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::initialCS),
@@ -103,7 +103,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Initial CS register")),
+      _T("e_cs: Initial CS register")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::relocTableOffset),
@@ -111,7 +111,7 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Offset to relocation table")),
+      _T("e_lfarlc: Offset to relocation table")),
 
    StructField(
       offsetof(DosMzHeader, DosMzHeader::overlayNumber),
@@ -119,5 +119,45 @@ const StructDefinition g_definitionDosMzHeader = StructDefinition({
       2,
       true, // little-endian
       StructFieldType::unsignedInteger,
-      _T("Overlay number")),
+      _T("e_ovno: Overlay number")),
+
+   StructField(
+      offsetof(DosMzHeader, DosMzHeader::reserved),
+      sizeof(DosMzHeader::reserved),
+      2,
+      true, // little-endian
+      StructFieldType::byteArray,
+      _T("e_res: Reserved")),
+
+   StructField(
+      offsetof(DosMzHeader, DosMzHeader::oemID),
+      sizeof(DosMzHeader::oemID),
+      2,
+      true, // little-endian
+      StructFieldType::unsignedInteger,
+      _T("e_oemid: OEM Identifier")),
+
+   StructField(
+      offsetof(DosMzHeader, DosMzHeader::oemInfo),
+      sizeof(DosMzHeader::oemInfo),
+      2,
+      true, // little-endian
+      StructFieldType::unsignedInteger,
+      _T("e_oeminfo: OEM Info")),
+
+   StructField(
+      offsetof(DosMzHeader, DosMzHeader::reserved2),
+      sizeof(DosMzHeader::reserved2),
+      2,
+      true, // little-endian
+      StructFieldType::byteArray,
+      _T("e_res2: Reserved 2")),
+
+   StructField(
+      offsetof(DosMzHeader, DosMzHeader::newExecutableHeader),
+      sizeof(DosMzHeader::newExecutableHeader),
+      4,
+      true, // little-endian
+      StructFieldType::unsignedInteger,
+      _T("e_lfanew: Offset of new exe header")),
    });
