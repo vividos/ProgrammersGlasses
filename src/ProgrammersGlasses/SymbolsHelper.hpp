@@ -25,4 +25,16 @@ private:
 
    /// lock for single-threaded access to DbgHelp functions
    static std::recursive_mutex m_dbgHelpLock;
+
+   /// symbol cache
+   static std::map<CString, CString> m_symbolCache;
+
+   /// lock for symbol cache
+   static std::recursive_mutex m_cacheLock;
+
+   /// count of cache hits
+   static unsigned int m_cacheHits;
+
+   /// count of cache misses
+   static unsigned int m_cacheMiss;
 };
