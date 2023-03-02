@@ -261,6 +261,9 @@
     <ClInclude Include="userinterface\FilterSortListViewForm.hpp">
       <Filter>userinterface</Filter>
     </ClInclude>
+    <ClInclude Include="modules\StringListIterator.hpp">
+      <Filter>modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="userinterface\res\Ribbon.bml">

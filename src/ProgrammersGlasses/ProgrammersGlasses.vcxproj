@@ -163,6 +163,7 @@
     <ClInclude Include="modules\dev\pe\PortableExecutableModule.hpp" />
     <ClInclude Include="modules\dev\pe\PortableExecutableReader.hpp" />
     <ClInclude Include="modules\StaticNode.hpp" />
+    <ClInclude Include="modules\StringListIterator.hpp" />
     <ClInclude Include="modules\StructDefinition.hpp" />
     <ClInclude Include="modules\StructListViewNode.hpp" />
     <ClInclude Include="stdafx.h" />
