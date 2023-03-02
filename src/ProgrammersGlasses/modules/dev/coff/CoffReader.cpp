@@ -19,6 +19,7 @@
 #include "Helper.hpp"
 #include "DisplayFormatHelper.hpp"
 #include "SymbolsHelper.hpp"
+#include "StringListIterator.hpp"
 #include "StructListViewNode.hpp"
 #include <map>
 
@@ -346,32 +347,31 @@ void CoffReader::LoadStringTable(
    const CoffHeader& header, size_t fileOffset,
    std::map<size_t, CString>& offsetToStringMapping) const
 {
-   const BYTE* data = m_file.Data<BYTE>(fileOffset);
+   size_t stringTableOffset =
+      fileOffset +
+      header.offsetSymbolTable +
+      header.numberOfSymbols * sizeof(CoffSymbolTable);
 
-   const BYTE* symbolTableStart =
-      data +
-      header.offsetSymbolTable;
+   const DWORD* stringTableStart = m_file.Data<DWORD>(stringTableOffset);
+   DWORD stringTableLength = *stringTableStart;
 
-   const BYTE* stringTableStart =
-      symbolTableStart + header.numberOfSymbols * sizeof(CoffSymbolTable);
+   stringTableOffset += 4;
 
-   DWORD stringTableLength = *reinterpret_cast<const DWORD*>(stringTableStart);
-   const BYTE* stringTableEnd = stringTableStart + stringTableLength;
+   StringListIterator iter{
+      m_file,
+      stringTableOffset,
+      m_file.Size() - stringTableOffset,
+      false };
 
-   CString summaryText;
-   const BYTE* stringTableText = stringTableStart + 4;
-
-   DWORD stringTableIndex = 0;
-   for (; stringTableText < stringTableEnd; stringTableIndex++)
+   for (DWORD stringTableIndex = 0;
+      stringTableIndex < stringTableLength && !iter.IsAtEnd();
+      stringTableIndex++, iter.Next())
    {
-      size_t offset = stringTableText - stringTableStart;
-      CString text{ stringTableText };
+      size_t offset = iter.Offset();
+      CString text = iter.Current();
 
       offsetToStringMapping.insert(
          std::make_pair(offset, text));
-
-      stringTableText += strlen(
-         reinterpret_cast<const CHAR*>(stringTableText)) + 1;
    }
 }
 
