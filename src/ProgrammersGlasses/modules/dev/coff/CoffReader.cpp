@@ -378,47 +378,37 @@ void CoffReader::LoadStringTable(
 void CoffReader::AddStringTable(StaticNode& coffSummaryNode,
    const CoffHeader& header, size_t fileOffset, CString& objectFileSummary)
 {
-   const BYTE* data = m_file.Data<BYTE>(fileOffset);
+   size_t stringTableOffset =
+      fileOffset +
+      header.offsetSymbolTable +
+      header.numberOfSymbols * sizeof(CoffSymbolTable);
 
-   const BYTE* symbolTableStart =
-      data +
-      header.offsetSymbolTable;
+   const DWORD* stringTableStart = m_file.Data<DWORD>(stringTableOffset);
+   DWORD stringTableLength = *stringTableStart;
 
-   const BYTE* stringTableStart =
-      symbolTableStart + header.numberOfSymbols * sizeof(CoffSymbolTable);
-
-   DWORD stringTableLength = *reinterpret_cast<const DWORD*>(stringTableStart);
-   const BYTE* stringTableEnd = stringTableStart + stringTableLength;
-
-   const BYTE* stringTableText = stringTableStart + 4;
+   std::map<size_t, CString> offsetToStringMapping;
+   LoadStringTable(header, fileOffset, offsetToStringMapping);
 
    std::vector<std::vector<CString>> stringTableData;
 
    DWORD stringTableIndex = 0;
-   for (; stringTableText < stringTableEnd; stringTableIndex++)
+   for (const auto& pair : offsetToStringMapping)
    {
-      if (!m_file.IsValidRange(stringTableText, stringTableEnd - stringTableText))
-      {
-         objectFileSummary.AppendFormat(_T("Warning: File ended while scanning the string table\n"));
-         break;
-      }
-
       CString stringIndexText;
       stringIndexText.Format(_T("%u"), stringTableIndex);
 
       CString stringOffsetText;
-      stringOffsetText.Format(_T("0x%08zx"), stringTableText - stringTableStart);
+      stringOffsetText.Format(_T("0x%08zx"), pair.first);
 
       stringTableData.push_back(
          std::vector<CString> {
          stringIndexText,
             stringOffsetText,
-            stringTableText,
-            SymbolsHelper::UndecorateSymbol(stringTableText),
+            pair.second,
+            SymbolsHelper::UndecorateSymbol(pair.second),
       });
 
-      stringTableText += strlen(
-         reinterpret_cast<const CHAR*>(stringTableText)) + 1;
+      stringTableIndex++;
    }
 
    objectFileSummary.AppendFormat(_T("String table with %u entries, length 0x%08x bytes.\n"),
