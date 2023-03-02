@@ -6,6 +6,7 @@
     {
       "name": "wtl",
       "platform": "windows"
-    }
+    },
+    "vividos-ulibcpp"
   ]
 }

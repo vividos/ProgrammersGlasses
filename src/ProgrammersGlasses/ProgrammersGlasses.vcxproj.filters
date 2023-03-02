@@ -267,7 +267,7 @@
       <Filter>userinterface\res\Generated Files</Filter>
     </None>
     <None Include="vcpkg.json" />
-    <None Include="packages.config" />
+    <None Include="vcpkg-configuration.json" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="userinterface\res\Ribbon.rc">
