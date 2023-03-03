@@ -554,11 +554,21 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
    linkerMemberSummary.AppendFormat(
       _T("First linker member, containing %u symbols"), numSymbols);
 
-   const CHAR* symbolTableText =
-      reinterpret_cast<const CHAR*>(firstLinkerMember + numSymbols);
+   StringListIterator iter{
+      m_file,
+      fileOffset + numSymbols * 4 + 4,
+      linkerMemberSize - numSymbols * 4 - 4,
+      false };
 
    for (DWORD symbolIndex = 0; symbolIndex < numSymbols; symbolIndex++)
    {
+      if (iter.IsAtEnd())
+      {
+         linkerMemberSummary +=
+            _T("Error: Symbol table ended before iterating all symbols!");
+            break;
+      }
+
       DWORD offsetBigEndian = firstLinkerMember[symbolIndex];
       DWORD offset = SwapEndianness(offsetBigEndian);
 
@@ -568,6 +578,8 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
       CString symbolOffsetText;
       symbolOffsetText.Format(_T("0x%08x"), offset);
 
+      CString symbolTableText = iter.Current();
+
       firstArchiveMemberListData.push_back(
          std::vector<CString> {
          symbolIndexText,
@@ -576,7 +588,7 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
             SymbolsHelper::UndecorateSymbol(symbolTableText),
       });
 
-      symbolTableText += strlen(symbolTableText) + 1;
+      iter.Next();
    }
 
    static std::vector<CString> firstArchiveMemberListColumnNames
