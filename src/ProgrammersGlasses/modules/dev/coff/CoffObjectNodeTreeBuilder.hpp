@@ -36,7 +36,7 @@ private:
    void AddCoffHeaderSummaryText(CodeTextViewNode& node) const;
 
    /// adds section table to node
-   void AddSectionTable(CodeTextViewNode& sectionSummaryNode) const;
+   void AddSectionTable(StaticNode& coffSummaryNode);
 
    /// loads string table into map
    void LoadStringTable();

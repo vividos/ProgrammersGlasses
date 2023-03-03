@@ -60,12 +60,7 @@ void CoffObjectNodeTreeBuilder::AddCoffObjectFile(
 
    coffSummaryNode.ChildNodes().push_back(coffHeaderNode);
 
-   auto sectionSummaryNode = std::make_shared<CodeTextViewNode>(
-      _T("Section Table"),
-      NodeTreeIconID::nodeTreeIconDocument);
-
-   AddSectionTable(*sectionSummaryNode);
-   coffSummaryNode.ChildNodes().push_back(sectionSummaryNode);
+   AddSectionTable(coffSummaryNode);
 
    if (m_coffObjectHeader.offsetSymbolTable != 0 &&
       m_coffObjectHeader.numberOfSymbols != 0)
@@ -128,19 +123,18 @@ void CoffObjectNodeTreeBuilder::AddCoffHeaderSummaryText(
    node.SetText(text);
 }
 
-void CoffObjectNodeTreeBuilder::AddSectionTable(
-   CodeTextViewNode& sectionSummaryNode) const
+void CoffObjectNodeTreeBuilder::AddSectionTable(StaticNode& coffSummaryNode)
 {
    if (sizeof(m_coffObjectHeader) + m_coffObjectHeader.optionalHeaderSize + sizeof(SectionHeader) >= m_file.Size())
    {
-      sectionSummaryNode.SetText(_T("Error: section header offset is outside of the file size!"));
+      m_objectFileSummary += _T("Error: section header offset is outside of the file size!");
       return;
    }
 
-   CString summaryText;
-
    size_t maxSectionCount = static_cast<size_t>(m_coffObjectHeader.numberOfSections);
-   summaryText.Format(_T("Number of sections: %zu\n"), maxSectionCount);
+
+   std::vector<std::vector<CString>> sectionTableData;
+   std::vector<std::shared_ptr<INode>> sectionChildNodes;
 
    const BYTE* data = m_file.Data<BYTE>(m_fileOffset);
    for (size_t sectionIndex = 0; sectionIndex < maxSectionCount; sectionIndex++)
@@ -153,7 +147,9 @@ void CoffObjectNodeTreeBuilder::AddSectionTable(
 
       if (!m_file.IsValidRange(sectionStart, sizeof(SectionHeader)))
       {
-         summaryText.AppendFormat(_T("Error: Section header #%zu is outside of the file size!"), sectionIndex);
+         m_objectFileSummary.AppendFormat(
+            _T("Error: Section header #%zu is outside of the file size!"),
+            sectionIndex);
          break;
       }
 
@@ -161,11 +157,22 @@ void CoffObjectNodeTreeBuilder::AddSectionTable(
 
       CString sectionName{ sectionHeader.name, sizeof(sectionHeader.name) };
 
-      summaryText.AppendFormat(_T("Section %zu: %s at offset 0x%08x (size 0x%08x)\n"),
-         sectionIndex + 1,
-         sectionName.GetString(),
-         sectionHeader.pointerToRawData,
-         sectionHeader.sizeOfRawData);
+      CString sectionIndexText;
+      sectionIndexText.Format(_T("%zu"), sectionIndex + 1);
+
+      CString sectionOffsetText;
+      sectionOffsetText.Format(_T("0x%08x"), sectionHeader.pointerToRawData);
+
+      CString sectionSizeText;
+      sectionSizeText.Format(_T("0x%08x"), sectionHeader.sizeOfRawData);
+
+      sectionTableData.push_back(
+         std::vector<CString> {
+         sectionIndexText,
+            sectionName,
+            sectionOffsetText,
+            sectionSizeText,
+      });
 
       auto sectionHeaderNode = std::make_shared<StructListViewNode>(
          _T("Section header ") + sectionName,
@@ -174,10 +181,27 @@ void CoffObjectNodeTreeBuilder::AddSectionTable(
          sectionStart,
          m_file.Data());
 
-      sectionSummaryNode.ChildNodes().push_back(sectionHeaderNode);
+      sectionChildNodes.push_back(sectionHeaderNode);
    }
 
-   sectionSummaryNode.SetText(summaryText);
+   static std::vector<CString> sectionTableColumnNames
+   {
+      _T("Index"),
+      _T("Section name"),
+      _T("Offset"),
+      _T("Size"),
+   };
+
+   auto sectionTableNode = std::make_shared<FilterSortListViewNode>(
+      _T("Section Table"),
+      NodeTreeIconID::nodeTreeIconTable,
+      sectionTableColumnNames,
+      sectionTableData,
+      true);
+
+   sectionTableNode->ChildNodes().swap(sectionChildNodes);
+
+   coffSummaryNode.ChildNodes().push_back(sectionTableNode);
 }
 
 void CoffObjectNodeTreeBuilder::LoadStringTable()
