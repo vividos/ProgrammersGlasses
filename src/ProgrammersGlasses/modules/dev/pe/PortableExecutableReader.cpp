@@ -61,7 +61,7 @@ void PortableExecutableReader::Load()
 
    // add PE signature
    if (dosMzHeader.newExecutableHeader == 0 ||
-      dosMzHeader.newExecutableHeader < dosMzHeader.numHeaderParagraphs * 16 ||
+      dosMzHeader.newExecutableHeader < DWORD(dosMzHeader.numHeaderParagraphs) * 16 ||
       !m_file.IsValidRange(m_file.Data<BYTE>(dosMzHeader.newExecutableHeader), 4))
    {
       summaryText += _T("New executable header offset is invalid.");
