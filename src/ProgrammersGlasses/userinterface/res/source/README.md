@@ -1,7 +1,7 @@
 # Sources
 
 This folder contains the source files for the bitmaps used in the app. They
-all come from the Visual Studio 2019 image gallery zip archive. The original
+all come from the Visual Studio 2022 image gallery zip archive. The original
 names of the `.svg` files are used.
 
 The `GenerateImages.cmd` command script can be used to (re-)generate the
