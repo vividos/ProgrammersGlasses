@@ -195,14 +195,14 @@ void CoffObjectNodeTreeBuilder::LoadStringTable()
    StringListIterator iter{
       m_file,
       stringTableOffset,
-      m_file.Size() - stringTableOffset,
+      stringTableLength - 4,
       false };
 
    for (DWORD stringTableIndex = 0;
       stringTableIndex < stringTableLength && !iter.IsAtEnd();
       stringTableIndex++, iter.Next())
    {
-      size_t offset = iter.Offset();
+      size_t offset = iter.Offset() - stringTableOffset + 4;
       CString text = iter.Current();
 
       m_offsetToStringMapping.insert(
