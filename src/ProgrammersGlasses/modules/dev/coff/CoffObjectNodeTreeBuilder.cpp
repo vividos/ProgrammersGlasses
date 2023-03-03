@@ -19,10 +19,10 @@
 
 CoffObjectNodeTreeBuilder::CoffObjectNodeTreeBuilder(
    const File& file, size_t fileOffset, bool isImage)
-:m_file(file),
-m_fileOffset(fileOffset),
-m_coffObjectHeader(*m_file.Data<CoffHeader>(fileOffset)),
-m_isImage(isImage)
+   :m_file(file),
+   m_fileOffset(fileOffset),
+   m_coffObjectHeader(*m_file.Data<CoffHeader>(fileOffset)),
+   m_isImage(isImage)
 {
 }
 
