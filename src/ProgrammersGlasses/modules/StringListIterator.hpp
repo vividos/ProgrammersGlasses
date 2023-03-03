@@ -68,7 +68,7 @@ public:
       size_t leftSize = m_endOffset - m_currentOffset;
       size_t length = strnlen(text, leftSize);
 
-      m_currentOffset = length + 1;
+      m_currentOffset += length + 1;
       return true;
    }
 
