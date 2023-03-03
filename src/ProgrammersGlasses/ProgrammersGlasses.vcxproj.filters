@@ -137,6 +137,9 @@
     <ClCompile Include="userinterface\FilterSortListViewForm.cpp">
       <Filter>userinterface</Filter>
     </ClCompile>
+    <ClCompile Include="modules\dev\coff\CoffObjectNodeTreeBuilder.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -263,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="modules\StringListIterator.hpp">
       <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\CoffObjectNodeTreeBuilder.hpp">
+      <Filter>modules\dev\coff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

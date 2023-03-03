@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "PortableExecutableReader.hpp"
 #include "DosMzHeader.hpp"
-#include "../coff/CoffReader.hpp"
+#include "../coff/CoffObjectNodeTreeBuilder.hpp"
 #include "modules/CodeTextViewNode.hpp"
 #include "modules/StructListViewNode.hpp"
 
@@ -96,18 +96,11 @@ void PortableExecutableReader::Load()
       m_file.Data<BYTE>(dosMzHeader.newExecutableHeader + 4);
 
    {
-      CoffReader reader{ m_file };
+      size_t coffObjectSize = coffHeader - fileStart;
+      CoffObjectNodeTreeBuilder nodeTreeBuilder{ m_file, coffObjectSize, true };
 
-      auto coffSummaryNode = std::make_shared<CodeTextViewNode>(
-         _T("COFF Header Summary"),
-         NodeTreeIconID::nodeTreeIconLibrary);
-
-      CString objectFileSummary;
-      reader.AddCoffObjectFile(
-         *coffSummaryNode,
-         coffHeader - fileStart,
-         true,
-         objectFileSummary);
+      auto coffSummaryNode = nodeTreeBuilder.BuildCoffObjectNode();
+      CString objectFileSummary = nodeTreeBuilder.GetObjectFileSummary();
 
       summaryText += objectFileSummary;
 

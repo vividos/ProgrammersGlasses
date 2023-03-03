@@ -108,6 +108,7 @@
     <ClCompile Include="modules\dev\coff\ArchiveHeader.cpp" />
     <ClCompile Include="modules\dev\coff\CoffHeader.cpp" />
     <ClCompile Include="modules\dev\coff\CoffModule.cpp" />
+    <ClCompile Include="modules\dev\coff\CoffObjectNodeTreeBuilder.cpp" />
     <ClCompile Include="modules\dev\coff\CoffReader.cpp" />
     <ClCompile Include="modules\dev\coff\ImportObjectHeader.cpp" />
     <ClCompile Include="modules\dev\coff\SectionHeader.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="modules\dev\coff\ArchiveHeader.hpp" />
     <ClInclude Include="modules\dev\coff\CoffHeader.hpp" />
     <ClInclude Include="modules\dev\coff\CoffModule.hpp" />
+    <ClInclude Include="modules\dev\coff\CoffObjectNodeTreeBuilder.hpp" />
     <ClInclude Include="modules\dev\coff\CoffReader.hpp" />
     <ClInclude Include="modules\dev\coff\ImportObjectHeader.hpp" />
     <ClInclude Include="modules\dev\coff\SectionHeader.hpp" />

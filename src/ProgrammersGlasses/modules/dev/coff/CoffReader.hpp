@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file CoffReader.hpp
 /// \brief reader for COFF format files
@@ -11,7 +11,6 @@
 
 class CodeTextViewNode;
 class StaticNode;
-struct CoffHeader;
 
 /// COFF file format reader
 class CoffReader : public IReader
@@ -48,34 +47,6 @@ private:
 
    /// loads COFF based object files
    void LoadCoffObjectFile();
-
-   /// adds COFF header, section and symbol tables
-   void AddCoffObjectFile(CodeTextViewNode& coffSummaryNode,
-      size_t fileOffset, bool isImage, CString& objectFileSummary);
-
-   /// adds summary text to node
-   void AddCoffHeaderSummaryText(CodeTextViewNode& node,
-      const CoffHeader& header, bool isImage,
-      const CString& objectFileSummary) const;
-
-   /// adds section table to node
-   void AddSectionTable(CodeTextViewNode& sectionSummaryNode,
-      const CoffHeader& header, size_t fileOffset) const;
-
-   /// adds symbol table to node
-   void AddSymbolTable(StaticNode& coffSummaryNode,
-      const CoffHeader& header, size_t fileOffset,
-      CString& objectFileSummary) const;
-
-   /// loads string table into map
-   void LoadStringTable(
-      const CoffHeader& header, size_t fileOffset,
-      std::map<size_t, CString>& offsetToStringMapping) const;
-
-   /// adds string table to node
-   void AddStringTable(StaticNode& stringTableSummaryNode,
-      const CoffHeader& header, size_t fileOffset,
-      CString& objectFileSummary);
 
    /// loads non-COFF (import or anonymous) object files
    void LoadNonCoffObjectFile();
