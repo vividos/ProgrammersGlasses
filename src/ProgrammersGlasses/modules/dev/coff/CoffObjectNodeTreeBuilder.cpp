@@ -345,20 +345,20 @@ void CoffObjectNodeTreeBuilder::AddStringTable(StaticNode& coffSummaryNode)
    std::vector<std::vector<CString>> stringTableData;
 
    DWORD stringTableIndex = 0;
-   for (const auto& pair : m_offsetToStringMapping)
+   for (const auto& [offset, text] : m_offsetToStringMapping)
    {
       CString stringIndexText;
       stringIndexText.Format(_T("%u"), stringTableIndex);
 
       CString stringOffsetText;
-      stringOffsetText.Format(_T("0x%08zx"), pair.first);
+      stringOffsetText.Format(_T("0x%08zx"), offset);
 
       stringTableData.push_back(
          std::vector<CString> {
          stringIndexText,
             stringOffsetText,
-            pair.second,
-            SymbolsHelper::UndecorateSymbol(pair.second),
+            text,
+            SymbolsHelper::UndecorateSymbol(text),
       });
 
       stringTableIndex++;

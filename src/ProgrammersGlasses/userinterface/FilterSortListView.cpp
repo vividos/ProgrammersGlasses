@@ -184,10 +184,10 @@ void FilterSortListView::ApplyFilterAndSorting()
    m_displayIndexToDataIndexMapping.clear();
 
    int listViewIndex = 0;
-   for (const auto& pair : columnTextToDataIndexList)
+   for (const auto& [columnText, dataIndex] : columnTextToDataIndexList)
    {
       m_displayIndexToDataIndexMapping.insert(
-         std::make_pair(listViewIndex++, pair.second));
+         std::make_pair(listViewIndex++, dataIndex));
    }
 
    CListViewCtrl::SetItemCount(listViewIndex);
