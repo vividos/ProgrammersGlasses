@@ -70,6 +70,11 @@ private:
       size_t fileOffset, size_t linkerMemberSize,
       CString& linkerMemberSummary) const;
 
+   /// adds longnames linker member node
+   void AddArchiveLongnamesMember(StaticNode& archiveMemberNode,
+      size_t fileOffset, size_t linkerMemberSize,
+      CString& linkerMemberSummary) const;
+
    /// loads archive library files
    void LoadArchiveLibraryFile();
 

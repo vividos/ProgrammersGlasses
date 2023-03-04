@@ -379,6 +379,62 @@ void CoffReader::AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
       numSymbols);
 }
 
+void CoffReader::AddArchiveLongnamesMember(StaticNode& archiveMemberNode,
+   size_t fileOffset, size_t linkerMemberSize,
+   CString& linkerMemberSummary) const
+{
+   std::vector<std::vector<CString>> longnamesMemberSymbolsListData;
+
+   StringListIterator iter{
+      m_file,
+      fileOffset,
+      linkerMemberSize,
+      false };
+
+
+   DWORD numSymbols = 0;
+
+   for (; !iter.IsAtEnd(); iter.Next(), numSymbols++)
+   {
+      CString stringIndexText;
+      stringIndexText.Format(_T("%u"), numSymbols);
+
+      size_t offset = iter.Offset() - fileOffset;
+
+      CString stringOffsetText;
+      stringOffsetText.Format(_T("/%zu"), offset);
+
+      CString stringTableText = iter.Current();
+
+      longnamesMemberSymbolsListData.push_back(
+         std::vector<CString> {
+         stringIndexText,
+            stringOffsetText,
+            stringTableText,
+      });
+   }
+
+   static std::vector<CString> longnamesMemberSymbolsListColumnNames
+   {
+      _T("Index"),
+      _T("Offset"),
+      _T("String"),
+   };
+
+   auto longnamesMemberSymbolsNode = std::make_shared<FilterSortListViewNode>(
+      _T("Longnames Member Strings"),
+      NodeTreeIconID::nodeTreeIconTable,
+      longnamesMemberSymbolsListColumnNames,
+      longnamesMemberSymbolsListData,
+      true);
+
+   archiveMemberNode.ChildNodes().push_back(longnamesMemberSymbolsNode);
+
+   linkerMemberSummary.AppendFormat(
+      _T("Longnames member, containing %u strings"),
+      numSymbols);
+}
+
 void CoffReader::LoadArchiveLibraryFile()
 {
    auto rootNode = std::make_shared<CodeTextViewNode>(
@@ -524,6 +580,21 @@ void CoffReader::LoadArchiveLibraryFile()
             librarySummaryText += objectFileSummary + _T("\n");
 
             archiveMemberNode->ChildNodes().push_back(nonCoffSummaryNode);
+         }
+         else if (archiveMemberIndex == 2 && trimmedArchiveMemberName == _T("//"))
+         {
+            CString linkerMemberSummary;
+            AddArchiveLongnamesMember(
+               *archiveMemberNode,
+               archiveMemberStart,
+               archiveMemberSize,
+               linkerMemberSummary);
+
+            archiveMemberSummaryText += linkerMemberSummary;
+
+            IndentText(linkerMemberSummary, 3);
+            linkerMemberSummary.TrimLeft();
+            librarySummaryText += linkerMemberSummary + _T("\n");
          }
          else
          {
