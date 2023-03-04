@@ -211,6 +211,12 @@ void CoffObjectNodeTreeBuilder::LoadStringTable()
       m_coffObjectHeader.offsetSymbolTable +
       m_coffObjectHeader.numberOfSymbols * sizeof(CoffSymbolTable);
 
+   if (stringTableOffset >= m_file.Size())
+   {
+      m_objectFileSummary += _T("Error: COFF string table offset is outside of the file size!\n");
+      return;
+   }
+
    const DWORD* stringTableStart = m_file.Data<DWORD>(stringTableOffset);
    DWORD stringTableLength = *stringTableStart;
 
@@ -338,6 +344,12 @@ void CoffObjectNodeTreeBuilder::AddStringTable(StaticNode& coffSummaryNode)
       m_fileOffset +
       m_coffObjectHeader.offsetSymbolTable +
       m_coffObjectHeader.numberOfSymbols * sizeof(CoffSymbolTable);
+
+   if (stringTableOffset >= m_file.Size())
+   {
+      m_objectFileSummary += _T("Error: COFF string table offset is outside of the file size!\n");
+      return;
+   }
 
    const DWORD* stringTableStart = m_file.Data<DWORD>(stringTableOffset);
    DWORD stringTableLength = *stringTableStart;
