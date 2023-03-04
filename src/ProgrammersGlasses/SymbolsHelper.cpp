@@ -53,8 +53,8 @@ CString SymbolsHelper::UndecorateSymbol(const CString& symbolName)
       auto iter = m_symbolCache.find(symbolName);
       if (iter != m_symbolCache.end())
       {
-         ATLTRACE(_T("Symbol cache: hits: %u, misses: %u\n"),
-            ++m_cacheHits, m_cacheMiss);
+         //ATLTRACE(_T("Symbol cache: hits: %u, misses: %u\n"),
+         //   ++m_cacheHits, m_cacheMiss);
 
          return iter->second;
       }
@@ -74,8 +74,8 @@ CString SymbolsHelper::UndecorateMsvcSymbol(const CString& symbolName)
    if (!Init())
       return symbolName + _T(" - dbghelp.dll SymInitialize failed!");
 
-   ATLTRACE(_T("Symbol cache: hits: %u, misses: %u\n"),
-      m_cacheHits, ++m_cacheMiss);
+   //ATLTRACE(_T("Symbol cache: hits: %u, misses: %u\n"),
+   //   m_cacheHits, ++m_cacheMiss);
 
    CString undecoratedName;
 
