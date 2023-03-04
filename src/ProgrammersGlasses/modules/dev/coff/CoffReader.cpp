@@ -226,7 +226,7 @@ void CoffReader::AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
       {
          linkerMemberSummary +=
             _T("Error: Symbol table ended before iterating all symbols!");
-            break;
+         break;
       }
 
       DWORD offsetBigEndian = firstLinkerMember[symbolIndex];
