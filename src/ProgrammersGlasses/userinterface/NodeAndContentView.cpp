@@ -109,7 +109,11 @@ void NodeAndContentView::InitTree()
    std::shared_ptr<INode> rootNode = m_reader->RootNode();
    ATLASSERT(rootNode != nullptr);
 
+   SetRedraw(false);
+
    AddNodesRecursive(*rootNode, TVI_ROOT);
+
+   SetRedraw(true);
 }
 
 void NodeAndContentView::AddNodesRecursive(const INode& node, HTREEITEM parentItem)
