@@ -41,14 +41,14 @@ CString DisplayFormatHelper::FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR
       }
 
       if (!text.IsEmpty())
-         text += _T(" | ");
+         text += _T(" |\n");
       text += iter->second;
    }
 
    if (unmappedFlags != 0U)
    {
       if (!text.IsEmpty())
-         text += _T(" | ");
+         text += _T(" |\n");
       text.AppendFormat(_T("0x%08x"), unmappedFlags);
    }
 
@@ -213,7 +213,7 @@ CString DisplayFormatHelper::FormatBitfieldValue(
    {
       if (!text.IsEmpty())
       {
-         text += ", ";
+         text += ",\n";
       }
 
       DWORD bitValue = GetBits(value,

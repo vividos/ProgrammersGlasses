@@ -58,7 +58,24 @@ void StructListView::InitList()
       SetItemText(itemIndex, 1, rawDataText);
 
       CString formattedValue = DisplayFormatHelper::FormatValue(structField, address);
-      SetItemText(itemIndex, 2, formattedValue);
+      if (formattedValue.Find(_T('\n')) > 0)
+      {
+         bool isFirstPart = true;
+         for (int startPos = 0, maxPos = formattedValue.GetLength(); startPos < maxPos; )
+         {
+            CString valuePart = formattedValue.Tokenize(_T("\n"), startPos);
+
+            if (isFirstPart)
+               SetItemText(itemIndex, 2, valuePart);
+            else
+            {
+               int partItemIndex = InsertItem(GetItemCount(), _T(""));
+               SetItemText(partItemIndex, 2, valuePart);
+            }
+         }
+      }
+      else
+         SetItemText(itemIndex, 2, formattedValue);
 
       if (structField.m_description != nullptr)
          SetItemText(itemIndex, 3, structField.m_description);
