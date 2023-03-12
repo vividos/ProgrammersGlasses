@@ -15,9 +15,13 @@ REM
 set PATH=%PATH%;%OPENCPPCOVERAGE%
 
 REM
-REM Run unit tests
+REM Run tests with files
 REM
 set FILES=test\lib-with-coff-obj.lib ^
+    ..\intermediate\Release\ProgrammersGlasses\Helper.obj ^
+    ..\intermediate\vcpkg_installed\x64-windows-static\lib\ulib.lib ^
+    ProgrammersGlasses\userinterface\res\Ribbon\app_exit_16.png ^
+    test\JCH-Blizzard.sid ^
     ..\bin\Release\ProgrammersGlasses.exe
 
 OpenCppCoverage.exe ^
