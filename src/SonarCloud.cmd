@@ -37,16 +37,22 @@ SonarScanner.MSBuild.exe begin ^
     /d:"sonar.cfamily.threads=4" ^
     /d:"sonar.cfamily.analysisCache.mode=fs " ^
     /d:"sonar.cfamily.analysisCache.path=.sonar-cache" ^
+    /d:"sonar.coverageReportPaths=%CD%\CoverageReport-SonarQube.xml" ^
     /o:"vividos-github" ^
     /d:"sonar.login=%SONARLOGIN%"
 if errorlevel 1 goto end
 
 REM
-REM Rebuild Release|Win32
+REM Rebuild Release|x64
 REM
 build-wrapper-win-x86-64.exe ^
    --out-dir .bw-output ^
    msbuild ProgrammersGlasses.sln /m /property:Configuration=Release,Platform=x64 /target:Rebuild
+
+REM
+REM Run tests
+REM
+call RunTestsAndCollectCoverage.cmd
 
 SonarScanner.MSBuild.exe end /d:"sonar.login=%SONARLOGIN%"
 

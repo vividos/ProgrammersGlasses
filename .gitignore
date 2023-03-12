@@ -361,3 +361,5 @@ src/ProgrammersGlasses/userinterface/res/Ribbon.rc
 .bw-output/
 /intermediate/vcpkg_installed/
 .sonar-cache/
+CoverageReport/
+CoverageReport-SonarQube.xml
