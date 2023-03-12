@@ -35,7 +35,7 @@ void StructListView::InitList()
    size_t maxOffset = (structBase - fileBase) + m_structDefinition.GetMaxStructFieldOffset();
    bool useShortOffset = maxOffset < 0xFFFFFFFF;
 
-   InsertColumn(0, _T("Offset"), LVCFMT_LEFT, useShortOffset ? 110 : 180);
+   InsertColumn(0, _T("Offset"), LVCFMT_LEFT, 200);
    InsertColumn(1, _T("Raw data"), LVCFMT_LEFT, 200);
    InsertColumn(2, _T("Value"), LVCFMT_LEFT, 200);
    InsertColumn(3, _T("Description"), LVCFMT_LEFT, 200);
@@ -45,8 +45,8 @@ void StructListView::InitList()
       const BYTE* address = structBase + structField.m_offset;
 
       CString addressText;
-      auto offset = address - fileBase;
-      addressText.Format(useShortOffset ? _T("0x%08x") : _T("0x%016x"), offset);
+      size_t offset = address - fileBase;
+      addressText.Format(useShortOffset ? _T("0x%08zx") : _T("0x%016zx"), offset);
 
       int itemIndex = InsertItem(GetItemCount(), addressText);
 
@@ -64,6 +64,7 @@ void StructListView::InitList()
          SetItemText(itemIndex, 3, structField.m_description);
    }
 
+   SetColumnWidth(0, LVSCW_AUTOSIZE);
    SetColumnWidth(1, LVSCW_AUTOSIZE);
    SetColumnWidth(2, LVSCW_AUTOSIZE);
    SetColumnWidth(3, LVSCW_AUTOSIZE_USEHEADER);
