@@ -11,8 +11,7 @@
 #include "FilterSortListViewNode.hpp"
 #include "CoffHeader.hpp"
 #include "CoffObjectNodeTreeBuilder.hpp"
-#include "ImportObjectHeader.hpp"
-#include "AnonymousObjectHeader.hpp"
+#include "NonCoffObjectNodeTreeBuilder.hpp"
 #include "ArchiveHeader.hpp"
 #include "File.hpp"
 #include "Helper.hpp"
@@ -94,84 +93,8 @@ void CoffReader::LoadCoffObjectFile()
 
 void CoffReader::LoadNonCoffObjectFile()
 {
-   auto rootNode = std::make_shared<CodeTextViewNode>(
-      _T("Summary"),
-      NodeTreeIconID::nodeTreeIconObject);
-
-   CString objectFileSummary;
-   AddNonCoffObjectFile(*rootNode, 0, objectFileSummary);
-
-   rootNode->SetText(objectFileSummary);
-
-   m_rootNode = rootNode;
-}
-
-void CoffReader::AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
-   size_t fileOffset, CString& objectFileSummary) const
-{
-   LPCVOID header = m_file.Data<BYTE>(fileOffset);
-
-   // use the shorter IMPORT_OBJECT_HEADER to check the version field
-   const ImportObjectHeader& importObjectHeader =
-      *reinterpret_cast<const ImportObjectHeader*>(header);
-
-   if (importObjectHeader.version == 0)
-   {
-      nonCoffSummaryNode.SetText(_T("Import object"));
-
-      objectFileSummary = _T("Import object\n");
-      objectFileSummary += CString{ _T("Architecture: ") } +
-         GetValueFromMapOrDefault<DWORD>(
-            g_mapCoffTargetMachineToDisplayText,
-            (DWORD)importObjectHeader.targetMachine,
-            _T("unknown"));
-      objectFileSummary += _T("\n");
-
-      auto importObjectHeaderNode = std::make_shared<StructListViewNode>(
-         _T("Import object header"),
-         NodeTreeIconID::nodeTreeIconBinary,
-         g_definitionImportObjectHeader,
-         header,
-         m_file.Data());
-
-      nonCoffSummaryNode.ChildNodes().push_back(importObjectHeaderNode);
-   }
-   else if (importObjectHeader.version == 1)
-   {
-      nonCoffSummaryNode.SetText(_T("Anonymous object"));
-
-      const AnonymousObjectHeader& anonymousObjectHeader =
-         *reinterpret_cast<const AnonymousObjectHeader*>(header);
-
-      objectFileSummary = _T("Anonymous object\n");
-      objectFileSummary += CString{ _T("Architecture: ") } +
-         GetValueFromMapOrDefault<DWORD>(
-            g_mapCoffTargetMachineToDisplayText,
-            (DWORD)anonymousObjectHeader.targetMachine,
-            _T("unknown"));
-      objectFileSummary += _T("\n");
-
-      auto anonymousObjectHeaderNode = std::make_shared<StructListViewNode>(
-         _T("Anonymous object header"),
-         NodeTreeIconID::nodeTreeIconBinary,
-         g_definitionAnonymousObjectHeader,
-         header,
-         m_file.Data());
-
-      nonCoffSummaryNode.ChildNodes().push_back(anonymousObjectHeaderNode);
-   }
-   else
-   {
-      nonCoffSummaryNode.SetText(_T("Invalid non-COFF object header"));
-
-      objectFileSummary = _T("Invalid non-COFF object header");
-
-      // code flow shouldn't arrive here, since IsNonCoffOrAnonymousObjectFile()
-      // explicitly checked for the version field.
-      ATLASSERT(false);
-   }
-
-   nonCoffSummaryNode.SetText(objectFileSummary);
+   NonCoffObjectNodeTreeBuilder nodeTreeBuilder{ m_file, 0 };
+   m_rootNode = nodeTreeBuilder.BuildNonCoffObjectNode();
 }
 
 void CoffReader::AddArchiveLinkerMember(StaticNode& archiveMemberNode,
@@ -563,15 +486,9 @@ void CoffReader::LoadArchiveLibraryFile()
          // add COFF object / anonymous object
          if (IsNonCoffOrAnonymousObjectFile(m_file, archiveMemberStart))
          {
-            auto nonCoffSummaryNode = std::make_shared<CodeTextViewNode>(
-               _T("non-COFF Summary"),
-               NodeTreeIconID::nodeTreeIconDocument);
-
-            CString objectFileSummary;
-            AddNonCoffObjectFile(
-               *nonCoffSummaryNode,
-               archiveMemberStart,
-               objectFileSummary);
+            NonCoffObjectNodeTreeBuilder nodeTreeBuilder{ m_file, archiveMemberStart };
+            auto nonCoffSummaryNode = nodeTreeBuilder.BuildNonCoffObjectNode();
+            CString objectFileSummary = nodeTreeBuilder.GetObjectFileSummary();
 
             archiveMemberSummaryText += objectFileSummary;
 

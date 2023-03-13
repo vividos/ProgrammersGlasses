@@ -111,6 +111,7 @@
     <ClCompile Include="modules\dev\coff\CoffObjectNodeTreeBuilder.cpp" />
     <ClCompile Include="modules\dev\coff\CoffReader.cpp" />
     <ClCompile Include="modules\dev\coff\ImportObjectHeader.cpp" />
+    <ClCompile Include="modules\dev\coff\NonCoffObjectNodeTreeBuilder.cpp" />
     <ClCompile Include="modules\dev\coff\SectionHeader.cpp" />
     <ClCompile Include="modules\dev\coff\CoffSymbolTable.cpp" />
     <ClCompile Include="modules\DisplayFormatHelper.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="modules\dev\coff\CoffObjectNodeTreeBuilder.hpp" />
     <ClInclude Include="modules\dev\coff\CoffReader.hpp" />
     <ClInclude Include="modules\dev\coff\ImportObjectHeader.hpp" />
+    <ClInclude Include="modules\dev\coff\NonCoffObjectNodeTreeBuilder.hpp" />
     <ClInclude Include="modules\dev\coff\SectionHeader.hpp" />
     <ClInclude Include="modules\dev\coff\CoffSymbolTable.hpp" />
     <ClInclude Include="modules\DisplayFormatHelper.hpp" />

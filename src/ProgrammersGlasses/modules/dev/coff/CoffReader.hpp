@@ -51,10 +51,6 @@ private:
    /// loads non-COFF (import or anonymous) object files
    void LoadNonCoffObjectFile();
 
-   /// adds a non-COFF (import or anonymous) object file to node
-   void AddNonCoffObjectFile(CodeTextViewNode& nonCoffSummaryNode,
-      size_t fileOffset, CString& objectFileSummary) const;
-
    /// adds archive linker member to node
    void AddArchiveLinkerMember(StaticNode& archiveMemberNode,
       size_t archiveMemberIndex, size_t fileOffset, size_t linkerMemberSize,
