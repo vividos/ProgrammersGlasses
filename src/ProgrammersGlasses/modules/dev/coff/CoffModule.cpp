@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "CoffModule.hpp"
 #include "CoffReader.hpp"
+#include "NonCoffObjectNodeTreeBuilder.hpp"
 
 CString CoffModule::DisplayName() const
 {
@@ -27,7 +28,7 @@ CString CoffModule::FilterStrings() const
 bool CoffModule::IsModuleApplicableForFile(const File& file) const
 {
    return CoffReader::IsCoffObjectFile(file) ||
-      CoffReader::IsNonCoffOrAnonymousObjectFile(file, 0) ||
+      NonCoffObjectNodeTreeBuilder::IsNonCoffOrAnonymousObjectFile(file, 0) ||
       CoffReader::IsArLibraryFile(file);
 }
 

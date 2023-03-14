@@ -36,20 +36,6 @@ bool CoffReader::IsCoffObjectFile(const File& file)
    return true;
 }
 
-bool CoffReader::IsNonCoffOrAnonymousObjectFile(const File& file, size_t fileOffset)
-{
-   if (file.Size() < fileOffset + sizeof(IMPORT_OBJECT_HEADER))
-      return false;
-
-   const IMPORT_OBJECT_HEADER& header =
-      *file.Data<IMPORT_OBJECT_HEADER>(fileOffset);
-
-   return
-      header.Sig1 == IMAGE_FILE_MACHINE_UNKNOWN &&
-      header.Sig2 == IMPORT_OBJECT_HDR_SIG2 &&
-      (header.Version == 0 || header.Version == 1);
-}
-
 bool CoffReader::IsArLibraryFile(const File& file)
 {
    if (file.Size() < sizeof(ArchiveHeader))
@@ -72,7 +58,7 @@ void CoffReader::Load()
 {
    if (IsCoffObjectFile(m_file))
       LoadCoffObjectFile();
-   else if (IsNonCoffOrAnonymousObjectFile(m_file, 0))
+   else if (NonCoffObjectNodeTreeBuilder::IsNonCoffOrAnonymousObjectFile(m_file, 0))
       LoadNonCoffObjectFile();
    else if (IsArLibraryFile(m_file))
       LoadArchiveLibraryFile();
@@ -484,7 +470,7 @@ void CoffReader::LoadArchiveLibraryFile()
       else if (archiveMemberIndex >= 2)
       {
          // add COFF object / anonymous object
-         if (IsNonCoffOrAnonymousObjectFile(m_file, archiveMemberStart))
+         if (NonCoffObjectNodeTreeBuilder::IsNonCoffOrAnonymousObjectFile(m_file, archiveMemberStart))
          {
             NonCoffObjectNodeTreeBuilder nodeTreeBuilder{ m_file, archiveMemberStart };
             auto nonCoffSummaryNode = nodeTreeBuilder.BuildNonCoffObjectNode();

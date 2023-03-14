@@ -18,6 +18,9 @@ struct AnonymousObjectHeader;
 class NonCoffObjectNodeTreeBuilder
 {
 public:
+   /// checks file if it a non-COFF or anonymous object file
+   static bool IsNonCoffOrAnonymousObjectFile(const File& file, size_t fileOffset);
+
    /// ctor
    NonCoffObjectNodeTreeBuilder(const File& file, size_t fileOffset);
 

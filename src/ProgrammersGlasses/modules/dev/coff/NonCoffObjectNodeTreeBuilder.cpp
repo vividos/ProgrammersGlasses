@@ -13,6 +13,21 @@
 #include "ImportObjectHeader.hpp"
 #include "AnonymousObjectHeader.hpp"
 
+bool NonCoffObjectNodeTreeBuilder::IsNonCoffOrAnonymousObjectFile(
+   const File& file, size_t fileOffset)
+{
+   if (file.Size() < fileOffset + sizeof(IMPORT_OBJECT_HEADER))
+      return false;
+
+   const IMPORT_OBJECT_HEADER& header =
+      *file.Data<IMPORT_OBJECT_HEADER>(fileOffset);
+
+   return
+      header.Sig1 == IMAGE_FILE_MACHINE_UNKNOWN &&
+      header.Sig2 == IMPORT_OBJECT_HDR_SIG2 &&
+      (header.Version == 0 || header.Version == 1);
+}
+
 NonCoffObjectNodeTreeBuilder::NonCoffObjectNodeTreeBuilder(
    const File& file, size_t fileOffset)
    :m_file(file),
