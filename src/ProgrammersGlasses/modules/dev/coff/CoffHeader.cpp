@@ -17,7 +17,7 @@ const std::map<DWORD, LPCTSTR> g_mapCoffTargetMachineToDisplayText =
    { 0x1c0, _T("IMAGE_FILE_MACHINE_ARM (ARM little endian)") },
    { 0x1c4, _T("IMAGE_FILE_MACHINE_ARMV7 (ARMv7(or higher) Thumb mode only)") },
    { 0xebc, _T("IMAGE_FILE_MACHINE_EBC (EFI byte code)") },
-   { 0x14c, _T("IMAGE_FILE_MACHINE_I386 (Intel 386 or later processors and compatible processors)") },
+   { 0x14c, _T("IMAGE_FILE_MACHINE_I386\n(Intel 386 or later processors and compatible processors)") },
    { 0x200, _T("IMAGE_FILE_MACHINE_IA64 (Intel Itanium processor family)") },
    { 0x9041, _T("IMAGE_FILE_MACHINE_M32R (Mitsubishi M32R little endian)") },
    { 0x266, _T("IMAGE_FILE_MACHINE_MIPS16 (MIPS16)") },
