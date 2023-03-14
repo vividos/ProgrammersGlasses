@@ -143,6 +143,9 @@
     <ClCompile Include="modules\dev\coff\NonCoffObjectNodeTreeBuilder.cpp">
       <Filter>modules\dev\coff</Filter>
     </ClCompile>
+    <ClCompile Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -274,6 +277,9 @@
       <Filter>modules\dev\coff</Filter>
     </ClInclude>
     <ClInclude Include="modules\dev\coff\NonCoffObjectNodeTreeBuilder.hpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.hpp">
       <Filter>modules\dev\coff</Filter>
     </ClInclude>
   </ItemGroup>

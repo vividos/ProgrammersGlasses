@@ -105,6 +105,7 @@
     <ClCompile Include="modules\audio\sid\SidFileReader.cpp" />
     <ClCompile Include="modules\CodeTextViewNode.cpp" />
     <ClCompile Include="modules\dev\coff\AnonymousObjectHeader.cpp" />
+    <ClCompile Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.cpp" />
     <ClCompile Include="modules\dev\coff\ArchiveHeader.cpp" />
     <ClCompile Include="modules\dev\coff\CoffHeader.cpp" />
     <ClCompile Include="modules\dev\coff\CoffModule.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="modules\audio\sid\SidFileReader.hpp" />
     <ClInclude Include="modules\CodeTextViewNode.hpp" />
     <ClInclude Include="modules\dev\coff\AnonymousObjectHeader.hpp" />
+    <ClInclude Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.hpp" />
     <ClInclude Include="modules\dev\coff\ArchiveHeader.hpp" />
     <ClInclude Include="modules\dev\coff\CoffHeader.hpp" />
     <ClInclude Include="modules\dev\coff\CoffModule.hpp" />

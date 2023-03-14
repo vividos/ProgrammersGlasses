@@ -48,26 +48,6 @@ private:
    /// loads non-COFF (import or anonymous) object files
    void LoadNonCoffObjectFile();
 
-   /// adds archive linker member to node
-   void AddArchiveLinkerMember(StaticNode& archiveMemberNode,
-      size_t archiveMemberIndex, size_t fileOffset, size_t linkerMemberSize,
-      CString& linkerMemberSummary) const;
-
-   /// adds first linker member node
-   void AddFirstLinkerMemberNode(StaticNode& archiveMemberNode,
-      size_t fileOffset, size_t linkerMemberSize,
-      CString& linkerMemberSummary) const;
-
-   /// adds second linker member node
-   void AddSecondLinkerMemberNode(StaticNode& archiveMemberNode,
-      size_t fileOffset, size_t linkerMemberSize,
-      CString& linkerMemberSummary) const;
-
-   /// adds longnames linker member node
-   void AddArchiveLongnamesMember(StaticNode& archiveMemberNode,
-      size_t fileOffset, size_t linkerMemberSize,
-      CString& linkerMemberSummary) const;
-
    /// loads archive library files
    void LoadArchiveLibraryFile();
 
