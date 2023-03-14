@@ -66,7 +66,10 @@ void StructListView::InitList()
             CString valuePart = formattedValue.Tokenize(_T("\n"), startPos);
 
             if (isFirstPart)
+            {
                SetItemText(itemIndex, 2, valuePart);
+               isFirstPart = false;
+            }
             else
             {
                int partItemIndex = InsertItem(GetItemCount(), _T(""));
