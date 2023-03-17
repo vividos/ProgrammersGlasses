@@ -1,11 +1,13 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file App.hpp
 /// \brief application class
 //
-#include <vector>
+#pragma once
+
+#include "AppOptions.hpp"
 
 /// the application
 class App
@@ -27,6 +29,6 @@ public:
    int Run(int commandShow = SW_SHOWDEFAULT) const;
 
 private:
-   /// list of filenames to open at startup
-   std::vector<CString> m_filenamesList;
+   /// app options
+   AppOptions m_appOptions;
 };

@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file App.cpp
 /// \brief application class
@@ -10,7 +10,6 @@
 #include "res/Ribbon.h"
 #include "App.hpp"
 #include "MainFrame.hpp"
-#include <ulib/CommandLineParser.hpp>
 
 CAppModule _Module;
 
@@ -36,11 +35,8 @@ void App::ParseCommandLine(LPCTSTR commandLine)
    if (commandLine == nullptr)
       return;
 
-   CommandLineParser parser{ commandLine };
-
-   CString filename;
-   while (parser.GetNext(filename))
-      m_filenamesList.push_back(filename);
+   // need to prepend with .exe filename, since first argument is skipped
+   m_appOptions.Parse(_T("ProgrammersGlasses.exe ") + CString{ commandLine });
 }
 
 int App::Run(int commandShow) const
@@ -54,7 +50,7 @@ int App::Run(int commandShow) const
    CMessageLoop theLoop;
    _Module.AddMessageLoop(&theLoop);
 
-   MainFrame wndMain{ m_filenamesList };
+   MainFrame wndMain{ m_appOptions.FilenamesList() };
 
    if (wndMain.CreateEx() == nullptr)
    {
