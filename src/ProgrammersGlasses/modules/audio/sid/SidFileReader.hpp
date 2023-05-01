@@ -5,7 +5,6 @@
 /// \file SidFileReader.hpp
 /// \brief reader for SID files
 //
-#include "stdafx.h"
 #include "modules/IReader.hpp"
 
 struct SidFileHeader;
