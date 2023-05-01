@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2023 Michael Fink
 //
 /// \file ModuleManager.cpp
 /// \brief module manager
@@ -13,6 +13,7 @@
 #include "dev/elf/ElfModule.hpp"
 #include "images/png/PngImageModule.hpp"
 #include "audio/sid/SidAudioModule.hpp"
+#include "misc/c64/DiskImageModule.hpp"
 
 ModuleManager::ModuleManager()
 {
@@ -21,6 +22,7 @@ ModuleManager::ModuleManager()
    m_moduleList.push_back(std::make_shared<ElfModule>());
    m_moduleList.push_back(std::make_shared<PngImageModule>());
    m_moduleList.push_back(std::make_shared<SidAudioModule>());
+   m_moduleList.push_back(std::make_shared<DiskImageModule>());
 }
 
 CString ModuleManager::GetAllFilterStrings() const

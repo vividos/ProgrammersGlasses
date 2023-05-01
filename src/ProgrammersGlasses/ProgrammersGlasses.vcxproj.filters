@@ -38,6 +38,12 @@
     <Filter Include="modules\dev">
       <UniqueIdentifier>{99764e6c-b632-49bb-a342-96505770ded5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\misc">
+      <UniqueIdentifier>{b4767e4c-b812-4571-9f2b-605037a0c6e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\misc\c64">
+      <UniqueIdentifier>{11daedb5-fb95-4b94-b092-8952d83788fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -145,6 +151,15 @@
     </ClCompile>
     <ClCompile Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.cpp">
       <Filter>modules\dev\coff</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\misc\c64\DiskImageModule.cpp">
+      <Filter>modules\misc\c64</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\misc\c64\DiskImageReader.cpp">
+      <Filter>modules\misc\c64</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\misc\c64\DiskImage.cpp">
+      <Filter>modules\misc\c64</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +296,18 @@
     </ClInclude>
     <ClInclude Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.hpp">
       <Filter>modules\dev\coff</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\misc\c64\DiskImageModule.hpp">
+      <Filter>modules\misc\c64</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\misc\c64\DiskImageReader.hpp">
+      <Filter>modules\misc\c64</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\misc\c64\DiskImage.hpp">
+      <Filter>modules\misc\c64</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\misc\c64\DiskImageDirectoryEntry.hpp">
+      <Filter>modules\misc\c64</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -123,6 +123,9 @@
     <ClCompile Include="modules\images\png\PngHeader.cpp" />
     <ClCompile Include="modules\images\png\PngImageModule.cpp" />
     <ClCompile Include="modules\images\png\PngImageReader.cpp" />
+    <ClCompile Include="modules\misc\c64\DiskImage.cpp" />
+    <ClCompile Include="modules\misc\c64\DiskImageModule.cpp" />
+    <ClCompile Include="modules\misc\c64\DiskImageReader.cpp" />
     <ClCompile Include="modules\ModuleManager.cpp" />
     <ClCompile Include="modules\dev\pe\DosMzHeader.cpp" />
     <ClCompile Include="modules\dev\pe\PortableExecutableModule.cpp" />
@@ -172,6 +175,10 @@
     <ClInclude Include="modules\IModule.hpp" />
     <ClInclude Include="modules\INode.hpp" />
     <ClInclude Include="modules\IReader.hpp" />
+    <ClInclude Include="modules\misc\c64\DiskImage.hpp" />
+    <ClInclude Include="modules\misc\c64\DiskImageDirectoryEntry.hpp" />
+    <ClInclude Include="modules\misc\c64\DiskImageModule.hpp" />
+    <ClInclude Include="modules\misc\c64\DiskImageReader.hpp" />
     <ClInclude Include="modules\ModuleManager.hpp" />
     <ClInclude Include="modules\dev\pe\DosMzHeader.hpp" />
     <ClInclude Include="modules\dev\pe\PortableExecutableModule.hpp" />
