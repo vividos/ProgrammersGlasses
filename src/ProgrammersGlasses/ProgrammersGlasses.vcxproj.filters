@@ -152,6 +152,7 @@
     <ClCompile Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.cpp">
       <Filter>modules\dev\coff</Filter>
     </ClCompile>
+    <ClCompile Include="AppOptions.cpp" />
     <ClCompile Include="modules\misc\c64\DiskImageModule.cpp">
       <Filter>modules\misc\c64</Filter>
     </ClCompile>
@@ -297,6 +298,7 @@
     <ClInclude Include="modules\dev\coff\ArchiveFileNodeTreeBuilder.hpp">
       <Filter>modules\dev\coff</Filter>
     </ClInclude>
+    <ClInclude Include="AppOptions.hpp" />
     <ClInclude Include="modules\misc\c64\DiskImageModule.hpp">
       <Filter>modules\misc\c64</Filter>
     </ClInclude>
