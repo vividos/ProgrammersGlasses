@@ -27,6 +27,9 @@ public:
       m_text = text;
    }
 
+   /// returns node text
+   CString GetText() const { return m_text; }
+
    // Inherited via INode
    std::shared_ptr<IContentView> GetContentView();
 

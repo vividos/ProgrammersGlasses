@@ -10,6 +10,7 @@
 #include "res/Ribbon.h"
 #include "App.hpp"
 #include "MainFrame.hpp"
+#include "CommandLineApp.hpp"
 
 CAppModule _Module;
 
@@ -41,6 +42,12 @@ void App::ParseCommandLine(LPCTSTR commandLine)
 
 int App::Run(int commandShow) const
 {
+   if (m_appOptions.UseConsole())
+   {
+      CommandLineApp commandLineApp{ m_appOptions.FilenamesList() };
+      return commandLineApp.Run();
+   }
+
    if (!RunTimeHelper::IsRibbonUIAvailable())
    {
       AtlMessageBox(nullptr, L"Cannot run with this version of Windows", IDR_MAINFRAME);
