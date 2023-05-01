@@ -35,4 +35,5 @@ OpenCppCoverage.exe ^
    --export_type html:CoverageReport ^
    --modules ProgrammersGlasses.exe ^
    -- ..\bin\Release\ProgrammersGlasses.exe ^
+   --console ^
    %FILES%
