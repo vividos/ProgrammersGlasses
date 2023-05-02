@@ -12,6 +12,7 @@ cache:
   - C:\Users\appveyor\AppData\Local\vcpkg\archives -> appveyor.yml
   - C:\projects\programmersglasses\intermediate\vcpkg_installed -> appveyor.yml
 
+
 platform: x64
 
 configuration: Release
