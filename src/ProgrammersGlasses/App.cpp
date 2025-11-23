@@ -19,6 +19,8 @@ App::App(HINSTANCE instance)
    HRESULT result = ::CoInitialize(nullptr);
    ATLVERIFY(SUCCEEDED(result));
 
+   ::SetProcessDPIAware();
+
    AtlInitCommonControls(ICC_BAR_CLASSES); // add flags to support other controls
 
    result = _Module.Init(nullptr, instance);
