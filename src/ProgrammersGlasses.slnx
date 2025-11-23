@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="../.editorconfig" />
+    <File Path="../.gitignore" />
+    <File Path="../appveyor.yml" />
+    <File Path="../Credits.md" />
+    <File Path="../README.md" />
+    <File Path="../TODO.md" />
+    <File Path="Patch-BuildVersion.ps1" />
+    <File Path="RunTestsAndCollectCoverage.cmd" />
+    <File Path="SonarCloud.cmd" />
+  </Folder>
+  <Project Path="ProgrammersGlasses/ProgrammersGlasses.vcxproj" Id="304c522d-69cb-4293-95ec-49b7c1a80b63" />
+</Solution>
