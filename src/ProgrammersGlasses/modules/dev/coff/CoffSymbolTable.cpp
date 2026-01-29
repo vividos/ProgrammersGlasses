@@ -84,7 +84,7 @@ const StructDefinition g_definitionCoffSymbolTable = StructDefinition({
       sizeof(CoffSymbolTable::sectionNumber),
       1,
       true, // little-endian
-      StructFieldType::unsignedInteger, // TODO rather signedInteger
+      StructFieldType::unsignedInteger, // originally a signed value
       _T("Section number")),
 
    StructField(
