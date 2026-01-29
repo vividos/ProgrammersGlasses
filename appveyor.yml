@@ -19,14 +19,14 @@ configuration: Release
 
 before_build:
   - ps: src\Patch-BuildVersion.ps1 -version $env:appveyor_build_version
-  - cmd: nuget restore src\ProgrammersGlasses.sln
+  - cmd: nuget restore src\ProgrammersGlasses.slnx
   - cmd: |
       cd "C:\Tools\vcpkg"
       git pull > nul
       call .\bootstrap-vcpkg.bat -disableMetrics
 
 build:
-  project: src\ProgrammersGlasses.sln
+  project: src\ProgrammersGlasses.slnx
   parallel: true
   verbosity: minimal
 
