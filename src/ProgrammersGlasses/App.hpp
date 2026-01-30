@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2023 Michael Fink
+// Copyright (c) 2020-2026 Michael Fink
 //
 /// \file App.hpp
 /// \brief application class
@@ -8,6 +8,7 @@
 #pragma once
 
 #include "AppOptions.hpp"
+#include "AttachedConsole.hpp"
 
 /// the application
 class App
@@ -31,4 +32,7 @@ public:
 private:
    /// app options
    AppOptions m_appOptions;
+
+   /// attached console window, if available
+   AttachedConsole m_console;
 };

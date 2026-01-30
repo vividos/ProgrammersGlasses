@@ -153,6 +153,7 @@
       <Filter>modules\dev\coff</Filter>
     </ClCompile>
     <ClCompile Include="AppOptions.cpp" />
+    <ClCompile Include="AttachedConsole.cpp" />
     <ClCompile Include="CommandLineApp.cpp" />
     <ClCompile Include="modules\misc\c64\DiskImageModule.cpp">
       <Filter>modules\misc\c64</Filter>
@@ -300,6 +301,7 @@
       <Filter>modules\dev\coff</Filter>
     </ClInclude>
     <ClInclude Include="AppOptions.hpp" />
+    <ClInclude Include="AttachedConsole.hpp" />
     <ClInclude Include="CommandLineApp.hpp" />
     <ClInclude Include="modules\misc\c64\DiskImageModule.hpp">
       <Filter>modules\misc\c64</Filter>

@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AppOptions.cpp" />
+    <ClCompile Include="AttachedConsole.cpp" />
     <ClCompile Include="CommandLineApp.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="modules\audio\sid\SidAudioModule.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="..\version.hpp" />
     <ClInclude Include="App.hpp" />
     <ClInclude Include="AppOptions.hpp" />
+    <ClInclude Include="AttachedConsole.hpp" />
     <ClInclude Include="CommandLineApp.hpp" />
     <ClInclude Include="modules\audio\sid\SidAudioModule.hpp" />
     <ClInclude Include="modules\audio\sid\SidFileHeader.hpp" />

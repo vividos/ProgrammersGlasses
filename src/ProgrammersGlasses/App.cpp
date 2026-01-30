@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2023 Michael Fink
+// Copyright (c) 2020-2026 Michael Fink
 //
 /// \file App.cpp
 /// \brief application class
@@ -38,12 +38,22 @@ void App::ParseCommandLine(LPCTSTR commandLine)
    if (commandLine == nullptr)
       return;
 
+   if (!m_console.IsCalledFromConsole())
+      m_appOptions.RegisterOutputHandler(
+         [](const CString& text)
+         {
+            ::AtlMessageBox(nullptr, text.GetString(), MAKEINTRESOURCE(IDR_MAINFRAME));
+         });
+
    // need to prepend with .exe filename, since first argument is skipped
    m_appOptions.Parse(_T("ProgrammersGlasses.exe ") + CString{ commandLine });
 }
 
 int App::Run(int commandShow) const
 {
+   if (m_appOptions.IsSelectedHelpOption())
+      return 0;
+
    if (m_appOptions.UseConsole())
    {
       CommandLineApp commandLineApp{ m_appOptions.FilenamesList() };
