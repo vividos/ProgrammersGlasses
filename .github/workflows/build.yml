@@ -23,8 +23,11 @@ jobs:
           -y --ignore-package-exit-codes=3010
 
     - name: Bootstrap vcpkg
-      shell: pwsh
-      run: C:\vcpkg\bootstrap-vcpkg.bat
+      shell: cmd
+      working-directory: c:\vcpkg
+      run: |
+        git pull > nul
+        call .\bootstrap-vcpkg.bat -disableMetrics
 
     - name: Build solution
       shell: cmd
@@ -32,7 +35,6 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\Common7\Tools\VsDevCmd.bat"
         msbuild /m ^
           /p:Configuration=Release ^
-          /t:Restore;Build ^
           src\ProgrammersGlasses.slnx
 
     - name: Publish build artifacts
