@@ -22,6 +22,10 @@ jobs:
           --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --includeRecommended --quiet" `
           -y --ignore-package-exit-codes=3010
 
+    - name: Bootstrap vcpkg
+      shell: pwsh
+      run: C:\vcpkg\bootstrap-vcpkg.bat
+
     - name: Build solution
       shell: cmd
       run: |
