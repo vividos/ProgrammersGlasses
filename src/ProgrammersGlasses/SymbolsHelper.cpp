@@ -61,7 +61,8 @@ CString SymbolsHelper::UndecorateSymbol(const CString& symbolName)
    }
 
    if (symbolName.Find(_T('?')) == 0 ||
-      symbolName.Find(_T('$')) == 0)
+      symbolName.Find(_T('$')) == 0 ||
+      symbolName.Find(_T("__imp_?")) == 0)
       return UndecorateMsvcSymbol(symbolName);
 
    // TODO implement gcc demangle
@@ -73,6 +74,11 @@ CString SymbolsHelper::UndecorateMsvcSymbol(const CString& symbolName)
 {
    if (!Init())
       return symbolName + _T(" - dbghelp.dll SymInitialize failed!");
+
+   if (symbolName.Find(_T("__imp_?")) == 0)
+   {
+      return _T("import: ") + UndecorateMsvcSymbol(symbolName.Mid(6));
+   }
 
    //ATLTRACE(_T("Symbol cache: hits: %u, misses: %u\n"),
    //   m_cacheHits, ++m_cacheMiss);
