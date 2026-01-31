@@ -1,0 +1,37 @@
+# Build for the ProgrammersGlasses executable
+
+name: Build ProgrammersGlasses
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+
+    - name: Install Visual Studio 2026 Build Tools
+      shell: pwsh
+      run: |
+        choco install visualstudio2026buildtools `
+          --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --includeRecommended --quiet" `
+          -y --ignore-package-exit-codes=3010
+
+    - name: Build solution
+      shell: cmd
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\Common7\Tools\VsDevCmd.bat"
+        msbuild /m ^
+          /p:Configuration=Release ^
+          src\ProgrammersGlasses.slnx
+
+    - name: Publish build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ProgrammersGlasses.exe file
+        path: bin\Release\ProgrammersGlasses.exe
