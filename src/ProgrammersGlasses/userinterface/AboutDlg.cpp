@@ -20,10 +20,12 @@ LRESULT AboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
    CenterWindow(GetParent());
 
    CString versionText;
-   versionText.Format(_T("Version %i.%i.%i Build %i"),
-      MAJOR_VERSION, MINOR_VERSION, RELEASE_NUMBER, BUILD_NUMBER);
+   versionText.Format(_T("Version %i.%i.%i (%.7s)"),
+      MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION, _T(GIT_HASH));
 
    SetDlgItemText(IDC_STATIC_ABOUT_VERSION, versionText);
+
+   SetDlgItemText(IDC_STATIC_ABOUT_COPYRIGHT, _T(COPYRIGHT_TEXT));
 
    m_hyperlinkLicense.SetHyperLink(_T(WEBLINK_LICENSE));
    m_hyperlinkWebpage.SetHyperLink(_T(WEBLINK_PROJECT_PAGE));

@@ -23,6 +23,10 @@ jobs:
         call .\bootstrap-vcpkg.bat -disableMetrics
         vcpkg integrate install
 
+    - name: Set version
+      shell: pwsh
+      run: src\Patch-BuildVersion.ps1 -version 0.1.0 -gitHash ${{ github.sha }}
+
     - name: Build solution
       shell: cmd
       run: |
