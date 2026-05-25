@@ -41,6 +41,28 @@ bool ContainsIgnoreCase(const CString& textToSearch, const CString& textToFind)
       .Find(CString(textToFind).MakeLower()) != -1;
 }
 
+CString EscapeText(CString text)
+{
+   CString replacement;
+   for (int pos = 0; pos < text.GetLength(); pos++)
+   {
+      TCHAR ch = text[pos];
+
+      // technically, 0x7f is a printable character, but it doesn't display
+      // anything
+      if (ch < 0x20 || ch >= 0x7f)
+      {
+         text.Delete(pos, 1);
+
+         replacement.Format(_T("<%02x>"), ch);
+         text.Insert(pos, replacement);
+         pos += 3;
+      }
+   }
+
+   return text;
+}
+
 DWORD GetBufferValueWithEndianness(const BYTE* buffer, size_t valueSize, bool littleEndian)
 {
    switch (valueSize)

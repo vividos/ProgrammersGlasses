@@ -67,7 +67,7 @@ CString SymbolsHelper::UndecorateSymbol(const CString& symbolName)
 
    // TODO implement gcc demangle
 
-   return symbolName;
+   return EscapeText(symbolName);
 }
 
 CString SymbolsHelper::UndecorateMsvcSymbol(const CString& symbolName)

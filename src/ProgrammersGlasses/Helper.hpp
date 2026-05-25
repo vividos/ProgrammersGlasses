@@ -20,6 +20,9 @@ void IndentText(CString& text, int numberOfSpaces);
 /// case independent comparison
 bool ContainsIgnoreCase(const CString& textToSearch, const CString& textToFind);
 
+/// escapes all non-printable characters to be displayed correctly
+CString EscapeText(CString text);
+
 /// Returns value from a std::map with given key, or a default value when the key is not found in the map
 template <typename T>
 inline LPCTSTR GetValueFromMapOrDefault(const std::map<T, LPCTSTR>& map, const T key, LPCTSTR defaultValue)
