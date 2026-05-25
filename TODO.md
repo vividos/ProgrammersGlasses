@@ -23,4 +23,4 @@
 
 - Use system icons for tabs
 - Show dialog with possible modules when the selected module can't load the file
-- Remove file from MRU file list when it couldn't be loaded
+

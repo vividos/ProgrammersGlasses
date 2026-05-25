@@ -153,7 +153,12 @@ LRESULT MainFrame::OnFileRecent(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/
 {
    CString filename;
    if (m_mru.GetFromList(wID, filename))
+   {
       OpenFile(filename);
+
+      if (!Path::FileExists(filename))
+         m_mru.RemoveFromList(wID);
+   }
 
    return 0;
 }
