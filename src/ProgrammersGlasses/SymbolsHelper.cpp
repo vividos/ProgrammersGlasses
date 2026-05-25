@@ -65,7 +65,8 @@ CString SymbolsHelper::UndecorateSymbol(const CString& symbolName)
       symbolName.Find(_T("__imp_?")) == 0)
       return UndecorateMsvcSymbol(symbolName);
 
-   // TODO implement gcc demangle
+   if (symbolName.Find(_T("_Z")) == 0)
+      return UndecorateGccSymbol(symbolName);
 
    return EscapeText(symbolName);
 }
@@ -113,4 +114,10 @@ CString SymbolsHelper::UndecorateMsvcSymbol(const CString& symbolName)
    return result > 0
       ? undecoratedName
       : symbolName;
+}
+
+CString SymbolsHelper::UndecorateGccSymbol(const CString& symbolName)
+{
+   // TODO implement gcc demangle
+   return symbolName;
 }

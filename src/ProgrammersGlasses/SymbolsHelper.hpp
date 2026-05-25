@@ -23,6 +23,9 @@ private:
    /// undecorates MSVC based symbols that start with a question mark
    static CString UndecorateMsvcSymbol(const CString& symbolName);
 
+   /// undecorates gcc based symbols that start with _Z
+   static CString UndecorateGccSymbol(const CString& symbolName);
+
    /// lock for single-threaded access to DbgHelp functions
    static std::recursive_mutex m_dbgHelpLock;
 
