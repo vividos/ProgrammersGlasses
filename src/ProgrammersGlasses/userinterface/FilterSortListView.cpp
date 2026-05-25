@@ -7,7 +7,6 @@
 //
 #include "stdafx.h"
 #include "FilterSortListView.hpp"
-#include "Helper.hpp"
 #include <algorithm>
 
 BOOL FilterSortListView::SubclassWindow(HWND hWnd)

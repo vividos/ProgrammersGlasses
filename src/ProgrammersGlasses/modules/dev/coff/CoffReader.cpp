@@ -13,7 +13,6 @@
 #include "ArchiveFileNodeTreeBuilder.hpp"
 #include "ArchiveHeader.hpp"
 #include "File.hpp"
-#include "Helper.hpp"
 
 bool CoffReader::IsCoffObjectFile(const File& file)
 {

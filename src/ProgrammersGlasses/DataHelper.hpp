@@ -1,27 +1,14 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2023 Michael Fink
+// Copyright (c) 2020-2026 Michael Fink
 //
-/// \file Helper.hpp
-/// \brief helper functions
+/// \file DataHelper.hpp
+/// \brief data helper functions
 //
 #pragma once
 
 #include <vector>
 #include <map>
-
-/// Splits a string by one or more split characters
-std::vector<CString> StringSplit(const CString& text, LPCTSTR splitChars, bool addEmptyEntries);
-
-/// indents a multiline string with space characters
-void IndentText(CString& text, int numberOfSpaces);
-
-/// checks if the text to search contains the text to find somewhere, using
-/// case independent comparison
-bool ContainsIgnoreCase(const CString& textToSearch, const CString& textToFind);
-
-/// escapes all non-printable characters to be displayed correctly
-CString EscapeText(CString text);
 
 /// Returns value from a std::map with given key, or a default value when the key is not found in the map
 template <typename T>

@@ -9,7 +9,6 @@
 #include "CommandLineApp.hpp"
 #include "IReader.hpp"
 #include "INode.hpp"
-#include "Helper.hpp"
 #include "CodeTextViewNode.hpp"
 #include <ulib/Timer.hpp>
 

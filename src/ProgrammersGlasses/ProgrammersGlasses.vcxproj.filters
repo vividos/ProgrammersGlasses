@@ -63,7 +63,7 @@
     <ClCompile Include="modules\File.cpp">
       <Filter>modules</Filter>
     </ClCompile>
-    <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="DataHelper.cpp" />
     <ClCompile Include="userinterface\CodeTextView.cpp">
       <Filter>userinterface</Filter>
     </ClCompile>
@@ -164,6 +164,7 @@
     <ClCompile Include="modules\misc\c64\DiskImage.cpp">
       <Filter>modules\misc\c64</Filter>
     </ClCompile>
+    <ClCompile Include="StringHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -193,7 +194,7 @@
     <ClInclude Include="modules\IReader.hpp">
       <Filter>modules</Filter>
     </ClInclude>
-    <ClInclude Include="Helper.hpp" />
+    <ClInclude Include="DataHelper.hpp" />
     <ClInclude Include="modules\File.hpp">
       <Filter>modules</Filter>
     </ClInclude>
@@ -315,6 +316,7 @@
     <ClInclude Include="modules\misc\c64\DiskImageDirectoryEntry.hpp">
       <Filter>modules\misc\c64</Filter>
     </ClInclude>
+    <ClInclude Include="StringHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="userinterface\res\Ribbon.bml">

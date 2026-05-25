@@ -102,7 +102,7 @@
     <ClCompile Include="AppOptions.cpp" />
     <ClCompile Include="AttachedConsole.cpp" />
     <ClCompile Include="CommandLineApp.cpp" />
-    <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="DataHelper.cpp" />
     <ClCompile Include="modules\audio\sid\SidAudioModule.cpp" />
     <ClCompile Include="modules\audio\sid\SidFileHeader.cpp" />
     <ClCompile Include="modules\audio\sid\SidFileReader.cpp" />
@@ -137,6 +137,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="SymbolsHelper.cpp" />
     <ClCompile Include="userinterface\AboutDlg.cpp" />
     <ClCompile Include="userinterface\CodeTextView.cpp" />
@@ -170,7 +171,7 @@
     <ClInclude Include="modules\DisplayFormatHelper.hpp" />
     <ClInclude Include="modules\dev\elf\ElfModule.hpp" />
     <ClInclude Include="modules\File.hpp" />
-    <ClInclude Include="Helper.hpp" />
+    <ClInclude Include="DataHelper.hpp" />
     <ClInclude Include="modules\FilterSortListViewNode.hpp" />
     <ClInclude Include="modules\IContentView.hpp" />
     <ClInclude Include="modules\images\png\PngHeader.hpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="modules\StructDefinition.hpp" />
     <ClInclude Include="modules\StructListViewNode.hpp" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StringHelper.hpp" />
     <ClInclude Include="SymbolsHelper.hpp" />
     <ClInclude Include="userinterface\AboutDlg.hpp" />
     <ClInclude Include="userinterface\CodeTextView.hpp" />
