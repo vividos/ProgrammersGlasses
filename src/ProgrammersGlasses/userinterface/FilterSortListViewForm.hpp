@@ -35,7 +35,7 @@ public:
    }
 
    // Inherited via IContentView
-   virtual HWND CreateView(HWND parent) override
+   virtual HWND CreateView(HWND parent, CRect& rect) override
    {
       return Create(parent, rcDefault);
    }

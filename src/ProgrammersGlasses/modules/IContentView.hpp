@@ -17,7 +17,7 @@ public:
    virtual ~IContentView() = default;
 
    /// creates the content view
-   virtual HWND CreateView(HWND parent) = 0;
+   virtual HWND CreateView(HWND parent, CRect& rect) = 0;
 
    /// processes window message
    virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult) = 0;

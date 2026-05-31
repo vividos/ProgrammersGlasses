@@ -32,9 +32,9 @@ public:
    BOOL PreTranslateMessage(MSG* msg) const;
 
    // Inherited via IContentView
-   virtual HWND CreateView(HWND parent) override
+   virtual HWND CreateView(HWND parent, CRect& rect) override
    {
-      return Create(parent, rcDefault);
+      return Create(parent, rect);
    }
 
    virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult) override

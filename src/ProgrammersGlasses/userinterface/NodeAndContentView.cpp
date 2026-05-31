@@ -140,7 +140,10 @@ void NodeAndContentView::ChangeContentView(INode& node)
 
    if (m_contentView)
    {
-      HWND view = m_contentView->CreateView(m_splitter.m_hWnd);
+      CRect rect;
+      m_splitter.GetSplitterPaneRect(1, &rect);
+
+      HWND view = m_contentView->CreateView(m_splitter.m_hWnd, rect);
 
       // use false to don't update yet, as SetSinglePaneMode() does it anyway
       m_splitter.SetSplitterPane(SPLIT_PANE_RIGHT, view, false);
