@@ -18,8 +18,25 @@ const UINT c_firstNodeBitmap = IDB_NODE_DOCUMENT;
 /// maximum number of node bitmaps
 const UINT c_maxNodeBitmapNumber = 512;
 
+/// gets an icon for the file with given filename
+static HICON GetIconForFile(const CString& filename)
+{
+   SHFILEINFO sfi = {};
+
+   SHGetFileInfo(
+      filename,
+      0,
+      &sfi,
+      sizeof(sfi),
+      SHGFI_ICON);
+
+   return sfi.hIcon;
+}
+
 LRESULT NodeAndContentView::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
+   SetIcon(GetIconForFile(m_reader->Filename()), false);
+
    m_hWndClient = m_splitter.Create(m_hWnd, rcDefault, nullptr, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, WS_EX_CLIENTEDGE);
 
    m_pane.SetPaneContainerExtendedStyle(PANECNT_NOBORDER | PANECNT_NOCLOSEBUTTON);
