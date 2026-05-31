@@ -165,6 +165,9 @@
       <Filter>modules\misc\c64</Filter>
     </ClCompile>
     <ClCompile Include="StringHelper.cpp" />
+    <ClCompile Include="userinterface\WindowMessageHelper.cpp">
+      <Filter>userinterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -317,6 +320,9 @@
       <Filter>modules\misc\c64</Filter>
     </ClInclude>
     <ClInclude Include="StringHelper.hpp" />
+    <ClInclude Include="userinterface\WindowMessageHelper.hpp">
+      <Filter>userinterface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="userinterface\res\Ribbon.bml">

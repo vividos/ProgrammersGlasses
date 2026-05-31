@@ -30,3 +30,4 @@
 
 #include "StringHelper.hpp"
 #include "DataHelper.hpp"
+#include "WindowMessageHelper.hpp"

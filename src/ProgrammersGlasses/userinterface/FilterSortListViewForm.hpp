@@ -65,6 +65,7 @@ private:
    END_DLGRESIZE_MAP()
 
    BEGIN_MSG_MAP(FilterSortListViewForm)
+      //ATLTRACE_MESSAGE(FilterSortListViewForm)
       MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
       COMMAND_HANDLER(IDC_EDIT_FILTERTEXT, EN_CHANGE, OnChangeEditFilterText)
       CHAIN_MSG_MAP(CDialogResize<FilterSortListViewForm>)

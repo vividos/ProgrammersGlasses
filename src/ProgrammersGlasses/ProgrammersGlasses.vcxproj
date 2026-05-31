@@ -146,6 +146,7 @@
     <ClCompile Include="userinterface\StructListView.cpp" />
     <ClCompile Include="userinterface\MainFrame.cpp" />
     <ClCompile Include="userinterface\NodeAndContentView.cpp" />
+    <ClCompile Include="userinterface\WindowMessageHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\version.hpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="userinterface\resource.h" />
     <ClInclude Include="userinterface\res\Ribbon.h" />
     <ClInclude Include="userinterface\NodeAndContentView.hpp" />
+    <ClInclude Include="userinterface\WindowMessageHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="userinterface\res\Ribbon.bml" />
