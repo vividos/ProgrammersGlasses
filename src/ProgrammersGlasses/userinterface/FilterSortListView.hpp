@@ -19,7 +19,7 @@ typedef CWinTraitsOR<LVS_REPORT | LVS_OWNERDATA, LVS_EX_FULLROWSELECT> FilterSor
 /// is directly handled in the list view, but the filter text can be set from
 /// outside, e.g. when an CEdit control is updated.
 /// Note that while the data is a 2D array (actually, vector of vector), the
-/// data must not strictly a fully filled 2D array, but may be a jagged 2D
+/// data must not strictly be a fully filled 2D array, but may be a jagged 2D
 /// array. Data for which there is no column specified isn't displayed.
 class FilterSortListView :
    public CWindowImpl<FilterSortListView, CListViewCtrl, FilterSortListViewWinTraits>,
@@ -87,7 +87,7 @@ private:
    /// called when the virtual list view tries to find an item by text
    LRESULT OnOwnerDataFindItem(int idCtrl, LPNMHDR pnmh, BOOL& bHandled);
 
-   /// called when the user clciked on a header item, in order to change the sorting
+   /// called when the user clicked on a header item, in order to change the sorting
    LRESULT OnHeaderItemClick(int idCtrl, LPNMHDR pnmh, BOOL& bHandled);
 
    /// sets the sort flag for a column
