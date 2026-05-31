@@ -184,6 +184,9 @@ void CoffObjectNodeTreeBuilder::AddSectionTable(StaticNode& coffSummaryNode)
       sectionChildNodes.push_back(sectionHeaderNode);
    }
 
+   m_objectFileSummary.AppendFormat(_T("Section table with %u entries.\n"),
+      m_coffObjectHeader.numberOfSections);
+
    static std::vector<CString> sectionTableColumnNames
    {
       _T("Index"),
