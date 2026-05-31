@@ -9,6 +9,8 @@
 #include "WindowMessageHelper.hpp"
 #include <atltrace.h>
 
+#ifdef DEBUG
+
 /// defines a map entry, mapping from value to its text
 #define MAPENTRY(T) { T, _T( #T ) }
 
@@ -208,6 +210,9 @@ void AtlTraceMessage(
    _In_ WPARAM wParam,
    _In_ LPARAM lParam)
 {
+   if (!IsTracingEnabled(atlTraceWindowing, 0))
+      return;
+
    CString text;
 
    text.Format(
@@ -242,3 +247,4 @@ void AtlTraceMessage(
          _T("%s\n"),
          text.GetString());
 }
+#endif

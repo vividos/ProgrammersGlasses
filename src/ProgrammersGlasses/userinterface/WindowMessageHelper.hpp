@@ -17,6 +17,14 @@ void AtlTraceMessage(
    _In_ WPARAM wParam,
    _In_ LPARAM lParam);
 
+#ifdef DEBUG
+
 /// macro that can be used in a message map to trace the messages being received
 #define ATLTRACE_MESSAGE(theClass) \
    AtlTraceMessage(_T( #theClass ), __FILE__, __LINE__, hWnd, uMsg, wParam, lParam);
+
+#else
+
+#define ATLTRACE_MESSAGE(theClass) __noop;
+
+#endif
