@@ -17,15 +17,12 @@ Versions after that may support more file types.
 # Download
 
 The latest build of the Programmer's Glasses can be found in the
-[Appveyor](https://ci.appveyor.com/project/vividos/programmersglasses) build
-artifacts:
+[GitHub Action](https://github.com/vividos/ProgrammersGlasses/actions/workflows/build.yml)
+build artifacts:
 
-https://ci.appveyor.com/project/vividos/programmersglasses/build/artifacts
+https://github.com/vividos/ProgrammersGlasses/actions/workflows/build.yml
 
-[![Build status](https://ci.appveyor.com/api/projects/status/9v3mbipallo7bf29?svg=true)](https://ci.appveyor.com/project/vividos/programmersglasses)
-
-Please note that you need the Visual C++ 2022 redistributable installed, which
-should be the case when you have Visual Studio 2022 installed.
+[![Build status](https://github.com/vividos/ProgrammersGlasses/actions/workflows/build.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/vividos/ProgrammersGlasses/actions/workflows/build.yml)
 
 The project is occasionally checked with SonarCloud:
 

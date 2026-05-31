@@ -6,7 +6,6 @@
     <File Path="../.editorconfig" />
     <File Path="../.github/workflows/build.yml" />
     <File Path="../.gitignore" />
-    <File Path="../appveyor.yml" />
     <File Path="../Credits.md" />
     <File Path="../README.md" />
     <File Path="../TODO.md" />
