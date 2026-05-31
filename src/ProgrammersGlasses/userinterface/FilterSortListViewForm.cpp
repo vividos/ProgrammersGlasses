@@ -15,10 +15,13 @@ FilterSortListViewForm::FilterSortListViewForm(const std::vector<CString>& colum
 }
 
 LRESULT FilterSortListViewForm::OnInitDialog(
-   UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+   UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/)
 {
+   DlgResize_Init(false, false);
    DoDataExchange(DDX_LOAD);
-   DlgResize_Init();
+
+   CRect& rect = *reinterpret_cast<CRect*>(lParam);
+   SetWindowPos(NULL, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
 
    return FALSE; // don't steal focus from e.g. the tree
 }
