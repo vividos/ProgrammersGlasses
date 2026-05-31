@@ -7,6 +7,7 @@
 //
 #include "stdafx.h"
 #include "WindowMessageHelper.hpp"
+#include <atltrace.h>
 
 /// defines a map entry, mapping from value to its text
 #define MAPENTRY(T) { T, _T( #T ) }
