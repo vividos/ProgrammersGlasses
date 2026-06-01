@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2023 Michael Fink
+// Copyright (c) 2020-2026 Michael Fink
 //
 /// \file NonCoffObjectNodeTreeBuilder.cpp
 /// \brief Node tree builder for non-COFF object files
@@ -12,6 +12,7 @@
 #include "CoffHeader.hpp"
 #include "ImportObjectHeader.hpp"
 #include "AnonymousObjectHeader.hpp"
+#include "AnonymousObjectHeaderBigObj.hpp"
 
 bool NonCoffObjectNodeTreeBuilder::IsNonCoffOrAnonymousObjectFile(
    const File& file, size_t fileOffset)
@@ -25,7 +26,7 @@ bool NonCoffObjectNodeTreeBuilder::IsNonCoffOrAnonymousObjectFile(
    return
       header.Sig1 == IMAGE_FILE_MACHINE_UNKNOWN &&
       header.Sig2 == IMPORT_OBJECT_HDR_SIG2 &&
-      (header.Version == 0 || header.Version == 1);
+      (header.Version == 0 || header.Version == 1 || header.Version == 2);
 }
 
 NonCoffObjectNodeTreeBuilder::NonCoffObjectNodeTreeBuilder(
@@ -70,6 +71,15 @@ void NonCoffObjectNodeTreeBuilder::AddNonCoffObjectFile(
 
       AddAnonymousObjectNode(nonCoffSummaryNode, anonymousObjectHeader);
    }
+   else if (importObjectHeader.version == 2)
+   {
+      nonCoffSummaryNode.SetText(_T("BigObj anonymous object"));
+
+      const AnonymousObjectHeaderBigObj& bigObjAnonymousObjectHeader =
+         *m_file.Data<AnonymousObjectHeaderBigObj>(m_fileOffset);
+
+      AddBigObjAnonymousObjectNode(nonCoffSummaryNode, bigObjAnonymousObjectHeader);
+   }
    else
    {
       nonCoffSummaryNode.SetText(_T("Invalid non-COFF object header"));
@@ -110,7 +120,6 @@ void NonCoffObjectNodeTreeBuilder::AddAnonymousObjectNode(
    CodeTextViewNode& nonCoffSummaryNode,
    const AnonymousObjectHeader& anonymousObjectHeader)
 {
-
    m_objectFileSummary = _T("Anonymous object\n");
    m_objectFileSummary += CString{ _T("Architecture: ") } +
       GetValueFromMapOrDefault<DWORD>(
@@ -127,4 +136,26 @@ void NonCoffObjectNodeTreeBuilder::AddAnonymousObjectNode(
       m_file.Data());
 
    nonCoffSummaryNode.ChildNodes().push_back(anonymousObjectHeaderNode);
+}
+
+void NonCoffObjectNodeTreeBuilder::AddBigObjAnonymousObjectNode(
+   CodeTextViewNode& nonCoffSummaryNode,
+   const AnonymousObjectHeaderBigObj& bigObjAnonymousObjectHeader)
+{
+   m_objectFileSummary = _T("BigObj anonymous object\n");
+   m_objectFileSummary += CString{ _T("Architecture: ") } +
+      GetValueFromMapOrDefault<DWORD>(
+         g_mapCoffTargetMachineToDisplayText,
+         (DWORD)bigObjAnonymousObjectHeader.targetMachine,
+         _T("unknown"));
+   m_objectFileSummary += _T("\n");
+
+   auto bigObjAnonymousObjectHeaderNode = std::make_shared<StructListViewNode>(
+      _T("BigObj anonymous object header"),
+      NodeTreeIconID::nodeTreeIconBinary,
+      g_definitionAnonymousObjectHeaderBigObj,
+      &bigObjAnonymousObjectHeader,
+      m_file.Data());
+
+   nonCoffSummaryNode.ChildNodes().push_back(bigObjAnonymousObjectHeaderNode);
 }

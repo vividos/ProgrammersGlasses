@@ -1,7 +1,7 @@
 @echo off
 REM
 REM Programmer's Glasses - a developer's file content viewer
-REM Copyright (c) 2023 Michael Fink
+REM Copyright (c) 2023-2026 Michael Fink
 REM
 REM Runs tests and collects coverage information
 REM
@@ -18,7 +18,8 @@ REM
 REM Run tests with files
 REM
 set FILES=test\lib-with-coff-obj.lib ^
-    ..\intermediate\Release\ProgrammersGlasses\Helper.obj ^
+    test\bigobj.obj ^
+    ..\intermediate\Release\ProgrammersGlasses\DataHelper.obj ^
     ..\intermediate\vcpkg_installed\x64-windows-static\lib\ulib.lib ^
     ProgrammersGlasses\userinterface\res\Ribbon\app_exit_16.png ^
     test\JCH-Blizzard.sid ^

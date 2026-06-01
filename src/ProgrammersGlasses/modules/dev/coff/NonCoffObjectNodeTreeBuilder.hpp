@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2023 Michael Fink
+// Copyright (c) 2020-2026 Michael Fink
 //
 /// \file NonCoffObjectNodeTreeBuilder.hpp
 /// \brief Node tree builder for non-COFF object files
@@ -13,6 +13,7 @@
 class CodeTextViewNode;
 struct ImportObjectHeader;
 struct AnonymousObjectHeader;
+struct AnonymousObjectHeaderBigObj;
 
 /// Node tree builder for non-COFF objects
 class NonCoffObjectNodeTreeBuilder
@@ -41,6 +42,10 @@ private:
    /// adds an anonymous object file to node
    void AddAnonymousObjectNode(CodeTextViewNode& nonCoffSummaryNode,
       const AnonymousObjectHeader& anonymousObjectHeader);
+
+   /// adds a BigObj anonymous object file to node
+   void AddBigObjAnonymousObjectNode(CodeTextViewNode& nonCoffSummaryNode,
+      const AnonymousObjectHeaderBigObj& anonymousObjectHeaderBigObj);
 
 private:
    /// file to load non-COFF object from

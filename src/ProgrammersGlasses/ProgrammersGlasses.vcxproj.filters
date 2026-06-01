@@ -168,6 +168,9 @@
     <ClCompile Include="userinterface\WindowMessageHelper.cpp">
       <Filter>userinterface</Filter>
     </ClCompile>
+    <ClCompile Include="modules\dev\coff\AnonymousObjectHeaderBigObj.cpp">
+      <Filter>modules\dev\coff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -322,6 +325,9 @@
     <ClInclude Include="StringHelper.hpp" />
     <ClInclude Include="userinterface\WindowMessageHelper.hpp">
       <Filter>userinterface</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\dev\coff\AnonymousObjectHeaderBigObj.hpp">
+      <Filter>modules\dev\coff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

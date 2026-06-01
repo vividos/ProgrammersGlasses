@@ -16,9 +16,9 @@
 /// The header corresponds with winnt.h's ANON_OBJECT_HEADER struct.
 struct AnonymousObjectHeader
 {
-   WORD signature1;        ///< must be IMAGE_FILE_MACHINE_UNKNOWN
+   WORD signature1;        ///< must be IMAGE_FILE_MACHINE_UNKNOWN (0x0000)
    WORD signature2;        ///< must be IMPORT_OBJECT_HDR_SIG2 (0xFFFF)
-   WORD version;           ///< version; 1 for anonymous object
+   WORD version;           ///< version; 1 for anonymous object, 2 for BigObj
    WORD targetMachine;     ///< type of target machine
 
    DWORD timeStamp;        ///< file creation time stamp
