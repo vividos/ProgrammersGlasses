@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2023 Michael Fink
+// Copyright (c) 2023-2026 Michael Fink
 //
 /// \file SymbolsHelper.cpp
 /// \brief helper for symbols
@@ -13,11 +13,11 @@
 
 #pragma comment(lib, "Dbghelp.lib")
 
-std::recursive_mutex SymbolsHelper::m_dbgHelpLock;
+std::mutex SymbolsHelper::m_dbgHelpLock;
 
 std::map<CString, CString> SymbolsHelper::m_symbolCache;
 
-std::recursive_mutex SymbolsHelper::m_cacheLock;
+std::mutex SymbolsHelper::m_cacheLock;
 
 unsigned int SymbolsHelper::m_cacheHits = 0;
 

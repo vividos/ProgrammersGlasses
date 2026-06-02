@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2023 Michael Fink
+// Copyright (c) 2023-2026 Michael Fink
 //
 /// \file SymbolsHelper.hpp
 /// \brief helper for symbols
@@ -27,13 +27,13 @@ private:
    static CString UndecorateGccSymbol(const CString& symbolName);
 
    /// lock for single-threaded access to DbgHelp functions
-   static std::recursive_mutex m_dbgHelpLock;
+   static std::mutex m_dbgHelpLock;
 
    /// symbol cache
    static std::map<CString, CString> m_symbolCache;
 
    /// lock for symbol cache
-   static std::recursive_mutex m_cacheLock;
+   static std::mutex m_cacheLock;
 
    /// count of cache hits
    static unsigned int m_cacheHits;
