@@ -348,6 +348,9 @@ void ArchiveFileNodeTreeBuilder::AddSecondLinkerMemberNode(StaticNode& archiveMe
       return;
    }
 
+   const CHAR* endOfSymbolTableText =
+      reinterpret_cast<const CHAR*>(secondLinkerMember) + linkerMemberSize;
+
    // member table
    std::vector<std::vector<CString>> secondLinkerMemberTableListData;
 
@@ -416,7 +419,10 @@ void ArchiveFileNodeTreeBuilder::AddSecondLinkerMemberNode(StaticNode& archiveMe
             SymbolsHelper::UndecorateSymbol(symbolTableText),
       });
 
-      symbolTableText += strlen(symbolTableText) + 1;
+      size_t remainingSize =
+         endOfSymbolTableText - symbolTableText;
+
+      symbolTableText += strnlen(symbolTableText, remainingSize) + 1;
    }
 
    static std::vector<CString> secondLinkerMemberSymbolsListColumnNames
