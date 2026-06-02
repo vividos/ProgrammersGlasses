@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020-2023 Michael Fink
+// Copyright (c) 2020-2026 Michael Fink
 //
 /// \file StructListView.cpp
 /// \brief list view showing data structure fields
@@ -9,6 +9,7 @@
 #include "StructListView.hpp"
 #include "modules/StructDefinition.hpp"
 #include "modules/DisplayFormatHelper.hpp"
+#include "StringHelper.hpp"
 
 LRESULT StructListView::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
@@ -54,34 +55,51 @@ void StructListView::InitList()
          address,
          structField.m_length,
          structField.m_valueSize,
-         structField.m_littleEndian);
-      SetItemText(itemIndex, 1, rawDataText);
+         structField.m_littleEndian,
+         8);
 
-      CString formattedValue = DisplayFormatHelper::FormatValue(structField, address);
+      std::vector<CString> rawDataMultilineTexts;
+      if (rawDataText.Find(_T('\n')) > 0)
+      {
+         rawDataMultilineTexts = StringSplit(rawDataText, _T("\n"), false);
+         SetItemText(itemIndex, 1, rawDataMultilineTexts[0]);
+         rawDataMultilineTexts.erase(rawDataMultilineTexts.begin());
+      }
+      else
+         SetItemText(itemIndex, 1, rawDataText);
+
+      CString formattedValue =
+         DisplayFormatHelper::FormatValue(structField, address, 8);
+
+      std::vector<CString> formattedValueMultilineTexts;
+
       if (formattedValue.Find(_T('\n')) > 0)
       {
-         bool isFirstPart = true;
-         for (int startPos = 0, maxPos = formattedValue.GetLength(); startPos < maxPos; )
-         {
-            CString valuePart = formattedValue.Tokenize(_T("\n"), startPos);
-
-            if (isFirstPart)
-            {
-               SetItemText(itemIndex, 2, valuePart);
-               isFirstPart = false;
-            }
-            else
-            {
-               int partItemIndex = InsertItem(GetItemCount(), _T(""));
-               SetItemText(partItemIndex, 2, valuePart);
-            }
-         }
+         formattedValueMultilineTexts = StringSplit(formattedValue, _T("\n"), false);
+         SetItemText(itemIndex, 2, formattedValueMultilineTexts[0]);
+         formattedValueMultilineTexts.erase(formattedValueMultilineTexts.begin());
       }
       else
          SetItemText(itemIndex, 2, formattedValue);
 
       if (structField.m_description != nullptr)
          SetItemText(itemIndex, 3, structField.m_description);
+
+      if (!rawDataMultilineTexts.empty() ||
+         !formattedValueMultilineTexts.empty())
+      {
+         size_t maxIndex = std::max(rawDataMultilineTexts.size(), formattedValueMultilineTexts.size());
+         for (size_t index = 0; index < maxIndex; index++)
+         {
+            int partItemIndex = InsertItem(GetItemCount(), _T(""));
+
+            if (index < rawDataMultilineTexts.size())
+               SetItemText(partItemIndex, 1, rawDataMultilineTexts[index]);
+
+            if (index < formattedValueMultilineTexts.size())
+               SetItemText(partItemIndex, 2, formattedValueMultilineTexts[index]);
+         }
+      }
    }
 
    SetColumnWidth(0, LVSCW_AUTOSIZE);

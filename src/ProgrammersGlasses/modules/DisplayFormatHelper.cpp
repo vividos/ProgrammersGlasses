@@ -58,7 +58,12 @@ CString DisplayFormatHelper::FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR
    return text;
 }
 
-CString DisplayFormatHelper::FormatRawData(const BYTE* rawData, size_t length, size_t valueSize, bool littleEndian)
+CString DisplayFormatHelper::FormatRawData(
+   const BYTE* rawData,
+   size_t length,
+   size_t valueSize,
+   bool littleEndian,
+   size_t newLineAfterNumBytes)
 {
    CString text;
 
@@ -66,7 +71,13 @@ CString DisplayFormatHelper::FormatRawData(const BYTE* rawData, size_t length, s
 
    for (size_t offset = 0; offset < maxOffset; offset += valueSize)
    {
-      if (offset != 0)
+      if (newLineAfterNumBytes > 0 &&
+         offset > 0 &&
+         offset % newLineAfterNumBytes == 0)
+      {
+         text.AppendChar(_T('\n'));
+      }
+      else if (offset != 0)
          text.AppendChar(_T(' '));
 
       DWORD value = GetBufferValueWithEndianness(rawData + offset, valueSize, littleEndian);
@@ -119,7 +130,10 @@ CString DisplayFormatHelper::FormatGUID(const BYTE* rawData, size_t length)
    return text;
 }
 
-CString DisplayFormatHelper::FormatValue(const StructField& field, const BYTE* rawData)
+CString DisplayFormatHelper::FormatValue(
+   const StructField& field,
+   const BYTE* rawData,
+   size_t newLineAfterNumBytes)
 {
    CString text;
 
@@ -130,7 +144,8 @@ CString DisplayFormatHelper::FormatValue(const StructField& field, const BYTE* r
          rawData,
          field.m_length,
          field.m_length,
-         field.m_littleEndian);
+         field.m_littleEndian,
+         newLineAfterNumBytes);
       break;
 
    case StructFieldType::byteArray:
@@ -138,7 +153,8 @@ CString DisplayFormatHelper::FormatValue(const StructField& field, const BYTE* r
          rawData,
          field.m_length,
          field.m_valueSize,
-         field.m_littleEndian);
+         field.m_littleEndian,
+         newLineAfterNumBytes);
       break;
 
    case StructFieldType::text:

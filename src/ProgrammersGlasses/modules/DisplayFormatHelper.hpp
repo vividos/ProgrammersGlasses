@@ -22,13 +22,21 @@ public:
    static CString FormatBitFlagsFromMap(const std::map<DWORD, LPCTSTR>& bitflagsMap, DWORD flags);
 
    /// formats raw data as hex values
-   static CString FormatRawData(const BYTE* rawData, size_t length, size_t valueSize, bool littleEndian);
+   static CString FormatRawData(
+      const BYTE* rawData,
+      size_t length,
+      size_t valueSize,
+      bool littleEndian,
+      size_t newLineAfterNumBytes = 0);
 
    /// formats GUID as human-readable text
    static CString FormatGUID(const BYTE* rawData, size_t length);
 
    /// formats value using struct field definition
-   static CString FormatValue(const StructField& field, const BYTE* rawData);
+   static CString FormatValue(
+      const StructField& field,
+      const BYTE* rawData,
+      size_t newLineAfterNumBytes = 0);
 
 private:
    /// formats struct field bitfield value
