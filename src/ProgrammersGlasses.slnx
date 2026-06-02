@@ -8,6 +8,7 @@
     <File Path="../.gitignore" />
     <File Path="../Credits.md" />
     <File Path="../README.md" />
+    <File Path="../SupportedFormats.md" />
     <File Path="../TODO.md" />
     <File Path="Patch-BuildVersion.ps1" />
     <File Path="RunTestsAndCollectCoverage.cmd" />

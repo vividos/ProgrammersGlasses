@@ -11,6 +11,9 @@ open the following file formats:
   from version 0.2
 - ELF binaries (`*.so`, no extension) from version 0.3
 
+See the full list of supported formats:
+[Supported Formats](SupportedFormats.md).
+
 The plan is to have a version 1.0 when the above file types can be displayed.
 Versions after that may support more file types.
 
