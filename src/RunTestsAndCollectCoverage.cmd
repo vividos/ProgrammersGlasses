@@ -18,7 +18,11 @@ REM
 REM Run tests with files
 REM
 set FILES=test\lib-with-coff-obj.lib ^
+    test\anon.obj ^
     test\bigobj.obj ^
+    test\teststaticlib.lib ^
+    test\teststaticlib.obj ^
+    test\teststaticlib.pdb ^
     ..\intermediate\Release\ProgrammersGlasses\DataHelper.obj ^
     ..\intermediate\vcpkg_installed\x64-windows-static\lib\ulib.lib ^
     ProgrammersGlasses\userinterface\res\Ribbon\app_exit_16.png ^
