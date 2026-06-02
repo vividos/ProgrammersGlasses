@@ -363,3 +363,4 @@ src/ProgrammersGlasses/userinterface/res/Ribbon.rc
 .sonar-cache/
 CoverageReport/
 CoverageReport-SonarQube.xml
+.dotnet-tools/
