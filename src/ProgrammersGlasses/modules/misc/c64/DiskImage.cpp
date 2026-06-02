@@ -274,6 +274,9 @@ BYTE DiskImage::GetNextInterleavedSectorNumber(BYTE track, BYTE sector) const
       : m_diskImageInfo.sectorInterleave;
 
    size_t numSectors = GetNumSectorsInTrack(track);
+   if (numSectors == 0)
+      return 0;
+
    return static_cast<BYTE>(size_t(sector + interleaveValue) % numSectors);
 }
 
