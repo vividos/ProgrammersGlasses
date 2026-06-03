@@ -221,10 +221,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="userinterface\res\App.ico" />
-    <Image Include="userinterface\res\app_exit.bmp" />
-    <Image Include="userinterface\res\edit_copy.bmp" />
-    <Image Include="userinterface\res\file_close.bmp" />
-    <Image Include="userinterface\res\file_open.bmp" />
     <Image Include="userinterface\res\module_app.bmp" />
     <Image Include="userinterface\res\module_audio.bmp" />
     <Image Include="userinterface\res\module_dynamiclib.bmp" />
@@ -237,9 +233,6 @@
     <Image Include="userinterface\res\node_document.bmp" />
     <Image Include="userinterface\res\node_object.bmp" />
     <Image Include="userinterface\res\node_table.bmp" />
-    <Image Include="userinterface\res\window_cascade.bmp" />
-    <Image Include="userinterface\res\window_horizontal.bmp" />
-    <Image Include="userinterface\res\window_vertical.bmp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="userinterface\res\Ribbon.xml">

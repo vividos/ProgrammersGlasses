@@ -357,27 +357,6 @@
     <Image Include="userinterface\res\App.ico">
       <Filter>userinterface\res</Filter>
     </Image>
-    <Image Include="userinterface\res\app_exit.bmp">
-      <Filter>userinterface\res</Filter>
-    </Image>
-    <Image Include="userinterface\res\edit_copy.bmp">
-      <Filter>userinterface\res</Filter>
-    </Image>
-    <Image Include="userinterface\res\file_open.bmp">
-      <Filter>userinterface\res</Filter>
-    </Image>
-    <Image Include="userinterface\res\window_cascade.bmp">
-      <Filter>userinterface\res</Filter>
-    </Image>
-    <Image Include="userinterface\res\window_horizontal.bmp">
-      <Filter>userinterface\res</Filter>
-    </Image>
-    <Image Include="userinterface\res\window_vertical.bmp">
-      <Filter>userinterface\res</Filter>
-    </Image>
-    <Image Include="userinterface\res\file_close.bmp">
-      <Filter>userinterface\res</Filter>
-    </Image>
     <Image Include="userinterface\res\node_library.bmp">
       <Filter>userinterface\res</Filter>
     </Image>

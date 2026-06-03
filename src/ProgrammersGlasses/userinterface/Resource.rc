@@ -47,20 +47,6 @@ END
 // Bitmap
 //
 
-ID_FILE_OPEN            BITMAP                  "res\\file_open.bmp"
-
-ID_APP_EXIT             BITMAP                  "res\\app_exit.bmp"
-
-ID_EDIT_COPY            BITMAP                  "res\\edit_copy.bmp"
-
-ID_WINDOW_CASCADE       BITMAP                  "res\\window_cascade.bmp"
-
-ID_WINDOW_TILE_HORZ     BITMAP                  "res\\window_horizontal.bmp"
-
-ID_WINDOW_TILE_VERT     BITMAP                  "res\\window_vertical.bmp"
-
-ID_FILE_CLOSE           BITMAP                  "res\\file_close.bmp"
-
 IDB_MODULE_STATIC_LIB   BITMAP                  "res\\module_staticlib.bmp"
 
 IDB_NODE_DOCUMENT       BITMAP                  "res\\node_document.bmp"
