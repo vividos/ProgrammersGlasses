@@ -48,6 +48,7 @@ dotnet-sonarscanner begin ^
     /d:"sonar.cfamily.threads=4" ^
     /d:"sonar.cfamily.analysisCache.mode=fs " ^
     /d:"sonar.cfamily.analysisCache.path=.sonar-cache" ^
+    /d:"sonar.coverage.exclusions=userinterface\**\*" ^
     /d:"sonar.coverageReportPaths=%CD%\CoverageReport-SonarQube.xml" ^
     /o:"vividos-github" ^
     /d:"sonar.token=%SONARLOGIN%"
