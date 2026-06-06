@@ -23,19 +23,19 @@ public:
    explicit DiskImageReader(const File& file);
 
    // Inherited via IReader
-   virtual const CString& Filename() const override
+   const CString& Filename() const override
    {
       return m_file.Filename();
    }
 
-   virtual std::shared_ptr<INode> RootNode() const override
+   std::shared_ptr<INode> RootNode() const override
    {
       return m_rootNode;
    }
 
-   virtual void Load() override;
+   void Load() override;
 
-   virtual void Cleanup() override
+   void Cleanup() override
    {
       // nothing expensive to clean up
    }

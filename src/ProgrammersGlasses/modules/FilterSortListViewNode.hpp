@@ -24,7 +24,7 @@ public:
       bool allowFiltering);
 
    // Inherited via INode
-   virtual std::shared_ptr<IContentView> GetContentView() override;
+   std::shared_ptr<IContentView> GetContentView() override;
 
 private:
    /// list of column names

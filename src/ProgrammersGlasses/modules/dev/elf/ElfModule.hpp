@@ -18,9 +18,9 @@ public:
    ElfModule() = default;
 
    // Inherited via IModule
-   virtual CString DisplayName() const override;
-   virtual ModuleIconID IconID() const override;
-   virtual CString FilterStrings() const override;
-   virtual bool IsModuleApplicableForFile(const File& file) const override;
-   virtual std::shared_ptr<IReader> OpenReader(const File& file) const override;
+   CString DisplayName() const override;
+   ModuleIconID IconID() const override;
+   CString FilterStrings() const override;
+   bool IsModuleApplicableForFile(const File& file) const override;
+   std::shared_ptr<IReader> OpenReader(const File& file) const override;
 };

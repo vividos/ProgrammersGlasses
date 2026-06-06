@@ -35,19 +35,19 @@ public:
    }
 
    // Inherited via IContentView
-   virtual HWND CreateView(HWND parent, CRect& rect) override
+   HWND CreateView(HWND parent, CRect& rect) override
    {
       // pass the rectangle to the OnInitDialog message handler
       return Create(parent, reinterpret_cast<LPARAM>(&rect));
    }
 
-   virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
+   BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
       WPARAM wParam, LPARAM lParam, LRESULT& lResult) override
    {
       return FilterSortListViewForm::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, 0UL);
    }
 
-   virtual void DestroyView() override
+   void DestroyView() override
    {
       ATLVERIFY(TRUE == DestroyWindow());
    }

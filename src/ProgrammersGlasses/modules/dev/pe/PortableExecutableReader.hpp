@@ -20,18 +20,18 @@ public:
    explicit PortableExecutableReader(const File& file);
 
    // Inherited via IReader
-   virtual const CString& Filename() const override
+   const CString& Filename() const override
    {
       return m_file.Filename();
    }
 
-   virtual std::shared_ptr<INode> RootNode() const override
+   std::shared_ptr<INode> RootNode() const override
    {
       return m_rootNode;
    }
 
-   virtual void Load() override;
-   virtual void Cleanup() override;
+   void Load() override;
+   void Cleanup() override;
 
 private:
    /// file to read from

@@ -18,21 +18,21 @@ public:
    PortableExecutableModule() = default;
 
    // Inherited via IModule
-   virtual CString DisplayName() const override
+   CString DisplayName() const override
    {
       return CString{ "PE binary module" };
    }
 
-   virtual ModuleIconID IconID() const override
+   ModuleIconID IconID() const override
    {
       return ModuleIconID::moduleApp;
    }
 
-   virtual CString FilterStrings() const override
+   CString FilterStrings() const override
    {
       return CString{ "PE files (*.exe;*.dll;*.ocx;*.sys;*.ovl)|*.exe;*.dll;*.ocx;*.sys;*.ovl|" };
    }
 
-   virtual bool IsModuleApplicableForFile(const File& file) const override;
-   virtual std::shared_ptr<IReader> OpenReader(const File& file) const override;
+   bool IsModuleApplicableForFile(const File& file) const override;
+   std::shared_ptr<IReader> OpenReader(const File& file) const override;
 };

@@ -21,21 +21,21 @@ public:
    DiskImageModule() = default;
 
    // Inherited via IModule
-   virtual CString DisplayName() const override
+   CString DisplayName() const override
    {
       return CString{ "C64 disk image module" };
    }
 
-   virtual ModuleIconID IconID() const override
+   ModuleIconID IconID() const override
    {
       return ModuleIconID::moduleStaticLib;
    }
 
-   virtual CString FilterStrings() const override
+   CString FilterStrings() const override
    {
       return CString{ "C64 disk image files (*.d64, *.d71; *.d81)|*.d64;*.d71;*.d81|" };
    }
 
-   virtual bool IsModuleApplicableForFile(const File& file) const override;
-   virtual std::shared_ptr<IReader> OpenReader(const File& file) const override;
+   bool IsModuleApplicableForFile(const File& file) const override;
+   std::shared_ptr<IReader> OpenReader(const File& file) const override;
 };

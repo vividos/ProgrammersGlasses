@@ -43,17 +43,17 @@ public:
    BOOL SubclassWindow(HWND hWnd);
 
    // Inherited via IContentView
-   virtual HWND CreateView(HWND parent, CRect& rect) override
+   HWND CreateView(HWND parent, CRect& rect) override
    {
       return Create(parent, rect);
    }
 
-   virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult) override
+   BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult) override
    {
       return FilterSortListView::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, 0UL);
    }
 
-   virtual void DestroyView() override
+   void DestroyView() override
    {
       ATLVERIFY(TRUE == DestroyWindow());
    }

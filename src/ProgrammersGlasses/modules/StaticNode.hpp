@@ -30,17 +30,17 @@ public:
    }
 
    // Inherited via INode
-   virtual const CString& DisplayName() const override
+   const CString& DisplayName() const override
    {
       return m_displayName;
    }
 
-   virtual NodeTreeIconID IconID() const override
+   NodeTreeIconID IconID() const override
    {
       return m_iconID;
    }
 
-   virtual const std::vector<std::shared_ptr<INode>>& ChildNodes() const override
+   const std::vector<std::shared_ptr<INode>>& ChildNodes() const override
    {
       return m_childNodes;
    }

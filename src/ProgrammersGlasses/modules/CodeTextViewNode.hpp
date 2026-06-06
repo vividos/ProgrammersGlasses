@@ -31,7 +31,7 @@ public:
    CString GetText() const { return m_text; }
 
    // Inherited via INode
-   std::shared_ptr<IContentView> GetContentView();
+   std::shared_ptr<IContentView> GetContentView() override;
 
 private:
    /// node text to display
