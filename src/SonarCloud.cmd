@@ -12,9 +12,6 @@ echo.
 REM set this to your Visual Studio installation folder
 set VSINSTALL=%ProgramFiles%\Microsoft Visual Studio\18\Community
 
-REM set this to your SonarQube tools folder
-set SONARQUBE=C:\Projekte\Tools\SonarQube
-
 REM
 REM Preparations
 REM
@@ -27,11 +24,22 @@ dotnet tool install dotnet-sonarscanner --tool-path .dotnet-tools
 
 set PATH=%PATH%;"%CD%\.dotnet-tools"
 
+REM install Build Wrapper, if not available yet
+if not exist build-wrapper-win-x86.zip (
+    echo Downloading Build Wrapper from SonarCloud...
+    powershell -Command "& {Invoke-WebRequest -Uri https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip -Out build-wrapper-win-x86.zip}"
+)
+
+if not exist build-wrapper-win-x86\build-wrapper-win-x86-64.exe (
+    echo Extracting Build Wrapper from zip archive...
+    "c:\Program Files\7-Zip\7z.exe" x build-wrapper-win-x86.zip
+)
+
+set PATH=%PATH%;%CD%\build-wrapper-win-x86
+
 REM check for SONARLOGIN env var
 if "%SONARLOGIN%" == "" echo "Environment variable SONARLOGIN is not set! Obtain a new token and set the environment variable!"
 if "%SONARLOGIN%" == "" exit 1
-
-set PATH=%PATH%;%SONARQUBE%\build-wrapper-win-x86;%OPENCPPCOVERAGE%
 
 REM
 REM Build using SonarQube scanner for MSBuild

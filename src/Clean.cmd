@@ -8,6 +8,7 @@ REM
 
 rmdir .vs /s /q
 rmdir .dotnet-tools /s /q 2> nul
+rmdir build-wrapper-win-x86 /s /q 2> nul
 rmdir .sonarqube /s /q 2> nul
 rmdir .bw-output /s /q 2> nul
 rmdir ProgrammersGlasses\.sonar-cache /s /q 2> nul
@@ -15,6 +16,7 @@ rmdir .sonar-cache /s /q 2> nul
 rmdir CoverageReport /s /q 2> nul
 del LastCoverageResults.log
 del CoverageReport-SonarQube.xml
+del build-wrapper-win-x86.zip
 
 del /S /Q *.user 2> nul
 del /S /Q *.aps 2> nul

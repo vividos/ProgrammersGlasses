@@ -364,3 +364,5 @@ src/ProgrammersGlasses/userinterface/res/Ribbon.rc
 CoverageReport/
 CoverageReport-SonarQube.xml
 .dotnet-tools/
+build-wrapper-win-x86.zip
+build-wrapper-win-x86/
