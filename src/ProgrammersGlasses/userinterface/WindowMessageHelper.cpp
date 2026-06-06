@@ -183,8 +183,8 @@ static CString GetNotifyInfo(const NMHDR& notifyHeader)
    if (notifyNameIter != s_notifyNames.end())
    {
       text.Format(
-         _T("NMHDR from=0x%08x class=%s code=%s (0x%04x)"),
-         notifyHeader.hwndFrom,
+         _T("NMHDR from=0x%08llx class=%s code=%s (0x%04x)"),
+         (UINT_PTR)notifyHeader.hwndFrom,
          className.GetString(),
          notifyNameIter->second,
          notifyHeader.code);
@@ -192,8 +192,8 @@ static CString GetNotifyInfo(const NMHDR& notifyHeader)
    else
    {
       text.Format(
-         _T("NMHDR from=0x%08x class=%s code=0x%04x"),
-         notifyHeader.hwndFrom,
+         _T("NMHDR from=0x%08llx class=%s code=0x%04x"),
+         (UINT_PTR)notifyHeader.hwndFrom,
          className.GetString(),
          notifyHeader.code);
    }
@@ -216,9 +216,9 @@ void AtlTraceMessage(
    CString text;
 
    text.Format(
-      _T("%s (0x%08lx) "),
+      _T("%s (0x%08llx) "),
       className,
-      hWnd);
+      (UINT_PTR)hWnd);
 
    text.AppendFormat(
       _T("msg=%s (0x%04lx) "),
@@ -234,7 +234,7 @@ void AtlTraceMessage(
    else
    {
       text.AppendFormat(
-         _T("wParam=0x%04x lParam=0x%08lx"),
+         _T("wParam=0x%04llx lParam=0x%08llx"),
          wParam,
          lParam);
    }
