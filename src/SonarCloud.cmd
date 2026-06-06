@@ -52,9 +52,9 @@ dotnet-sonarscanner begin ^
     /k:"ProgrammersGlasses" ^
     /v:"0.1.0" ^
     /s:"%CD%\SonarQube.Analysis.xml" ^
-    /d:"sonar.cfamily.build-wrapper-output=%CD%\.bw-output" ^
     /d:"sonar.host.url=https://sonarcloud.io" ^
     /d:"sonar.cfamily.threads=4" ^
+    /d:"sonar.cfamily.compile-commands=%CD%\.bw-output\compile_commands.json" ^
     /d:"sonar.cfamily.analysisCache.mode=fs " ^
     /d:"sonar.cfamily.analysisCache.path=.sonar-cache" ^
     /d:"sonar.coverageReportPaths=%CD%\CoverageReport-SonarQube.xml" ^
