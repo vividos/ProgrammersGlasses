@@ -394,4 +394,9 @@
       <Filter>userinterface\res</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="userinterface\ProgrammersGlasses.exe.manifest">
+      <Filter>userinterface</Filter>
+    </Manifest>
+  </ItemGroup>
 </Project>
