@@ -366,3 +366,4 @@ CoverageReport-SonarQube.xml
 .dotnet-tools/
 build-wrapper-win-x86.zip
 build-wrapper-win-x86/
+CoverageReport-cobertura.xml

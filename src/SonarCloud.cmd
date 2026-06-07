@@ -57,7 +57,7 @@ dotnet-sonarscanner begin ^
     /d:"sonar.cfamily.compile-commands=%CD%\.bw-output\compile_commands.json" ^
     /d:"sonar.cfamily.analysisCache.mode=fs " ^
     /d:"sonar.cfamily.analysisCache.path=.sonar-cache" ^
-    /d:"sonar.coverageReportPaths=%CD%\CoverageReport-SonarQube.xml" ^
+    /d:"sonar.coverageReportPaths=%CD%\CoverageReport\SonarQube.xml" ^
     /o:"vividos-github" ^
     /d:"sonar.token=%SONARLOGIN%"
 if errorlevel 1 goto end

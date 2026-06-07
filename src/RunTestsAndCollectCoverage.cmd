@@ -6,13 +6,23 @@ REM
 REM Runs tests and collects coverage information
 REM
 
-REM set this to your OpenCppCoverage folder
-set OPENCPPCOVERAGE=C:\Projekte\Tools\OpenCppCoverage\
+echo RunTestsAndCollectCoverage.cmd - Runs tests and collects coverage
+echo.
+
+REM set this to your Visual Studio installation folder
+set VSINSTALL=%ProgramFiles%\Microsoft Visual Studio\18\Community
 
 REM
 REM Preparations
 REM
-set PATH=%PATH%;%OPENCPPCOVERAGE%
+set PATH=%PATH%;%VSINSTALL%\Common7\IDE\Extensions\Microsoft\CodeCoverage.Console
+
+REM install ReportGenerator, if not available yet
+dotnet tool install dotnet-reportgenerator-globaltool --tool-path .dotnet-tools
+
+set PATH=%PATH%;"%CD%\.dotnet-tools"
+
+rmdir .\CoverageReport /s /q 2> nul
 
 REM
 REM Run tests with files
@@ -29,16 +39,21 @@ set FILES=test\lib-with-coff-obj.lib ^
     test\JCH-Blizzard.sid ^
     ..\bin\Release\ProgrammersGlasses.exe
 
-OpenCppCoverage.exe ^
-   --continue_after_cpp_exception ^
-   --cover_children ^
-   --sources ProgrammersGlasses ^
-   --excluded_sources ProgrammersGlasses\thirdparty ^
-   --excluded_sources ProgrammersGlasses\userinterface ^
-   --excluded_sources intermediate\vcpkg_installed ^
-   --export_type SonarQube:CoverageReport-SonarQube.xml ^
-   --export_type html:CoverageReport ^
-   --modules ProgrammersGlasses.exe ^
-   -- ..\bin\Release\ProgrammersGlasses.exe ^
+echo Collecting code coverage...
+
+Microsoft.CodeCoverage.Console.exe collect ^
+   --settings CodeCoverage.runsettings ^
+   --output CoverageReport-cobertura.xml ^
+   ..\bin\Release\ProgrammersGlasses.exe ^
    --console ^
    %FILES%
+
+echo Converting Cobertura to SonarQube xml...
+
+echo Generating report...
+
+ReportGenerator ^
+    -reports:CoverageReport-cobertura.xml ^
+    -reporttypes:Html;SonarQube ^
+    -filefilters:-*\vctools\* ^
+    -targetdir:.\CoverageReport
