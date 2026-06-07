@@ -352,18 +352,10 @@ MigrationBackup/
 # vividos' ignores
 bin/
 lib/
+intermediate/
 packages/
 stuff/
 src/ProgrammersGlasses/userinterface/res/Ribbon.bml
 src/ProgrammersGlasses/userinterface/res/Ribbon.h
 src/ProgrammersGlasses/userinterface/res/Ribbon.rc
 .sonarqube/
-.bw-output/
-/intermediate/vcpkg_installed/
-.sonar-cache/
-CoverageReport/
-CoverageReport-SonarQube.xml
-.dotnet-tools/
-build-wrapper-win-x86.zip
-build-wrapper-win-x86/
-CoverageReport-cobertura.xml

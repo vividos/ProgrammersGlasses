@@ -18,11 +18,11 @@ REM
 set PATH=%PATH%;%VSINSTALL%\Common7\IDE\Extensions\Microsoft\CodeCoverage.Console
 
 REM install ReportGenerator, if not available yet
-dotnet tool install dotnet-reportgenerator-globaltool --tool-path .dotnet-tools
+dotnet tool install dotnet-reportgenerator-globaltool --tool-path ..\intermediate\.dotnet-tools
 
-set PATH=%PATH%;"%CD%\.dotnet-tools"
+set PATH=%PATH%;"%CD%\..\intermediate\.dotnet-tools"
 
-rmdir .\CoverageReport /s /q 2> nul
+rmdir ..\intermediate\CoverageReport /s /q 2> nul
 
 REM
 REM Run tests with files
@@ -43,7 +43,7 @@ echo Collecting code coverage...
 
 Microsoft.CodeCoverage.Console.exe collect ^
    --settings CodeCoverage.runsettings ^
-   --output CoverageReport-cobertura.xml ^
+   --output ..\intermediate\CoverageReport-cobertura.xml ^
    ..\bin\Release\ProgrammersGlasses.exe ^
    --console ^
    %FILES%
@@ -53,7 +53,7 @@ echo Converting Cobertura to SonarQube xml...
 echo Generating report...
 
 ReportGenerator ^
-    -reports:CoverageReport-cobertura.xml ^
+    -reports:..\intermediate\CoverageReport-cobertura.xml ^
     -reporttypes:Html;SonarQube ^
     -filefilters:-*\vctools\* ^
-    -targetdir:.\CoverageReport
+    -targetdir:..\intermediate\CoverageReport

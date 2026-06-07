@@ -20,22 +20,24 @@ call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat"
 set DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 REM install SonarScanner, if not available yet
-dotnet tool install dotnet-sonarscanner --tool-path .dotnet-tools
+dotnet tool install dotnet-sonarscanner --tool-path ..\intermediate\.dotnet-tools
 
-set PATH=%PATH%;"%CD%\.dotnet-tools"
+set PATH=%PATH%;"%CD%\..\intermediate\.dotnet-tools"
 
 REM install Build Wrapper, if not available yet
-if not exist build-wrapper-win-x86.zip (
+if not exist ..\intermediate\build-wrapper-win-x86.zip (
     echo Downloading Build Wrapper from SonarCloud...
-    powershell -Command "& {Invoke-WebRequest -Uri https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip -Out build-wrapper-win-x86.zip}"
+    powershell -Command "& {Invoke-WebRequest -Uri https://sonarcloud.io/static/cpp/build-wrapper-win-x86.zip -Out ..\intermediate\build-wrapper-win-x86.zip}"
 )
 
-if not exist build-wrapper-win-x86\build-wrapper-win-x86-64.exe (
+if not exist ..\intermediate\build-wrapper-win-x86\build-wrapper-win-x86-64.exe (
     echo Extracting Build Wrapper from zip archive...
+    pushd ..\intermediate
     "c:\Program Files\7-Zip\7z.exe" x build-wrapper-win-x86.zip
+    popd
 )
 
-set PATH=%PATH%;%CD%\build-wrapper-win-x86
+set PATH=%PATH%;%CD%\..\intermediate\build-wrapper-win-x86
 
 REM check for SONARLOGIN env var
 if "%SONARLOGIN%" == "" echo "Environment variable SONARLOGIN is not set! Obtain a new token and set the environment variable!"
@@ -44,9 +46,9 @@ if "%SONARLOGIN%" == "" exit 1
 REM
 REM Build using SonarQube scanner for MSBuild
 REM
-rmdir .\.sonarqube /s /q 2> nul
-rmdir .\.bw-output /s /q 2> nul
-mkdir .\.sonar-cache 2> nul
+rmdir ..\intermediate\.sonarqube /s /q 2> nul
+rmdir ..\intermediate\.bw-output /s /q 2> nul
+mkdir ..\intermediate\.sonar-cache 2> nul
 
 dotnet-sonarscanner begin ^
     /k:"ProgrammersGlasses" ^
@@ -54,10 +56,10 @@ dotnet-sonarscanner begin ^
     /s:"%CD%\SonarQube.Analysis.xml" ^
     /d:"sonar.host.url=https://sonarcloud.io" ^
     /d:"sonar.cfamily.threads=4" ^
-    /d:"sonar.cfamily.compile-commands=%CD%\.bw-output\compile_commands.json" ^
+    /d:"sonar.cfamily.compile-commands=%CD%\..\intermediate\.bw-output\compile_commands.json" ^
     /d:"sonar.cfamily.analysisCache.mode=fs " ^
-    /d:"sonar.cfamily.analysisCache.path=.sonar-cache" ^
-    /d:"sonar.coverageReportPaths=%CD%\CoverageReport\SonarQube.xml" ^
+    /d:"sonar.cfamily.analysisCache.path=..\intermediate\.sonar-cache" ^
+    /d:"sonar.coverageReportPaths=%CD%\..\intermediate\CoverageReport\SonarQube.xml" ^
     /o:"vividos-github" ^
     /d:"sonar.token=%SONARLOGIN%"
 if errorlevel 1 goto end
@@ -66,7 +68,7 @@ REM
 REM Rebuild Release|x64
 REM
 build-wrapper-win-x86-64.exe ^
-   --out-dir .bw-output ^
+   --out-dir ..\intermediate\.bw-output ^
    msbuild ProgrammersGlasses.slnx /m /property:Configuration=Release,Platform=x64 /target:Rebuild
 
 REM
