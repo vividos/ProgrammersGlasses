@@ -171,6 +171,8 @@
     <ClCompile Include="modules\dev\coff\AnonymousObjectHeaderBigObj.cpp">
       <Filter>modules\dev\coff</Filter>
     </ClCompile>
+    <ClCompile Include="modules\HexDataViewNode.cpp" />
+    <ClCompile Include="userinterface\HexDataView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -329,6 +331,8 @@
     <ClInclude Include="modules\dev\coff\AnonymousObjectHeaderBigObj.hpp">
       <Filter>modules\dev\coff</Filter>
     </ClInclude>
+    <ClInclude Include="modules\HexDataViewNode.hpp" />
+    <ClInclude Include="userinterface\HexDataView.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="userinterface\res\Ribbon.bml">

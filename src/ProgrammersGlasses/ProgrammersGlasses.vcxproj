@@ -125,6 +125,7 @@
     <ClCompile Include="modules\dev\elf\ElfModule.cpp" />
     <ClCompile Include="modules\File.cpp" />
     <ClCompile Include="modules\FilterSortListViewNode.cpp" />
+    <ClCompile Include="modules\HexDataViewNode.cpp" />
     <ClCompile Include="modules\images\png\PngHeader.cpp" />
     <ClCompile Include="modules\images\png\PngImageModule.cpp" />
     <ClCompile Include="modules\images\png\PngImageReader.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="SymbolsHelper.cpp" />
     <ClCompile Include="userinterface\AboutDlg.cpp" />
+    <ClCompile Include="userinterface\HexDataView.cpp" />
     <ClCompile Include="userinterface\CodeTextView.cpp" />
     <ClCompile Include="userinterface\FilterSortListView.cpp" />
     <ClCompile Include="userinterface\FilterSortListViewForm.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="modules\File.hpp" />
     <ClInclude Include="DataHelper.hpp" />
     <ClInclude Include="modules\FilterSortListViewNode.hpp" />
+    <ClInclude Include="modules\HexDataViewNode.hpp" />
     <ClInclude Include="modules\IContentView.hpp" />
     <ClInclude Include="modules\images\png\PngHeader.hpp" />
     <ClInclude Include="modules\images\png\PngImageModule.hpp" />
@@ -201,6 +204,7 @@
     <ClInclude Include="StringHelper.hpp" />
     <ClInclude Include="SymbolsHelper.hpp" />
     <ClInclude Include="userinterface\AboutDlg.hpp" />
+    <ClInclude Include="userinterface\HexDataView.hpp" />
     <ClInclude Include="userinterface\CodeTextView.hpp" />
     <ClInclude Include="userinterface\FilterSortListView.hpp" />
     <ClInclude Include="userinterface\FilterSortListViewForm.hpp" />
