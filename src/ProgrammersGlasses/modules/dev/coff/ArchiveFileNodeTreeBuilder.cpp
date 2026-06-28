@@ -65,6 +65,12 @@ std::shared_ptr<INode> ArchiveFileNodeTreeBuilder::BuildArchiveFileNode()
 
       CString trimmedArchiveMemberName = archiveMemberName;
       trimmedArchiveMemberName.Trim();
+
+      if (m_longnamesMapping.find(trimmedArchiveMemberName) != m_longnamesMapping.end())
+      {
+         trimmedArchiveMemberName = m_longnamesMapping[trimmedArchiveMemberName];
+      }
+
       userIDText.Trim();
       groupIDText.Trim();
       fileModeText.Trim();
@@ -87,9 +93,13 @@ std::shared_ptr<INode> ArchiveFileNodeTreeBuilder::BuildArchiveFileNode()
             sizeText,
       });
 
+      CString alternateArchiveMemberName;
+      if (trimmedArchiveMemberName != archiveMemberName)
+         alternateArchiveMemberName = _T("\nLong name: \"") + trimmedArchiveMemberName + _T("\"");
+
       CString archiveMemberSummaryText;
       archiveMemberSummaryText.AppendFormat(
-         _T("Archive member [%zu]: \"%s\"\n")
+         _T("Archive member [%zu]: \"%s\"%s\n")
          _T("Date: %s\n")
          _T("User ID: %s\n")
          _T("Group ID: %s\n")
@@ -97,6 +107,7 @@ std::shared_ptr<INode> ArchiveFileNodeTreeBuilder::BuildArchiveFileNode()
          _T("Size: %s\n\n"),
          archiveMemberIndex,
          archiveMemberName.GetString(),
+         alternateArchiveMemberName.GetString(),
          formattedDateTime.GetString(),
          userIDText.GetString(),
          groupIDText.GetString(),
@@ -172,7 +183,8 @@ std::shared_ptr<INode> ArchiveFileNodeTreeBuilder::BuildArchiveFileNode()
                *archiveMemberNode,
                archiveMemberStart,
                archiveMemberSize,
-               linkerMemberSummary);
+               linkerMemberSummary,
+               m_longnamesMapping);
 
             archiveMemberSummaryText += linkerMemberSummary;
 
@@ -447,8 +459,10 @@ void ArchiveFileNodeTreeBuilder::AddSecondLinkerMemberNode(StaticNode& archiveMe
 }
 
 void ArchiveFileNodeTreeBuilder::AddArchiveLongnamesMember(StaticNode& archiveMemberNode,
-   size_t fileOffset, size_t linkerMemberSize,
-   CString& linkerMemberSummary) const
+   size_t fileOffset,
+   size_t linkerMemberSize,
+   CString& linkerMemberSummary,
+   std::map<CString, CString>& longnamesMapping) const
 {
    std::vector<std::vector<CString>> longnamesMemberSymbolsListData;
 
@@ -457,7 +471,6 @@ void ArchiveFileNodeTreeBuilder::AddArchiveLongnamesMember(StaticNode& archiveMe
       fileOffset,
       linkerMemberSize,
       false };
-
 
    DWORD numSymbols = 0;
 
@@ -479,6 +492,8 @@ void ArchiveFileNodeTreeBuilder::AddArchiveLongnamesMember(StaticNode& archiveMe
             stringOffsetText,
             stringTableText,
       });
+
+      longnamesMapping.insert(std::make_pair(stringOffsetText, stringTableText));
    }
 
    static std::vector<CString> longnamesMemberSymbolsListColumnNames

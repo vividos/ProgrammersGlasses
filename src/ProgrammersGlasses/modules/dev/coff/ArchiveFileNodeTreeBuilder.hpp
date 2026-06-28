@@ -43,8 +43,10 @@ private:
 
    /// adds longnames linker member node
    void AddArchiveLongnamesMember(StaticNode& archiveMemberNode,
-      size_t fileOffset, size_t linkerMemberSize,
-      CString& linkerMemberSummary) const;
+      size_t fileOffset,
+      size_t linkerMemberSize,
+      CString& linkerMemberSummary,
+      std::map<CString, CString>& longnamesMapping) const;
 
 private:
    /// file to load archive file from
@@ -55,4 +57,7 @@ private:
 
    /// object file summary text
    CString m_objectFileSummary;
+
+   /// mapping from long name offset, .e.g /0, to long names texts, e.g. file.obj
+   std::map<CString, CString> m_longnamesMapping;
 };
