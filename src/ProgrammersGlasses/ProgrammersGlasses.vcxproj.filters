@@ -399,8 +399,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="userinterface\ProgrammersGlasses.exe.manifest">
-      <Filter>userinterface</Filter>
+    <Manifest Include="ProgrammersGlasses.exe.manifest">
+      <Filter>userinterface\res</Filter>
     </Manifest>
   </ItemGroup>
 </Project>
