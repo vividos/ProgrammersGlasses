@@ -1,6 +1,6 @@
 //
 // Programmer's Glasses - a developer's file content viewer
-// Copyright (c) 2020 Michael Fink
+// Copyright (c) 2020-2026 Michael Fink
 //
 /// \file PngImageModule.cpp
 /// \brief module to load PNG image files
@@ -10,6 +10,7 @@
 #include "PngHeader.hpp"
 #include "modules/CodeTextViewNode.hpp"
 #include "modules/StructListViewNode.hpp"
+#include "modules/HexDataViewNode.hpp"
 
 bool PngImageReader::IsPngFile(const File& file)
 {
@@ -54,6 +55,8 @@ void PngImageReader::Load()
 
       CString chunkType{ chunkHeader.chunkType, sizeof(chunkHeader.chunkType) };
 
+      DWORD chunkLength = SwapEndianness(chunkHeader.length);
+
       auto pngChunkNode = std::make_shared<StructListViewNode>(
          _T("PNG chunk: ") + chunkType,
          NodeTreeIconID::nodeTreeIconBinary,
@@ -93,8 +96,19 @@ void PngImageReader::Load()
 
          rootNode->ChildNodes().push_back(pngImageHeaderNode);
       }
+      else
+      {
+         auto hexDataNode = std::make_shared<HexDataViewNode>(
+            _T("Raw data"),
+            NodeTreeIconID::nodeTreeIconBinary,
+            m_file,
+            m_file.OffsetOf(chunkPtr) + sizeof(PngChunkHeader),
+            chunkLength);
 
-      chunkPtr += SwapEndianness(chunkHeader.length) + sizeof(PngChunkHeader) + 4;
+         rootNode->ChildNodes().push_back(hexDataNode);
+      }
+
+      chunkPtr += chunkLength + sizeof(PngChunkHeader) + 4;
 
       if (chunkType == _T("IEND"))
       {
