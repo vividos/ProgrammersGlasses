@@ -48,7 +48,9 @@ void PngImageReader::Load()
 
    while (m_file.IsValidRange(chunkPtr, sizeof(PngChunkHeader) + 4))
    {
-      const PngChunkHeader& chunkHeader = *reinterpret_cast<const PngChunkHeader*>(chunkPtr);
+      const PngChunkHeader& chunkHeader =
+         *m_file.Data<PngChunkHeader>(
+            m_file.OffsetOf(chunkPtr));
 
       CString chunkType{ chunkHeader.chunkType, sizeof(chunkHeader.chunkType) };
 
@@ -63,7 +65,9 @@ void PngImageReader::Load()
 
       if (chunkType == _T("IHDR"))
       {
-         const PngImageHeader& imageHeader = *reinterpret_cast<const PngImageHeader*>(chunkPtr + 8);
+         const PngImageHeader& imageHeader =
+            *m_file.Data<PngImageHeader>(
+               m_file.OffsetOf(chunkPtr) + 8);
 
          summaryText.AppendFormat(_T("Image size: %u x %u (%u bit per channel)\n"),
             SwapEndianness(imageHeader.width),
