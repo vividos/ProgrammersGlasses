@@ -16,5 +16,8 @@
     <File Path="SonarCloud.cmd" />
     <File Path="SonarQube.Analysis.xml" />
   </Folder>
+  <Folder Name="/Test Projects/">
+    <Project Path="test/teststaticlib/teststaticlib.vcxproj" Id="bc3a5ffd-0c93-4b40-a18f-8aef493d51a2" />
+  </Folder>
   <Project Path="ProgrammersGlasses/ProgrammersGlasses.vcxproj" Id="304c522d-69cb-4293-95ec-49b7c1a80b63" />
 </Solution>
