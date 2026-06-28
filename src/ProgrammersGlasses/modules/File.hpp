@@ -43,6 +43,10 @@ public:
    /// the mapped file
    bool IsValidRange(const void* ptr, size_t size) const;
 
+   /// returns the file offset of a pointer in the file; the pointer must be
+   /// valid and in range
+   size_t OffsetOf(const void* ptr) const;
+
 private:
    /// file name of mapped file
    CString m_filename;

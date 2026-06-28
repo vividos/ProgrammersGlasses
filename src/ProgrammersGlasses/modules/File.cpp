@@ -68,6 +68,7 @@ bool File::IsValidPointer(const void* ptr) const
    const BYTE* bytePtr = reinterpret_cast<const BYTE*>(ptr);
 
    return
+      bytePtr != nullptr &&
       bytePtr >= m_data.get() &&
       bytePtr < endFilePtr;
 }
@@ -79,4 +80,17 @@ bool File::IsValidRange(const void* ptr, size_t size) const
    return
       IsValidPointer(endPtr) &&
       IsValidPointer(ptr);
+}
+
+size_t File::OffsetOf(const void* ptr) const
+{
+   const BYTE* startFilePtr = reinterpret_cast<const BYTE*>(m_data.get());
+   const BYTE* endFilePtr = startFilePtr + m_size;
+
+   if (ptr == nullptr ||
+      ptr < startFilePtr ||
+      ptr > endFilePtr)
+      throw std::exception("File::OffsetOfPtr: given ptr was not valid or in range!");
+
+   return reinterpret_cast<const BYTE*>(ptr) - startFilePtr;
 }
