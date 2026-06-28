@@ -37,14 +37,14 @@ set FILES=test\lib-with-coff-obj.lib ^
     ..\intermediate\vcpkg_installed\x64-windows-static\lib\ulib.lib ^
     ProgrammersGlasses\userinterface\res\Ribbon\app_exit_16.png ^
     test\JCH-Blizzard.sid ^
-    ..\bin\Release\ProgrammersGlasses.exe
+    ..\bin\x64\Release\ProgrammersGlasses.exe
 
 echo Collecting code coverage...
 
 Microsoft.CodeCoverage.Console.exe collect ^
    --settings CodeCoverage.runsettings ^
    --output ..\intermediate\CoverageReport-cobertura.xml ^
-   ..\bin\Release\ProgrammersGlasses.exe ^
+   ..\bin\x64\Release\ProgrammersGlasses.exe ^
    --console ^
    %FILES%
 

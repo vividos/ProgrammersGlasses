@@ -3,9 +3,9 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IntDir>$(SolutionDir)..\intermediate\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <_PropertySheetDisplayName>Settings-Release</_PropertySheetDisplayName>
-    <OutDir>$(SolutionDir)..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\</OutDir>
     <LinkIncremental>false</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -23,7 +23,7 @@
       <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Lib>
-      <OutputFile>$(SolutionDir)..\lib\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <OutputFile>$(SolutionDir)..\lib\$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -32,7 +32,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <BuildLog>
-      <Path>$(SolutionDir)..\intermediate\$(Configuration)\$(ProjectName)\$(MSBuildProjectName).log</Path>
+      <Path>$(SolutionDir)..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\$(MSBuildProjectName).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup />

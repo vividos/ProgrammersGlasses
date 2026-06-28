@@ -39,4 +39,4 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: ProgrammersGlasses.exe file
-        path: bin\Release\ProgrammersGlasses.exe
+        path: bin\x64\Release\ProgrammersGlasses.exe

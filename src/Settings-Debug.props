@@ -3,8 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IntDir>$(SolutionDir)..\intermediate\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>$(SolutionDir)..\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\</OutDir>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup>
@@ -31,7 +31,7 @@
       <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Lib>
-      <OutputFile>$(SolutionDir)..\lib\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <OutputFile>$(SolutionDir)..\lib\$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -40,7 +40,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <BuildLog>
-      <Path>$(SolutionDir)..\intermediate\$(Configuration)\$(ProjectName)\$(MSBuildProjectName).log</Path>
+      <Path>$(SolutionDir)..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\$(MSBuildProjectName).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup />
