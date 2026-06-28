@@ -258,8 +258,7 @@ void ArchiveFileNodeTreeBuilder::AddFirstLinkerMemberNode(StaticNode& archiveMem
    CString& linkerMemberSummary) const
 {
    const DWORD* firstLinkerMember =
-      reinterpret_cast<const DWORD*>(
-         m_file.Data<BYTE>(fileOffset));
+      m_file.Data<DWORD>(fileOffset);
 
    if (!m_file.IsValidRange(firstLinkerMember, linkerMemberSize))
    {
@@ -337,8 +336,7 @@ void ArchiveFileNodeTreeBuilder::AddSecondLinkerMemberNode(StaticNode& archiveMe
    CString& linkerMemberSummary) const
 {
    const DWORD* secondLinkerMember =
-      reinterpret_cast<const DWORD*>(
-         m_file.Data<BYTE>(fileOffset));
+      m_file.Data<DWORD>(fileOffset);
 
    if (!m_file.IsValidRange(secondLinkerMember, linkerMemberSize))
    {
