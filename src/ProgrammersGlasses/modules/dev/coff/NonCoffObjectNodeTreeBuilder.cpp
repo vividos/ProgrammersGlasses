@@ -9,6 +9,7 @@
 #include "NonCoffObjectNodeTreeBuilder.hpp"
 #include "CodeTextViewNode.hpp"
 #include "StructListViewNode.hpp"
+#include "HexDataViewNode.hpp"
 #include "CoffHeader.hpp"
 #include "ImportObjectHeader.hpp"
 #include "AnonymousObjectHeader.hpp"
@@ -114,6 +115,20 @@ void NonCoffObjectNodeTreeBuilder::AddImportObjectNode(
       m_file.Data());
 
    nonCoffSummaryNode.ChildNodes().push_back(importObjectHeaderNode);
+
+   if (importObjectHeader.sizeOfData > 0)
+   {
+      size_t startOffset = m_fileOffset + sizeof(ImportObjectHeader);
+
+      auto hexDataNode = std::make_shared<HexDataViewNode>(
+         _T("Import object raw data"),
+         NodeTreeIconID::nodeTreeIconBinary,
+         m_file,
+         startOffset,
+         importObjectHeader.sizeOfData);
+
+      nonCoffSummaryNode.ChildNodes().push_back(hexDataNode);
+   }
 }
 
 void NonCoffObjectNodeTreeBuilder::AddAnonymousObjectNode(
@@ -136,6 +151,20 @@ void NonCoffObjectNodeTreeBuilder::AddAnonymousObjectNode(
       m_file.Data());
 
    nonCoffSummaryNode.ChildNodes().push_back(anonymousObjectHeaderNode);
+
+   if (anonymousObjectHeader.sizeOfData)
+   {
+      size_t startOffset = m_fileOffset + sizeof(AnonymousObjectHeader);
+
+      auto hexDataNode = std::make_shared<HexDataViewNode>(
+         _T("Anonyous object raw data"),
+         NodeTreeIconID::nodeTreeIconBinary,
+         m_file,
+         startOffset,
+         anonymousObjectHeader.sizeOfData);
+
+      nonCoffSummaryNode.ChildNodes().push_back(hexDataNode);
+   }
 }
 
 void NonCoffObjectNodeTreeBuilder::AddBigObjAnonymousObjectNode(
@@ -158,4 +187,31 @@ void NonCoffObjectNodeTreeBuilder::AddBigObjAnonymousObjectNode(
       m_file.Data());
 
    nonCoffSummaryNode.ChildNodes().push_back(bigObjAnonymousObjectHeaderNode);
+
+   if (bigObjAnonymousObjectHeader.metadataSize > 0 &&
+      bigObjAnonymousObjectHeader.metadataOffset > 0)
+   {
+      auto hexDataNode = std::make_shared<HexDataViewNode>(
+         _T("CLR metadata"),
+         NodeTreeIconID::nodeTreeIconBinary,
+         m_file,
+         bigObjAnonymousObjectHeader.metadataOffset,
+         bigObjAnonymousObjectHeader.metadataSize);
+
+      nonCoffSummaryNode.ChildNodes().push_back(hexDataNode);
+   }
+
+   if (bigObjAnonymousObjectHeader.sizeOfData > 0)
+   {
+      size_t startOffset = m_fileOffset + sizeof(AnonymousObjectHeaderBigObj);
+
+      auto hexDataNode = std::make_shared<HexDataViewNode>(
+         _T("BigObj anonyous object raw data"),
+         NodeTreeIconID::nodeTreeIconBinary,
+         m_file,
+         startOffset,
+         bigObjAnonymousObjectHeader.sizeOfData);
+
+      nonCoffSummaryNode.ChildNodes().push_back(hexDataNode);
+   }
 }
