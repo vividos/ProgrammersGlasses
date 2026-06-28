@@ -41,7 +41,7 @@ void StructListView::InitList()
    InsertColumn(2, _T("Value"), LVCFMT_LEFT, 200);
    InsertColumn(3, _T("Description"), LVCFMT_LEFT, 200);
 
-   for (auto structField : m_structDefinition.FieldList())
+   for (auto& structField : m_structDefinition.FieldList())
    {
       const BYTE* address = structBase + structField.m_offset;
 
