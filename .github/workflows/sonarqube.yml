@@ -1,0 +1,33 @@
+# Runs SonarCloud analysis and tests
+
+name: Run SonarCloud analysis
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
+    - name: Bootstrap vcpkg
+      shell: cmd
+      run: |
+        cd %VCPKG_INSTALLATION_ROOT%
+        git pull > nul
+        call .\bootstrap-vcpkg.bat -disableMetrics
+        vcpkg integrate install
+
+    - name: Run SonarCloud analysis and tests
+      env:
+        SONARLOGIN: ${{ secrets.SONARLOGIN }}
+      working-directory: ./src
+      shell: cmd
+      run: SonarCloud.cmd
