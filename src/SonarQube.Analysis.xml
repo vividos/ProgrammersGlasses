@@ -5,9 +5,8 @@
 
     <Property Name="sonar.exclusions">
         ProgrammersGlasses/userinterface/resource.h
+        test/**/*
     </Property>
-
-    <Property Name="sonar.tests">test</Property>
 
     <Property Name="sonar.coverage.exclusions">
         ProgrammersGlasses/userinterface/**/*
@@ -15,7 +14,7 @@
 
     <!-- Duplication exclusions -->
     <Property Name="sonar.cpd.exclusions">
-        modules/misc/c64/DiskImage.cpp
+        ProgrammersGlasses/modules/misc/c64/DiskImage.cpp
     </Property>
 
 </SonarQubeAnalysisProperties>
