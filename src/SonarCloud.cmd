@@ -10,7 +10,7 @@ echo SonarCloud.cmd - Runs SonarCloud analysis build
 echo.
 
 REM set this to your Visual Studio installation folder
-set VSINSTALL=%ProgramFiles%\Microsoft Visual Studio\18\Community
+if "%VSINSTALL%" == "" set VSINSTALL=%ProgramFiles%\Microsoft Visual Studio\18\Community
 
 REM
 REM Preparations

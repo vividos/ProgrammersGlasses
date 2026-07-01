@@ -28,6 +28,7 @@ jobs:
     - name: Run SonarCloud analysis and tests
       env:
         SONARLOGIN: ${{ secrets.SONARLOGIN }}
+        VSINSTALL: C:\Program Files\Microsoft Visual Studio\18\Enterprise
       working-directory: ./src
       shell: cmd
       run: SonarCloud.cmd
