@@ -4,11 +4,13 @@
     xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
 
     <Property Name="sonar.exclusions">
-        userinterface/resource.h
+        ProgrammersGlasses/userinterface/resource.h
     </Property>
 
+    <Property Name="sonar.tests">test</Property>
+
     <Property Name="sonar.coverage.exclusions">
-        userinterface\**\*
+        ProgrammersGlasses/userinterface/**/*
     </Property>
 
     <!-- Duplication exclusions -->
