@@ -19,11 +19,9 @@ jobs:
 
     - name: Bootstrap vcpkg
       shell: cmd
-      env:
-        VCPKG_INSTALLATION_ROOT: C:\vcpkg
+      working-directory: C:\vcpkg
       run: |
-        cd %VCPKG_INSTALLATION_ROOT%
-        git pull > nul
+        git pull
         call .\bootstrap-vcpkg.bat -disableMetrics
         vcpkg integrate install
 
