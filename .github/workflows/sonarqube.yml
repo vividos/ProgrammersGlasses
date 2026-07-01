@@ -20,7 +20,7 @@ jobs:
     - name: Bootstrap vcpkg
       shell: cmd
       env:
-        VCPKG_INSTALLATION_ROOT: ${{ env.VCPKG_INSTALLATION_ROOT }}
+        VCPKG_INSTALLATION_ROOT: C:\vcpkg
       run: |
         cd %VCPKG_INSTALLATION_ROOT%
         git pull > nul
